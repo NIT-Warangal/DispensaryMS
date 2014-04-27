@@ -1,0 +1,39 @@
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+body {
+  background: url(../images/notfound2.jpg) no-repeat center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+.page-notfound2 {
+  width: 500px;
+  margin: 0px auto;
+  margin-top: 24%;
+}
+.page-notfound2 .info {
+  color: #ffffff;
+}
+.page-notfound2 .info h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 80px;
+  margin-top: 0px;
+}
+.page-notfound2 .info h3 {
+  font-family: 'Droid Sans', sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  margin-top: 0px;
+}
+.page-notfound2 .info p {
+  font-family: 'Droid Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+.page-notfound2 .info strong {
+  color: #5d7a9a;
+}
