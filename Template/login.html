@@ -17,24 +17,28 @@
 -->
 			</ul>
 		</div><!--end of header -section-->
+		
+					<form method="POST" action="../authenticate.php">
+					<h4>Login</h4>
 		<div class="form-section">
 			<div class="container">
 
 				<div class="form-inputs">
-					<h4>Login</h4>
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="User name">
+						<input type="text" class="form-control" 
+						placeholder="User name" name="uname">
 					</div>
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Password">
+						<input type="password"  class="form-control" placeholder="Password" name="pwd">
 					</div>
-
-					<input class="polaris-input" type="checkbox" id="inlineCheckbox1" value="option1"> <span class="check-text">Remember me</span> <button type="button" class="btn btn-info pull-right">Sign In</button>
+ 
+					<input class="polaris-input" type="checkbox" id="inlineCheckbox1" value="option1"> <span class="check-text">Remember me</span>
+					<button type="submit" class="btn btn-info pull-right">Sign In</button>
 					<h5><a href="forgot.html" target="_blank">Forgot Your Password ?</a></h5>
 				</div>				
 			</div>
 		</div><!--emd of form-section-->
-		
+		</form>
 	</div><!--cnd of login-page-->
 	
 </body>
