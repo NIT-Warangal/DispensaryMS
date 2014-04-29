@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SignUp Page</title>
+	<link rel="stylesheet" href="css/signup.css">
+	<link href="css/bootstrap.css" rel="stylesheet">
+
+</head>
+<body>
+		
+	<div class="signup-page">
+		<div class="header-section">
+			<a href="#"><img src="images/loginlogo.png" alt=""></a>
+			<ul class="menu">
+<!--
+				<li><a href="index.html">Home</a></li>
+				<li><a href="register.html">Sign up</a></li>
+-->
+			</ul>
+		</div><!--end of header -section-->
+	
+<div class="row">
+          <div class="col-lg-10 col-lg-offset-1">
+            <div class="well bs-component col-lg-offset-1">
+              <form class="form-horizontal">
+                <fieldset>
+                  <legend>Registration Form</legend>
+                  <div class="form-group">
+                  	<label for="select" class="col-lg-2 col-lg-offset-1 control-label"  >Who are you?</label>
+                  	<div class="col-lg-4">
+                      <select class="form-control" id="type" >
+                      	<option>Select One Option</option>
+                        <option>Student</option>
+                        <option>Employee</option>
+                        <option>Guest</option>
+                      </select>
+                  	</div>
+                  </div>
+                  <div class="form-group">
+                    <label for="firstname" class="col-lg-2 col-lg-offset-1 control-label">First Name</label>
+                    <div class="col-lg-6">
+                      <input type="text" class="form-control"  required id="fname" placeholder="Enter your First Name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="middlename" class="col-lg-2 col-lg-offset-1 control-label">Middle Name</label>
+                    <div class="col-lg-6">
+                      <input type="text" class="form-control" id="mname" placeholder="Enter your Middle Name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="lastname" class="col-lg-2 col-lg-offset-1 control-label">Last Name</label>
+                    <div class="col-lg-6">
+                      <input type="text" class="form-control" id="lname" placeholder="Enter your Last Name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="password" class="col-lg-2 col-lg-offset-1 control-label">Password</label>
+                    <div class="col-lg-5">
+                      <input type="password" class="form-control" id="inputPassword"  required placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="confirmPassword" class="col-lg-2 col-lg-offset-1 control-label">Confirm Password</label>
+                    <div class="col-lg-5">
+                      <input type="password"  required class="form-control" id="confirmPassword" placeholder="Confirm Password">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="bloodGroup" class="col-lg-2 col-lg-offset-1 control-label">Blood Group</label>
+                    <div class="col-lg-3">
+                      <select class="form-control" id="bgroup"  required>
+                        <option>Select One Option</option>
+                        <option>A+</option>
+                        <option>A-</option>
+                        <option>B+</option>
+                        <option>B-</option>
+                        <option>AB+</option>
+                        <option>AB-</option>
+                        <option>O+</option>
+                        <option>O-</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="dateofBirth" class="col-lg-2 col-lg-offset-1 control-label">Date Of Birth</label>
+                      <div class="col-lg-2">
+                      <input type="date" class="form-control" id="dateofbirth" placeholder="dd/mm/yyyy">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="phoneNumber" class="col-lg-2 col-lg-offset-1 control-label">Phone Number</label>
+                      <div class="col-lg-4">
+                      <input type='tel' pattern='[\+]\d{2}[\-]\d{10}'  required  class="form-control" id="phno" placeholder="Phone/mobile Number(Format: +91-9999999999)">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="textArea" class="col-lg-2 col-lg-offset-1 control-label">Address</label>
+                    <div class="col-lg-6">
+                      <textarea class="form-control" rows="3" id="address"></textarea>
+                      <span class="help-block">Enter your address here!</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="mail" class="col-lg-2 col-lg-offset-1 control-label">Email address</label>
+                      <div class="col-lg-8">
+                      <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" id="email" placeholder="Enter Email address (example: abcdef@abcd.com)" autofocus >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                      <button class="btn btn-default">Cancel</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          
+
+              </form>
+
+          </div>
+        </div>
+    </div>
+	</div><!--end of signup-page-->
+	
+</body>
+<script type="text/javascript">
+</script>
+</html>
