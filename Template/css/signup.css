@@ -1,0 +1,13 @@
+body{
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+.signup-page{
+min-height: 700px;
+background-image: url(../images/nit.jpg);
+background-size: cover;
+-webkit-background-size:cover;
+}
+.signup-page>legend>h1{
+	text-align: center;	
+}
