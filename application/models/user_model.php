@@ -30,10 +30,10 @@ class User_model extends CI_Model {
       }
 		return false;
 	}
-	public function adduser($sendarr){
+	public function add_user($sendarr){
 		$regno=$sendarr['regno'];
-		$pwd=$this->input->post['pwd'];
-		$uname=$this->input->post['uname'];
+		$pwd=$this->input->post('pwd');
+		$uname=$this->input->post('uname');
 		$datas = array('EmpID' => $regno ,
 					  'UserName' => $uname,
 					  'Password' => md5($pwd),
@@ -41,8 +41,11 @@ class User_model extends CI_Model {
 		 );
 		$this->db->insert('login',$datas);
 		$sno=0;
-		$query=$this->db->query("select max(sno) from Users");
-		$temp=$query->result();
+		$query=$this->db->query("select max(Sno) as B from Users");
+		$temp=0;
+		foreach ($query->result() as $row) {
+			$temp=$row->B;
+		}
 		if($temp==0){
 			$sno=1;
 		}

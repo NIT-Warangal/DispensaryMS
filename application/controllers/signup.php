@@ -14,7 +14,6 @@ class Signup extends CI_Controller{
 		else
 		{
 			$data['title']='Home';
-			
 			$this->load->view("signup_view.php",$data);
 			
 		}
@@ -22,6 +21,7 @@ class Signup extends CI_Controller{
 	public function welcome()
 	{
 		$data['title']='Welcome';
+		echo "<br>welcome<br>";
 		$this->load->view('header_view',$data);
 		$this->load->view('welcome_view.php',$data);
 		$this->load->view('footer_view',$data);
@@ -30,8 +30,9 @@ class Signup extends CI_Controller{
 	{
 		$regno=$this->$input->post('regno');
 		$pwd=md5($this->input->post('pwd'));
+		echo "$regno    $pwd";
 		$result=$this->user_model->login($regno,$pwd);
-
+		echo "$regno  $pwd";
 		if($result) $this->welcome();
 		else 		$this->index();
 	}
@@ -43,11 +44,12 @@ class Signup extends CI_Controller{
 		$this->load->view('footer_view',$data);
 	}
 	public function signup()
-	{
+	{	
+		echo "Signup";
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('regno','Registration Number','required');
-		$this->form_validation->set_rules('pwd','Password','trim|required|min_length[4]|max_length[32]');
-		$this->form_validation->set_rules('con_password','Password Confirmation','trim|required|matches[password]');
+		$this->form_validation->set_rules('pwd','Password','required');
+		$this->form_validation->set_rules('con_password','Password Confirmation','required|matches[pwd]');
 		$wru = $this->input->post('choice');
 		$regno = $this->input->post('regno');
 		$fname = $this->input->post('fname');

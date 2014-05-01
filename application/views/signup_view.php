@@ -3,17 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>SignUp Page</title>
-	<link rel="stylesheet" href="css/signup.css">
-	<link href="css/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/signup.css">
+	<link href="assets/css/bootstrap.css" rel="stylesheet">
 
 </head>
 <body>
 		<?php echo validation_errors('<p style="color:#F00">'); ?>
-    <?php echo form_open('signup'); ?>
+    <?php echo form_open('Signup/signup'); ?>
     <!--equivalent to <form method="post" action="http://localhost/DispensaryMS/application/controllers/signup"> -->
 	<div class="signup-page">
 		<div class="header-section">
-			<a href="#"><img src="images/loginlogo.png" alt=""></a>
+			<a href="#"><img src="assets/images/loginlogo.png" alt=""></a>
 			<ul class="menu">
 <!--
 				<li><a href="index.html">Home</a></li>
@@ -109,8 +109,8 @@
                   </div>
                   <div class="form-group">
                       <label for="dateofBirth" class="col-lg-2 col-lg-offset-1 control-label">Date Of Birth</label>
-                      <div class="col-lg-2">
-                      <input type="date" class="form-control" name="dateofbirth" placeholder="dd/mm/yyyy">
+                      <div class="col-lg-3">
+                      <input type="date" class="form-control" name="dateofbirth"  placeholder="dd/mm/yyyy">
                     </div>
                   </div>
                   <div class="form-group">
