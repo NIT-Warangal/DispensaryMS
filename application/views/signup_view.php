@@ -8,7 +8,9 @@
 
 </head>
 <body>
-		
+		<?php echo validation_errors('<p style="color:#F00">'); ?>
+    <?php echo form_open('signup'); ?>
+    <!--equivalent to <form method="post" action="http://localhost/DispensaryMS/application/controllers/signup"> -->
 	<div class="signup-page">
 		<div class="header-section">
 			<a href="#"><img src="images/loginlogo.png" alt=""></a>
@@ -23,7 +25,7 @@
 <div class="row">
           <div class="col-lg-10 col-lg-offset-1">
             <div class="well bs-component col-lg-offset-1">
-              <form class="form-horizontal" action="../signup.php" method="POST">
+              <div class="form-horizontal" >
                 <fieldset>
                   <legend>Registration Form</legend>
                   <div class="form-group">
@@ -127,7 +129,7 @@
                   <div class="form-group">
                       <label for="mail" class="col-lg-2 col-lg-offset-1 control-label">Email address</label>
                       <div class="col-lg-8">
-                      <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" name="emailid" placeholder="Enter Email address (example: abcdef@abcd.com)" autofocus >
+                      <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" name="emailid" placeholder="Enter Email address (example: abcdef@abcd.com)"  >
                     </div>
                   </div>
                   <div class="form-group">
@@ -137,20 +139,13 @@
                     </div>
                   </div>
                 </fieldset>
-              </form>
+              </div>
             </div>
           </div>
-          
-
-              </form>
-
           </div>
         </div>
     </div>
-	</div><!--end of signup-page-->
-	
+  </div><!--end of signup-page-->
+              <?php echo form_close(); ?>
 </body>
-<script type="text/javascript">
-
-</script>
 </html>
