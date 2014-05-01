@@ -110,13 +110,13 @@
                   <div class="form-group">
                       <label for="dateofBirth" class="col-lg-2 col-lg-offset-1 control-label">Date Of Birth</label>
                       <div class="col-lg-3">
-                      <input type="date" class="form-control" name="dateofbirth"  placeholder="dd/mm/yyyy">
+                      <input type="date" class="form-control" name="dateofbirth"  placeholder="DD/MM/YYYY">
                     </div>
                   </div>
                   <div class="form-group">
                       <label for="phoneNumber" class="col-lg-2 col-lg-offset-1 control-label">Phone Number</label>
                       <div class="col-lg-4">
-                      <input type='tel' pattern='[\+]\d{2}[\-]\d{10}'  required  class="form-control" name="phno" placeholder="Phone/mobile Number(Format: +91-9999999999)">
+                      <input type='tel' pattern='[\+]\d{2}[\-]\d{10}'  required  class="form-control" name="phno" placeholder="Mobile Number (Format: +91-1234567890)">
                     </div>
                   </div>
                   <div class="form-group">
