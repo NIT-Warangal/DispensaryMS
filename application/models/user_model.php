@@ -5,7 +5,6 @@ class User_model extends CI_Model {
 		parent::__construct();
 	}
 	function login($regno,$pwd){
-		try{
 		$this->db->where("EmpID",$regno);
 		$this->db->where("Password",$pwd);
 
@@ -23,21 +22,17 @@ class User_model extends CI_Model {
 			}
 		$this->session->set_userdata($newdata);
 		return true;
-		}}
-		catch(Exception $e){
-        log_message('debug',$e->getMessage()); // use codeigniters built in logging library
-        show_error($e->getMessage()); // or echo $e->getMessage()
-      }
+		}
 		return false;
 	}
-	public function add_user($sendarr){
-		$regno=$sendarr['regno'];
+	public function add_user(){
+		$regno=$this->input->post('regno');
 		$pwd=$this->input->post('pwd');
 		$uname=$this->input->post('uname');
 		$datas = array('EmpID' => $regno ,
 					  'UserName' => $uname,
 					  'Password' => md5($pwd),
-					  'Occupation'=>$sendarr['wru'],
+					  'Occupation'=>$this->input->post('choice'),
 		 );
 		$this->db->insert('login',$datas);
 		$sno=0;
@@ -52,28 +47,29 @@ class User_model extends CI_Model {
 		else{
 			$sno=$temp+1;
 		}
-		$age=0;
-		$from=new DateTime($sendarr['dob']);
-		$to=new DateTime('today');
-		$from->diff($to)->$age;
+		$db=$this->input->post('dateofbirth');
+		$do=date_create($db);
+		$datetime1=date_create($db);
+		$datetime2=date_create('today');
+		$interval=$datetime1->diff($datetime2);
+		$age=$interval->y;
 		$data=array(
 		'Sno' =>$sno ,
 		'RegNo'=>$this->input->post('regno'),
-		'First Name'=>$this->input->post('fname'),
-		'Middle Name'=>$this->input->post('mname'),
-		'Last Name'=>$this->input->post('lname'),
+		'FirstName'=>$this->input->post('fname'),
+		'MiddleName'=>$this->input->post('mname'),
+		'LastName'=>$this->input->post('lname'),
 		'Gender'=>$this->input->post('sex'),
-		'Blood Group'=>$this->input->post('bgroup'),
-		'Date of Birth'=>$this->input->post('dob'),
+		'BloodGroup'=>$this->input->post('bgroup'),
+		'DateofBirth'=>date_format($do,'Y-m-d'),
 		'Age'=>$age,
 		'Type'=>$this->input->post('choice'),
-		'Phone number'=>$this->input->post('phno'),
+		'PhoneNumber'=>$this->input->post('phno'),
 		'Address'=>$this->input->post('address'),
 		'email'=>$this->input->post('emailid'),
 		 );
-		#$this->db->query("insert into Users values($sno,?,?,?,?,?,?,?,$age,?,?,?,?)",$sendarr);
 		$this->db->insert('Users',$data);
-		echo "inserted";
+		
 	}
 }
 ?>

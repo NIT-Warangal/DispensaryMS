@@ -3,14 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>SignUp Page</title>
-	<link rel="stylesheet" href="assets/css/signup.css">
-	<link href="assets/css/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" href="<?php echo base_url().'assets/css/signup.css'; ?>">
+	<link href="<?php echo base_url().'assets/css/bootstrap.css'; ?>" rel="stylesheet">
 
 </head>
 <body>
 		<?php echo validation_errors('<p style="color:#F00">'); ?>
     <?php echo form_open('Signup/signup'); ?>
-    <!--equivalent to <form method="post" action="http://localhost/DispensaryMS/application/controllers/signup"> -->
 	<div class="signup-page">
 		<div class="header-section">
 			<a href="#"><img src="assets/images/loginlogo.png" alt=""></a>
