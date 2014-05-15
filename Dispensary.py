@@ -54,16 +54,28 @@ def show_entries():
     entries = cur.fetchall()
     return render_template('show_entries.html', entries=entries)
 
-@app.route('/add', methods=['POST'])
+@app.route('/add', methods=['POST']) #add
 def add_entry():
     if not session.get('logged_in'):
         abort(401)
     db = get_db()
-    db.execute('insert into entries (title, text) values (?, ?)',
-                 [request.form['title'], request.form['text']])
+    db.execute('insert into Users (Sno, RegNo, First Name, Middle Name,Last Name, Blood Group, Date of Birth, Age, Type, Phone number, Address, email) values (?,?,?,?,?,?,?,?,?,?,?,?)',
+        [request.form['Sno'], request.form['RegNo'],request.form['FirstName'],request.form['MiddleName'],request.form['LastName'],request.form['BloodGroup'],request.form['DateOfBirth'],request.form['Age'],request.form['Type'],request.form['PhoneNumber'],request.form['text'],request.form['email']])
     db.commit()
     flash('New entry was successfully posted')
-    return redirect(url_for('show_entries'))
+    return redirect(url_for('show_entries'))#show_entries
+
+# @app.route('/reg', methods=['POST']) #reg
+# def add_user():
+#     if not session.get('logged_in'):
+#         abort(401)
+#     db = get_db()
+#     db.execute('insert into Users (Sno, RegNo, First Name, Middle Name,Last Name, Blood Group, Date of Birth, Age, Type, Phone number, Address, email) values (?, ?,?,?,?,?,?,?,?,?,?,?)',
+#         [request.form['Sno'], request.form['RegNo'],request.form['FirstName'],request.form['MiddleName'],request.form['LastName'],request.form['BloodGroup'],request.form['DateOfBirth'],request.form['Age'],request.form['Type'],request.form['PhoneNumber'],request.form['text'],request.form['email']])
+
+#     db.commit()
+#     flash('New entry was successfully posted')
+#     return redirect(url_for('show_entries'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -77,13 +89,14 @@ def login():
             session['logged_in'] = True
             flash('You were logged in')
             return redirect(url_for('show_entries'))
-    return render_template('login.html', error=error)
+    return render_template('login.html', error=error) #login.html
 
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out')
-    return redirect(url_for('show_entries'))
+    return redirect(url_for('show_entries'))#show_entries.html
 
 if __name__ == '__main__':
+    app.debug = True
     app.run()
