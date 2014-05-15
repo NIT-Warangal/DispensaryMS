@@ -91,6 +91,27 @@ def login():
             return redirect(url_for('show_entries'))
     return render_template('login.html', error=error) #login.html
 
+@app.route('/inventory')
+def inventory():
+    db = get_db()
+    cur = db.execute('select * from Pharmacy order by Sno asc')
+    entries = cur.fetchall()
+    return render_template('pharmventory.html',entries = entries)
+
+@app.route('/insert',methods=['GET','POST'])
+def insert():
+    db=get_db()
+    sno=request.form['Sno']
+    name=request.form['Name']
+    quantity=request.form['qty']
+    batchno=request.form['bno']
+    mfg=request.form['mfgdate']
+    exp=request.form['expdate']
+    db.execute('insert into pharmacy values(?,?,?,?,?,?)',[sno,name,quantity,batchno,mfg,exp])
+    db.commit()
+    flash('New entry successfully inserted')
+    return redirect(url_for('inventory'))
+
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
