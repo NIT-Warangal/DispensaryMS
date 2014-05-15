@@ -34,8 +34,8 @@
   {% endif %}
   <ul class=entries>
     <h3>Here are the list of Entries / Next In Line Patients</h3>
-  {% for entry in entries %}
-    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+  {% for user in Users %}
+    <li><h2>{{ user.Sno }}</h2>{{ user.RegNo|safe }}
   {% else %}
     <li><em>Unbelievable.  No entries here so far</em>
   {% endfor %}

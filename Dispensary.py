@@ -59,7 +59,7 @@ def add_entry():
     if not session.get('logged_in'):
         abort(401)
     db = get_db()
-    db.execute('insert into Users (Sno, RegNo, First Name, Middle Name,Last Name, Blood Group, Date of Birth, Age, Type, Phone number, Address, email) values (?,?,?,?,?,?,?,?,?,?,?,?)',
+    db.execute('insert into Users (Sno, RegNo, \'First Name\', \'Middle Name\',\'Last Name\', \'Blood Group\', \'Date of Birth\', Age, Type, \'Phone number\', Address, email) values (?,?,?,?,?,?,?,?,?,?,?,?)',
         [request.form['Sno'], request.form['RegNo'],request.form['FirstName'],request.form['MiddleName'],request.form['LastName'],request.form['BloodGroup'],request.form['DateOfBirth'],request.form['Age'],request.form['Type'],request.form['PhoneNumber'],request.form['text'],request.form['email']])
     db.commit()
     flash('New entry was successfully posted')
