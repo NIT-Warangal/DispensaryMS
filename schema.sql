@@ -57,7 +57,7 @@ CREATE TABLE `Pharmacy` (
   `Sno` integer NOT NULL,
   `Name` text NOT NULL,
   `Quantity` integer NOT NULL,
-  `Batch no` integer NOT NULL,
+  `Batchno` integer NOT NULL,
   `ManufactureDate` date NOT NULL,
   `ExpiryDate` date NOT NULL
 );
