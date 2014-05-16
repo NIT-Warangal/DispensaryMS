@@ -117,7 +117,7 @@ def insert():
 		flash('New entry successfully inserted')
 		return redirect(url_for('inventory'))
 	else:
-		for i in range( 1, t):
+		for i in range( 1, t+1):
 			r = str(i)
 			if request.form['btn'] == 'update' + r:
 				sno=request.form['Sno' + r]
@@ -131,6 +131,13 @@ def insert():
 				db.commit()
 				flash('Record '+sno+' updated')
 				return redirect(url_for('inventory'))		
+			elif request.form['btn'] == 'delete' + r:
+				sno=request.form['Sno' + r]
+				query='delete from pharmacy where Sno=?'
+				db.execute(query,[sno])
+				db.commit()
+				flash('Record '+sno+' deleted')
+				return redirect(url_for('inventory'))
 	flash('Nothing occured'+request.form['btn'])
 	return redirect(url_for('inventory'))
 

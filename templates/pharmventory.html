@@ -16,7 +16,8 @@
 <td><input type="number" value="{{entry.Batchno}}" name="bno{{i}}"></td>
 <td><input type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{entry.ManufactureDate}}" name="mfgdate{{i}}"></td>
 <td><input type="date" value="{{entry.ExpiryDate}}" pattern="\d{1,2}/\d{1,2}/\d{4}" name="expdate{{i}}"></td>
-<td><input type="submit" value="update{{i}}" name="btn"></td><br>
+<td><input type="submit" value="update{{i}}" name="btn"></td>
+<td><input type="submit" value="delete{{i}}" name="btn"></td><br>
 </tr>
 {% endfor %}
 
