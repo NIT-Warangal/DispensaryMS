@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% if session.logged_in %}
+<h1>Prescription Form</h1>
+  {% if error %}
+  <p class=error><strong>Error:</strong> {{ error }}
+  {% endif %}
+  <form action="{{url_for('fileprescription')}}" method="post">
+{% endif %}
+<dl>
+<dt>Doctor No:</dt>
+<dd><input type="number" name=DoctorNo></dd>
+<dt>Reg No:</dt>
+<dd>  <input type="name" name=RegNo></dd>
+<dt>Cause:</dt>
+<dd><textarea name=Cause rows=5 cols=40></textarea></dd>
+<dt>Medication:</dt>
+<dd>  <input type="name" name=Medicine></dd>
+<dt>Quantity:</dt>
+<input type="number" name=Quantity>
+<dt>Remarks:</dt>
+<dd><textarea name=Remarks rows=5 cols=40></textarea><br>
+<input type="submit" value="submit">
+</form>
+	{% for values in Prescription %}
+		<h1>{{values.DoctorNo}}</h1>
+		<h2>{{values.RegNo}}</h2>
+		<h3>{{values.Cause}}</h3>
+		<h4>{{values.Medicine}}</h4>
+		<h5>{{values.Quantity}}</h5>
+		<h6>{{values.Remarks}}</h6>
+	{% endfor %}
+{% endblock %}

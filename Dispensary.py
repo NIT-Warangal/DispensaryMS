@@ -112,6 +112,27 @@ def insert():
     flash('New entry successfully inserted')
     return redirect(url_for('inventory'))
 
+@app.route('/prescription')
+def prescription():
+    db = get_db()
+    cur = db.execute('select * from Prescription order by RegNo asc')
+    entries = cur.fetchall()
+    return render_template('prescription.html',entries = entries)
+
+@app.route('/fileprescription', methods=['GET','POST'])
+def fileprescription():
+    db = get_db()
+    docno = request.form['DoctorNo']
+    regno = request.form['RegNo']
+    cause = request.form['Cause']
+    meds = request.form['Medicine']
+    qty = request.form['Quantity']
+    remark = request.form['Remarks']
+    db.execute('insert into Prescription values(?,?,?,?,?,?)',[docno,regno,cause,meds,qty,remark])
+    db.commit()
+    flash('Prescription for '+regno+' has been given')
+    return redirect(url_for('prescription'))
+
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
