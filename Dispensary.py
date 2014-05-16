@@ -91,26 +91,48 @@ def login():
             return redirect(url_for('show_entries'))
     return render_template('login.html', error=error) #login.html
 
+t=0
 @app.route('/inventory')
 def inventory():
     db = get_db()
-    cur = db.execute('select * from Pharmacy order by Sno asc')
+    cur = db.execute('select * from Pharmacy order by Sno')
     entries = cur.fetchall()
     return render_template('pharmventory.html',entries = entries)
 
 @app.route('/insert',methods=['GET','POST'])
 def insert():
-    db=get_db()
-    sno=request.form['Sno']
-    name=request.form['Name']
-    quantity=request.form['qty']
-    batchno=request.form['bno']
-    mfg=request.form['mfgdate']
-    exp=request.form['expdate']
-    db.execute('insert into pharmacy values(?,?,?,?,?,?)',[sno,name,quantity,batchno,mfg,exp])
-    db.commit()
-    flash('New entry successfully inserted')
-    return redirect(url_for('inventory'))
+	global t
+	db=get_db()
+	cur=db.execute('select count() from pharmacy')
+	t=cur.fetchone()[0]
+	if request.form['btn'] == 'insert':
+		sno = request.form['Sno']
+		name = request.form['Name']
+		quantity = request.form['qty']
+		batchno = request.form['bno']
+		mfg = request.form['mfgdate']
+		exp = request.form['expdate']
+		db.execute('insert into pharmacy values(?,?,?,?,?,?)',[sno,name,quantity,batchno,mfg,exp])
+		db.commit()
+		flash('New entry successfully inserted')
+		return redirect(url_for('inventory'))
+	else:
+		for i in range( 1, t):
+			r = str(i)
+			if request.form['btn'] == 'update' + r:
+				sno=request.form['Sno' + r]
+				name=request.form['Name' + r]
+				quantity=request.form['qty' + r]
+				batchno=request.form['bno' + r]
+				mfg = request.form['mfgdate' + r]
+				exp = request.form['expdate' + r]
+				query = 'update pharmacy set Name=?,Quantity=?,Batchno=?,ManufactureDate=?,ExpiryDate=? where Sno=?'
+				db.execute(query,[name,quantity,batchno,mfg,exp,sno])
+				db.commit()
+				flash('Record '+sno+' updated')
+				return redirect(url_for('inventory'))		
+	flash('Nothing occured'+request.form['btn'])
+	return redirect(url_for('inventory'))
 
 @app.route('/prescription')
 def prescription():

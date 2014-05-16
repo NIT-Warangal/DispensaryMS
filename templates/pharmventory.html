@@ -5,15 +5,18 @@
 <h1>Pharmacy Inventory</h1>
   {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
   <form action="{{url_for('insert')}}" method="post">
-    <table class="table">
+  {%set i=0 %}
+    <table class="table" border="1">
 
   {% for entry in entries%}
-<tr><td><input type="number" size=10 disabled="" value="{{entry.Sno}}"></td>
-<td><td><input type="name" value="{{entry.Name}}"></td>
-<td><input type="number" value="{{entry.Quantity}}"></td>
-<td><input type="number" value="{{entry.Batchno}}"></td>
-<td><input type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{entry.ManufactureDate}}"></td>
-<td><input type="date" value="{{entry.ExpiryDate}}" pattern="\d{1,2}/\d{1,2}/\d{4}"></td><br>
+  {%set i=i+1 %}
+<tr><td><input type="number" size=10 value="{{entry.Sno}}" name="Sno{{i}}"></td>
+<td><td><input type="name" value="{{entry.Name}}" name="Name{{i}}"></td>
+<td><input type="number" value="{{entry.Quantity}}" name="qty{{i}}"></td>
+<td><input type="number" value="{{entry.Batchno}}" name="bno{{i}}"></td>
+<td><input type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{entry.ManufactureDate}}" name="mfgdate{{i}}"></td>
+<td><input type="date" value="{{entry.ExpiryDate}}" pattern="\d{1,2}/\d{1,2}/\d{4}" name="expdate{{i}}"></td>
+<td><input type="submit" value="update{{i}}" name="btn"></td><br>
 </tr>
 {% endfor %}
 
@@ -32,6 +35,6 @@
 <input type="date" name=mfgdate placeholder="dd/mm/yyyy">
 <dt>Expiry Date:</dt>
 <dd>  <input type="date" name=expdate></dd><br>
-<input type="submit" value="submit">
+<input type="submit" value="insert" name="btn">
 </form>
 {% endblock %}
