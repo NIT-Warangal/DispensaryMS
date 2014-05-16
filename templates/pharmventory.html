@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% if session.logged_in %}
+<h1>Pharmacy Inventory</h1>
+  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  <form action="{{url_for('insert')}}" method="post">
+    <table class="table">
+
+  {% for entry in entries%}
+<tr><td><input type="number" size=10 disabled="" value="{{entry.Sno}}"></td>
+<td><td><input type="name" value="{{entry.Name}}"></td>
+<td><input type="number" value="{{entry.Quantity}}"></td>
+<td><input type="number" value="{{entry.Batchno}}"></td>
+<td><input type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{entry.ManufactureDate}}"></td>
+<td><input type="date" value="{{entry.ExpiryDate}}" pattern="\d{1,2}/\d{1,2}/\d{4}"></td><br>
+</tr>
+{% endfor %}
+
+</table >
+{% endif %}
+<dl>
+<dt>Sno:</dt>
+<dd><input type="number" name=Sno></dd>
+<dt>Name:</dt>
+<dd>  <input type="name" name=Name></dd>
+<dt>Quantity:</dt>
+<dd>  <input type="number" name=qty></dd>
+<dt>Batch Number:</dt>
+<dd>  <input type="number" name=bno></dd>
+<dt>Manufacturing Date:</dt>
+<input type="date" name=mfgdate placeholder="dd/mm/yyyy">
+<dt>Expiry Date:</dt>
+<dd>  <input type="date" name=expdate></dd><br>
+<input type="submit" value="submit">
+</form>
+{% endblock %}
