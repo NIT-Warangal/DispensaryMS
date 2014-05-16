@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
-
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
 {% if session.logged_in %}
 <h1>Pharmacy Inventory</h1>
   {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
   <form action="{{url_for('insert')}}" method="post">
   {%set i=0 %}
-    <table class="table" border="1">
+    <table class="table table-hover" >
 
   {% for entry in entries%}
   {%set i=i+1 %}

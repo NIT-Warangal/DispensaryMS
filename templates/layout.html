@@ -1,7 +1,19 @@
 <!doctype html>
 <title>Dispensary Management System</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-<div class=page>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style1.css') }}">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+<div class=header-section>
+			<a href="#"><img src="{{url_for('static',filename='images/logo_nitw.png')}}" alt="NITWarangal">
+				<img src="{{url_for('static',filename='images/loginlogo.png')}}" alt=""></a>
+
+			<ul class="menu">
+				<li><a href="/">Home</a></li>
+				<li><a href="/">Register</a></li>
+				<li><a href="/prescription">Prescription</a></li>
+				<li><a href="/inventory">Inventory</a></li>
+				<li><a href="/logout">Logout</a></li>
+			</ul>
+		</div><!--end of header -section-->
   <h1>Dispensary Management System</h1>
   <div class=metanav>
   {% if not session.logged_in %}
