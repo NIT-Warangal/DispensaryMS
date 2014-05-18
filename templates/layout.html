@@ -9,12 +9,13 @@
 			<ul class="menu">
 				<li><a href="/">Home</a></li>
 				<li><a href="/">Register</a></li>
+        <li><a href="/login">Login</a></li>
 				<li><a href="/prescription">Prescription</a></li>
 				<li><a href="/inventory">Inventory</a></li>
 				<li><a href="/logout">Logout</a></li>
 			</ul>
 		</div><!--end of header -section-->
-  <h1>Dispensary Management System</h1>
+  <!-- <h1>Dispensary Management System</h1> -->
   <div class=metanav>
   {% if not session.logged_in %}
     <a href="{{ url_for('login') }}">log in</a>
