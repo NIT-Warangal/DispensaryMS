@@ -13,6 +13,7 @@ app.config.from_object(__name__)
 app.config.update(dict(
     DATABASE=os.path.join(app.root_path, 'Dispensary.db'),
     DEBUG=True,
+    USERNAME='',
     SECRET_KEY=os.urandom(24),
 ))
 app.config.from_envvar('DISPENSARY_SETTINGS', silent=True)
@@ -56,7 +57,7 @@ def add_entry():
     if not session.get('logged_in'):
         abort(401)
     db = get_db()
-    db.execute('insert into Users (Sno, RegNo, \'First Name\', \'Middle Name\',\'Last Name\', \'Blood Group\', \'Date of Birth\', Age, Type, \'Phone number\', Address, email) values (?,?,?,?,?,?,?,?,?,?,?,?)',
+    db.execute('insert into Users (Sno, RegNo, \'FirstName\', \'MiddleName\',\'LastName\', \'BloodGroup\', \'DateofBirth\', Age, Type, \'Phonenumber\', Address, email) values (?,?,?,?,?,?,?,?,?,?,?,?)',
         [request.form['Sno'], request.form['RegNo'],request.form['FirstName'],request.form['MiddleName'],request.form['LastName'],request.form['BloodGroup'],request.form['DateOfBirth'],request.form['Age'],request.form['Type'],request.form['PhoneNumber'],request.form['text'],request.form['email']])
     db.commit()
     flash('New entry was successfully posted')
@@ -79,17 +80,18 @@ def login():
     error = None
     db=get_db()
     if request.method == 'POST':
-    	uname=request.form['username']
-    	pwd=request.form['password']
-	connection = sqlite3.connect(app.config['DATABASE'])
-	cur = connection.cursor()
-	cur.execute('select rowid from Login where UserName=? and Password=?',[uname,pwd])
-	data = cur.fetchone()
-	if data is None:
-	    error='Invalid username/password'
-	else:
-	    session['logged_in'] = True
-	    flash('You were logged in')
+        uname=request.form['username']
+        pwd=request.form['password']
+        connection = sqlite3.connect(app.config['DATABASE'])
+        cur = connection.cursor()
+        cur.execute('select rowid from Login where UserName=? and Password=?',[uname,pwd])
+        data = cur.fetchone()
+        if data is None:
+	       error='Invalid username/password'
+        else:
+            session['logged_in'] = True
+            app.config['USERNAME'] = uname
+            flash('You were logged in')
 	    return redirect(url_for('show_entries'))
     return render_template('login.html', error=error) #login.html
 
@@ -164,6 +166,25 @@ def fileprescription():
     flash('Prescription for '+regno+' has been given')
     return redirect(url_for('prescription'))
 
+@app.route('/student',methods=['GET','POST'])
+def student():
+    db = get_db()
+    error=None
+    chars=[chr(i) for i in xrange(ord('A'), ord('N')+1)]
+    query = 'select EmpID from Login where UserName=?'
+    cur = db.execute(query,[app.config['USERNAME']])
+    data = cur.fetchone()
+    entries =None
+    if data is None:
+        error = 'User details not entered properly in the database'
+    else:
+        cur = db.execute('select * from Users join Student where Users.Regno=Student.Regno and Users.Regno=?',[data[0]])
+        entries = cur.fetchall()
+    return render_template('student_profile.html',entries = entries,chars=chars)
+
+@app.route('/studentinfo',methods=['GET','POST'])
+def studentinfo():
+    return redirect(url_for('student'))
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)

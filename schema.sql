@@ -91,7 +91,7 @@ CREATE TABLE `Student` (
   `Branch` text NOT NULL,
   `Degree` text NOT NULL,
   `RegNo` text NOT NULL,
-  `Roll No` text NOT NULL,
+  `RollNo` text NOT NULL,
   `Hostel` text DEFAULT NULL
 );
 
@@ -105,16 +105,17 @@ CREATE TABLE `Student` (
 CREATE TABLE `Users` (
   `Sno` integer NOT NULL,
   `RegNo` text NOT NULL,
-  `First Name` text NOT NULL,
-  `Middle Name` text DEFAULT NULL,
-  `Last Name` integer NOT NULL,
-  `Blood Group` text NOT NULL,
-  `Date of Birth` date NOT NULL,
+  `FirstName` text NOT NULL,
+  `MiddleName` text DEFAULT NULL,
+  `LastName` integer NOT NULL,
+  `BloodGroup` text NOT NULL,
+  `DateofBirth` date NOT NULL,
   `Age` integer NOT NULL,
   `Type` integer NOT NULL,
-  `Phone number` text NOT NULL,
+  `Phonenumber` text NOT NULL,
   `Address` text NOT NULL,
-  `email` text NOT NULL
+  `email` text NOT NULL,
+  `gender` text NOT NULL
 );
 
 ----
