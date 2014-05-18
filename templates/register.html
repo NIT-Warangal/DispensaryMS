@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
   {% if session.logged_in %}
+  <div class="col-md-5">
     <form action="{{ url_for('add_user') }}" method=post class=add-entry>
       <dl>
         <dt>Sno:
@@ -31,7 +32,9 @@
         <dd><input type=submit value=Share>
       </dl>
     </form>
+  </div>
   {% endif %}
+  <div class="col-md-5">
   <ul class=entries>
     <h3>Here are the list of Entries / Next In Line Patients</h3>
   {% for entry in entries %}
@@ -40,4 +43,5 @@
     <li><em>Unbelievable.  No entries here so far</em>
   {% endfor %}
   </ul>
+  </div>
 {% endblock %}
