@@ -21,9 +21,9 @@
 @import "chosen.css";
 @import "jtree.css";
 @import "nestable.css";
-@import "all.css";
-@import "all-sq.css";
-@import "polaris.css";
+@import "icheck/skins/flat/all.css";
+@import "icheck/skins/square/all.css";
+@import "icheck/skins/polaris/polaris.css";
 @import "daterangepicker-bs3.css";
 @import "bootstrap-switch.css";
 @import "morris-0.4.3.min.css";
