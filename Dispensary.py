@@ -166,6 +166,26 @@ def fileprescription():
     flash('Prescription for '+regno+' has been given')
     return redirect(url_for('prescription'))
 
+@app.route('/employee',methods=['GET','POST'])
+def employee():
+    db = get_db()
+    error=None
+    chars=[chr(i) for i in xrange(ord('A'), ord('N')+1)]
+    query = 'select EmpID from Login where UserName=?'
+    cur = db.execute(query,[app.config['USERNAME']])
+    data = cur.fetchone()
+    entries =None
+    if data is None:
+        error = 'User details not entered properly in the database'
+    else:
+        cur = db.execute('select * from Users join Student where Users.Regno=Student.Regno and Users.Regno=?',[data[0]])
+        entries = cur.fetchall()
+    return render_template('employee_profile.html',entries = entries,chars=chars)
+
+@app.route('/employeeinfo',methods=['GET','POST'])
+def employeeinfo():
+    return redirect(url_for('employee'))
+
 @app.route('/student',methods=['GET','POST'])
 def student():
     db = get_db()
@@ -185,6 +205,7 @@ def student():
 @app.route('/studentinfo',methods=['GET','POST'])
 def studentinfo():
     return redirect(url_for('student'))
+
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
