@@ -10,12 +10,12 @@
 
   {% for entry in entries%}
   {%set i=i+1 %}
-<tr><td><input type="number" size=10 value="{{entry.Sno}}" name="Sno{{i}}"></td>
-<td><td><input type="name" value="{{entry.Name}}" name="Name{{i}}"></td>
-<td><input type="number" value="{{entry.Quantity}}" name="qty{{i}}"></td>
-<td><input type="number" value="{{entry.Batchno}}" name="bno{{i}}"></td>
-<td><input type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{entry.ManufactureDate}}" name="mfgdate{{i}}"></td>
-<td><input type="date" value="{{entry.ExpiryDate}}" pattern="\d{1,2}/\d{1,2}/\d{4}" name="expdate{{i}}"></td>
+<tr><td><input type="number" size=10 value="{{entry[0]}}" name="Sno{{i}}"></td>
+<td><td><input type="name" value="{{entry[1]}}" name="Name{{i}}"></td>
+<td><input type="number" value="{{entry[2]}}" name="qty{{i}}"></td>
+<td><input type="number" value="{{entry[3]}}" name="bno{{i}}"></td>
+<td><input type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{entry[4]}}" name="mfgdate{{i}}"></td>
+<td><input type="date" value="{{entry[5]}}" pattern="\d{1,2}/\d{1,2}/\d{4}" name="expdate{{i}}"></td>
 <td><input type="submit" value="update{{i}}" name="btn"></td>
 <td><input type="submit" value="delete{{i}}" name="btn"></td><br>
 </tr>
