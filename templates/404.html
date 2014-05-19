@@ -1,0 +1,18 @@
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/404.css') }}">
+{% block body %}
+    <div id="container">
+        <div id="leds">
+            <div class="online led"></div>
+            <div class="offline active led"></div>
+        </div>
+        <div id="flip">404 - Not Good
+            <div id="break">
+                <div class="link left"></div>
+                <div class="link right"></div>
+            </div>
+        </div>
+        <p id="sorry">You might have either landed here by mistake or because the developer has made a mistake. If a link has brought you here, please contact the developers on <a href="https://github.com/NIT-Warangal/DispensaryMS" target="_blank">Github</a></p>
+    </div>
+    <a id="title" href=""><img src="{{url_for('static',filename='images/loginlogo.png')}}" alt=""></a>
+    <a id="author" target="_blank" href="mailto:opensource@nitw.ac.in">Contact</a>
+{% endblock %}

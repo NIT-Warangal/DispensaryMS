@@ -69,6 +69,10 @@ def add_entry():
 #     flash('New entry was successfully posted')
 #     return redirect(url_for('show_entries'))
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
