@@ -1,9 +1,10 @@
-{% extends "layout.html" %}
+{% extends "layout1.html" %}
 {% block body %}
 {% if session.logged_in %}
  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
-<h1>Employee Profile</h1>
+<h1 style="text-align:center;">Employee Profile</h1>
 <div class="clearfix visible-xs hidden-print"></div>
+<div class="col-xs-1 col-sm-1 col-md-1"></div>
 <div class="col-xs-12 col-sm-9 col-md-10">
   <br>
     <form action="{{url_for('employeeinfo')}}" method="post"> 
@@ -119,6 +120,7 @@
 </div>
 </div>
 </div>
+<div class="col-xs-1 col-sm-1 col-md-1"></div>
 <br>
 <div class="form-group">
   <div class="col-sm-offset-3 col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
