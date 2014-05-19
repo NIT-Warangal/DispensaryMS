@@ -178,7 +178,7 @@ def employee():
     if data is None:
         error = 'User details not entered properly in the database'
     else:
-        cur = db.execute('select * from Users join Student where Users.Regno=Student.Regno and Users.Regno=?',[data[0]])
+        cur = db.execute('select * from Users join Employee where Users.Regno=Employee.Regno and Users.Regno=?',[data[0]])
         entries = cur.fetchall()
     return render_template('employee_profile.html',entries = entries,chars=chars)
 
