@@ -9,7 +9,7 @@ mysql = MySQL()
 # create our little application :)
 app = Flask(__name__)
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'kiran123'
 app.config['MYSQL_DATABASE_DB'] = 'Dispensary'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
@@ -84,7 +84,7 @@ def login():
         else:
             session['logged_in'] = True
             app.config['USERNAME'] = uname
-            flash('You were logged in '+app.config['USERNAME']+' '+str(session['logged_in']))
+            flash('You were logged in ')
         return redirect(url_for('show_entries'))
     return render_template('login.html', error=error) #login.html
 
@@ -103,14 +103,11 @@ def insert():
     db=get_cursor()
     db.execute('select Count(1) from Pharmacy')
     t=db.fetchone()[0]
-    flash(t)
-    #t=db.fetchall[0][0]
     if request.form['btn'] == 'insert':
         sno = (request.form['Sno'])
         name = (request.form['Name'])
         quantity = (request.form['qty'])
         batchno = request.form['bno']
-        flash(request.form['mfgdate']+' and '+request.form['expdate'])
         mfg=str(request.form['mfgdate'])
         year=int(mfg[0:4])
         month=int(mfg[5:7])
@@ -151,7 +148,7 @@ def insert():
                 return redirect(url_for('inventory'))       
             elif request.form['btn'] == 'delete' + r:
                 sno=request.form['Sno' + r]
-                query='delete from pharmacy where Sno='+str(sno)
+                query='delete from Pharmacy where Sno='+str(sno)
                 db.execute(query)
                 db.execute("COMMIT")
                 flash('Record '+sno+' deleted')
@@ -214,7 +211,6 @@ def student():
     else:
         db.execute('select * from Users join Student where Users.Regno=Student.Regno and Users.Regno=%s',[data[0]])
         entries = db.fetchall()
-        flash(app.config['USERNAME'])
     return render_template('student_profile.html',entries = entries,chars=chars)
 
 @app.route('/studentinfo',methods=['GET','POST'])

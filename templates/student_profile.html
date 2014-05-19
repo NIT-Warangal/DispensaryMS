@@ -13,23 +13,28 @@
 <div class="row">
 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <legend>My Profile</legend>
- {%set fullname=entry.LastName+' '+entry.FirstName+' '+entry.MiddleName%} 
       <div class="form-group">
         <label for="inputName" class="col-sm-4">Full Name</label>
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
-          <input type="text" name="name" id="inputName" class="form-control input-sm" value="{{fullname}}" required="required"  title="only alphabets" placeholder="Full name as on ID card">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+          <input type="text" name="name" id="inputName" class="form-control input-sm" value="{{entry[4]}}" required="required"  title="only alphabets" placeholder="Last Name">
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 " style="margin-left:-25px">
+          <input type="text" name="name" id="inputName" class="form-control input-sm" value="{{entry[2]}}" required="required"  title="only alphabets" placeholder="First Name">
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 " style="margin-left:-25px">
+          <input type="text" name="name" id="inputName" class="form-control input-sm" value="{{entry[3]}}" required="required"  title="only alphabets" placeholder="Middle Name">
         </div>
       </div>
       <div class="form-group">
         <label for="inputRegistration_number" class="col-sm-4  ">Registration Number</label>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
-          <input type="text" name="registration_number" id="inputRegistration_number" readonly class="form-control input-sm" value="{{entry.RegNo}}" required="required" title="" placeholder="First year roll number">
+          <input type="text" name="registration_number" id="inputRegistration_number" readonly class="form-control input-sm" value="{{entry[1]}}" required="required" title="" placeholder="First year roll number">
         </div>
       </div>
       <div class="form-group">
         <label for="inputRoll_number" class="col-sm-4  ">Roll Number</label>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
-          <input type="text" name="roll_number" id="inputRoll_number" class="form-control input-sm" value="{{entry.RollNo}}" required="required" title="">
+          <input type="text" name="roll_number" id="inputRoll_number" class="form-control input-sm" value="{{entry[18]}}" required="required" title="">
         </div>
       </div>
       <div class="form-group">
@@ -37,10 +42,10 @@
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
           <select name="gender" id="inputGender" class="form-control input-sm">
             <option value="">-- Select One --</option>
-            {% if entry.gender=='Male'%}
+            {% if entry[12]=='Male'%}
             <option value="Male" selected>Male</option>
             <option value="Female" >Female</option>
-            {% elif entry.gender=='Female'%}
+            {% elif entry[12]=='Female'%}
             <option value="Male" >Male</option>
             <option value="Female" selected>Female</option>
             {% endif %}
@@ -58,7 +63,7 @@
     <div class="form-group">
      <label for="inputEmail" class="col-sm-4  ">Email Id</label>
      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
-      <input type="email" name="email" id="inputEmail" class="form-control input-sm" value="{{entry.email}}" required="required" rel="tooltip" title="Registered email ID" placeholder="Valid email ID">
+      <input type="email" name="email" id="inputEmail" class="form-control input-sm" value="{{entry[11]}}" required="required" rel="tooltip" title="Registered email ID" placeholder="Valid email ID">
 
     </div>
     </div>
@@ -66,14 +71,14 @@
   <div class="form-group">
     <label for="inputPhone_number" class="col-sm-4  ">Phone No.</label>
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
-      <input type="text" name="phone_number" id="inputPhone_number" class="form-control input-sm" value="{{entry.Phonenumber}}" required="required" title="">
+      <input type="text" name="phone_number" id="inputPhone_number" class="form-control input-sm" value="{{entry[9]}}" required="required" title="">
 
     </div>
   </div>
   <div class="form-group">
   <label for="inputEmergency_contact" class="col-sm-4  ">Emergency Contact</label>
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
-     <input type="text" name="emergency_contact" id="inputEmergency_contact" class="form-control input-sm" value="{{entry.Phonenumber}}" required="required" title="" placeholder="Parent phone number">
+     <input type="text" name="emergency_contact" id="inputEmergency_contact" class="form-control input-sm" value="{{entry[9]}}" required="required" title="" placeholder="Parent phone number">
    </div>
  </div>
 </div>
@@ -82,7 +87,7 @@
   <div class="form-group">
     <label for="inputYearofjoining" class="col-sm-4  ">Year of Joining</label>
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
-      <input type="text" name="yearofjoining" id="inputYearofjoining" class="form-control input-sm" value="{{entry.year}}" required="required"  title="">
+      <input type="text" name="yearofjoining" id="inputYearofjoining" class="form-control input-sm" value="{{entry[13]}}" required="required"  title="">
     </div>
   </div>
   <div class="form-group">
@@ -95,7 +100,7 @@
         {%set k=0%}
         {%set sel=''%}
         {% for item in indxarr%}
-        {% if keys[k]==entry.Degree%}
+        {% if keys[k]==entry[16]%}
         {%set sel='selected'%}
         {%else%}
         {%set sel=''%}
@@ -116,7 +121,7 @@
         {%set sel=''%}
         {%set k=0%}
         {%for item in branch%}
-        {%if branchkey[k] == entry.Branch%}
+        {%if branchkey[k] == entry[15]%}
         {%set sel='selected'%}
         {%else%}
         {%set sel=''%}
@@ -134,7 +139,7 @@
        <option value="">-- Select One --</option>
         {%set sel=''%}
         {%for item in chars%}
-        {%if item == entry.Section%}
+        {%if item == entry[14]%}
         {%set sel='selected'%}
         {%else%}
         {%set sel=''%}
@@ -199,7 +204,7 @@
 </form>   
     {% endfor %}
 {%else%}
-<h1>Students!Please Login to receive free Laxatives!</h1>
+<h1>Student? Please Login!</h1>
 {% endif %}
 {% endblock %}
 
