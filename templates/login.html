@@ -1,7 +1,7 @@
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/login.css') }}">
-{% extends "layout.html" %}
+{% extends "layout1.html" %}
 {% block body %}
-  <h2>Login</h2>
+  <h2 style="text-align:center;">Login</h2>
   {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
   <style>
     #submit{
@@ -30,7 +30,7 @@
     <div class="judge_logo">
       <a href="/index.html"><img src="{{url_for('static',filename='images/logo_nitw.png')}}" alt="NITWarangal"></a>
     </div>
-
+    <br>
     <div class="login_form">
       <div class="login1">
         <p>
