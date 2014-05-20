@@ -21,7 +21,7 @@ def get_cursor():
     return mysql.connect().cursor()
 
 @app.teardown_appcontext
-def close_db(cursor):
+def close_db():
     """Closes the database again at the end of the request."""
     mysql.connect().close()
 
@@ -186,17 +186,16 @@ def fileprescription():
 def employee():
     db = get_cursor()
     error=None
-    chars=[chr(i) for i in xrange(ord('A'), ord('N')+1)]
-    query = 'select EmpID from Login where UserName=%s'
-    cur = db.execute(query,[app.config['USERNAME']])
-    data = cur.fetchone()
+    query = 'select EmpID from Login where UserName="%s"'
+    db.execute(query%(app.config['USERNAME']))
+    data = db.fetchone()
     entries =None
     if data is None:
         error = 'User details not entered properly in the database'
     else:
-        cur = db.execute('select * from Users join Employee where Users.Regno=Employee.Regno and Users.Regno=%s',[data[0]])
-        entries = cur.fetchall()
-    return render_template('employee_profile.html',entries = entries,chars=chars)
+        db.execute('select * from Users join Employee where Users.RegNo=Employee.RegNo and Users.RegNo=%s',[data[0]])
+        entries = db.fetchall()
+    return render_template('employee_profile.html',entries = entries)
 
 @app.route('/employeeinfo',methods=['GET','POST'])
 def employeeinfo():
@@ -217,9 +216,38 @@ def student():
         db.execute('select * from Users join Student where Users.Regno=Student.Regno and Users.Regno=%s',[data[0]])
         entries = db.fetchall()
     return render_template('student_profile.html',entries = entries,chars=chars)
-
+def years_between(d1):
+    d2=datetime.datetime.today()
+    d1=datetime.datetime.strptime(str(d1),"%Y-%m-%d")
+    return ((d2-d1).days-(d2-d1).seconds/86400.0)/365.2425
 @app.route('/studentinfo',methods=['GET','POST'])
 def studentinfo():
+    db=get_cursor()
+    if request.method=="POST":
+        lname=request.form['lname']
+        fname=request.form['fname']
+        mname=request.form['mname']
+        regno=request.form['registration_number']
+        sex=request.form['gender']
+        dob=str(request.form['dob'])
+        year=int(dob[0:4])
+        month=int(dob[5:7])
+        date=int(dob[8:10])
+        dob=datetime.date(year,month,date)
+        email=request.form['email']
+        phno=request.form['phone_number']
+        age=int(years_between(dob))
+        db.execute('update Users set FirstName="%s",MiddleName="%s",LastName="%s",DateofBirth="%s",Age=%s,Phonenumber="%s",email="%s",gender="%s" where Regno=%s'%(fname,mname,lname,dob,age,phno,email,sex,regno))
+        db.execute("COMMIT")
+        year_join=int(request.form['year'])
+        degree=request.form['course']
+        branch=request.form['branch']
+        section=request.form['section']
+        rno=request.form['roll_number']
+        hostelroomno=request.form['room_number']
+        db.execute('update Student set Year=%s,Section="%s",Branch="%s",Degree="%s",RollNo="%s" where RegNo="%s"'%(year_join,section,branch,degree,rno,regno))
+        db.execute("COMMIT")
+        flash('Record '+regno+' updated') 
     return redirect(url_for('student'))
 
 @app.route('/logout')
