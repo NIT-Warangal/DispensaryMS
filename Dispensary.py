@@ -3,18 +3,19 @@ import os
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 from flaskext.mysql import MySQL
+from config import config
 import datetime
  
 mysql = MySQL()
 # create our little application :)
 app = Flask(__name__)
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'kiran123'
-app.config['MYSQL_DATABASE_DB'] = 'Dispensary'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+
+for key in config:
+    app.config[key] = config[key]
+
 mysql.init_app(app)
 app.config.from_object(__name__)
-app.config['USERNAME']=''
+
 
 def get_cursor():
     return mysql.connect().cursor()
