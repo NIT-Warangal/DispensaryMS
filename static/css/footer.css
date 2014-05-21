@@ -2,6 +2,7 @@ body {
  	margin: 0;
  	padding: 0;
  	height: 100%;
+    overflow-X:hidden;
 }
 html {
     height: 100%;
@@ -19,9 +20,9 @@ html {
     padding-bottom: 30px; /* ATTENTION! padding-bottom should be equal to the footer height (this keeps the footer from overlapping the content) */
 }
 #footer {
-    position: absolute;
+    position: fixed;
     width: 100%;
-	clear: both;
+    clear: both;
     bottom: 0;
 	padding: 0;
     margin: 0;
@@ -33,3 +34,4 @@ html {
 #footertext {
   color:white;
   text-align: center;
+}

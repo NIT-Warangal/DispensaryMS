@@ -26,37 +26,44 @@ def close_db():
     mysql.connect().close()
 
 @app.route('/')
-def show_entries():
-    db = get_cursor()
-    db.execute('select title, text from entries order by id desc')
-    entries = db.fetchall()
-    return render_template('screen.html', entries=entries) #show_entries
+def screen():
+    return render_template('screen.html') #show_entries
+
+@app.route('/register')
+def register():
+    return render_template('show_entries.html')
 
 @app.route('/add', methods=['POST']) #add
-def add_entry():
-    if not session.get('logged_in'):
-        abort(401)
+def add():
     db = get_cursor()
     sno=request.form['Sno']
-    regno= request.form['RegNo']
+    regno= request.form['Regno']
     fname=request.form['FirstName']
     mname=request.form['MiddleName']
     lname=request.form['LastName']
     bgroup=request.form['BloodGroup']
-    dob=request.form['DateOfBirth']
+    dob=request.form['dateofbirth']
+    year=int(dob[0:4])
+    month=int(dob[5:7])
+    date=int(dob[8:10])
+    dob=datetime.date(year,month,date)
     age=request.form['Age']
     typ=request.form['Type']
-    phn=request.form['PhoneNumber']
-    address=request.form['text']
-    email=request.form['email']
-    gender='Male'
+    phn=request.form['phno']
+    address=request.form['address']
+    email=request.form['emailid']
+    gender=request.form['sex']
+    uname=request.form['uname']
+    password=request.form['pwd']
     sql='insert into Users \
     (Sno, RegNo, FirstName, MiddleName,LastName, BloodGroup, DateofBirth, Age, Type, Phonenumber, Address,\
      email,gender) values (%s,%s,"%s","%s","%s","%s","%s",%s,%s,"%s","%s","%s","%s")'
     db.execute(sql%(sno,regno,fname,mname,lname,bgroup,dob,age,typ,phn,address,email,gender))
     db.execute("COMMIT")
-    flash('New entry was successfully posted')
-    return redirect(url_for('show_entries'))#show_entries
+    db.execute("insert into Login values('%s','%s','%s',%s)"%(regno,uname,password,typ))
+    db.execute("COMMIT")
+    flash('New user '+ regno + ' registered')
+    return redirect(url_for('screen'))#show_entriesreturn render_template(url_for('show_entries.html'))
 
 # @app.route('/reg', methods=['POST']) #reg
 # def add_user():
@@ -90,7 +97,7 @@ def login():
             session['logged_in'] = True
             app.config['USERNAME'] = uname
             flash('You were logged in ')
-        return redirect(url_for('show_entries'))
+        return redirect(url_for('screen'))
     return render_template('login.html', error=error) #login.html
 
 t=0
@@ -252,9 +259,10 @@ def studentinfo():
 
 @app.route('/logout')
 def logout():
-    session.pop('logged_in', None)
-    flash('You were logged out')
-    return redirect(url_for('show_entries'))#show_entries.html
+    if session['logged_in']==True:
+        session.pop('logged_in', None)
+        flash('You were logged out')
+    return redirect(url_for('screen'))#show_entries.html
 
 if __name__ == '__main__':
     app.debug = True

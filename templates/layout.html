@@ -8,7 +8,7 @@
 
 			<ul class="menu">
 				<li><a href="/">Home</a></li>
-				<li><a href="/">Register</a></li>
+				<li><a href="/register">Register</a></li>
         <li><a href="/login">Login</a></li>
 				<li><a href="/prescription">Prescription</a></li>
 				<li><a href="/inventory">Inventory</a></li>
@@ -16,24 +16,8 @@
 			</ul>
 		</div><!--end of header -section-->
   <!-- <h1>Dispensary Management System</h1> -->
-  <div class=metanav>
-  {% if not session.logged_in %}
-    <!-- <a href="{{ url_for('login') }}">log in</a> -->
-    <div class="jumbotron">
-    <h1>To use this, you need to login, Use the button below to Login into the portal with the appropriate rights.</h1><h3> If you're a student who needs to register to use the NITW Dispensary and haven't registered yet, please register using the Register button below</h3>
-    <span>
-    <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('login') }}">Login</a></p>
-    <p><a class="btn btn-success btn-lg" role="button" href="{{ url_for('login') }}">Register</a></p>
-    </span>    
-    </div>
-  {% else %}
-    <a href="{{ url_for('logout') }}">log out</a>
-  {% endif %}
-  </div>
   {% for message in get_flashed_messages() %}
     <div class=flash>{{ message }}</div>
   {% endfor %}
   {% block body %}{% endblock %}
-</div>
 {% extends "footer.html" %}
-

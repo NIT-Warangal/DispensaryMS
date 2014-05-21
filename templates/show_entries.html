@@ -1,43 +1,134 @@
-{% extends "layout.html" %}
+{% extends "layout1.html" %}
 {% block body %}
-  {% if session.logged_in %}
-    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
-      <dl>
-        <dt>Sno:
-        <dd><input type=text size=30 name=Sno>
-        <dt>RegNo:
-        <dd><input type=text size=30 name=RegNo>
-        <dt>First Name:
-        <dd><input type=text size=30 name=FirstName>
-        <dt>Middle Name:
-        <dd><input type=text size=30 name=MiddleName>
-        <dt>Last Name:
-        <dd><input type=text size=30 name=LastName>
-        <dt>Blood Group:
-        <dd><input type=text size=30 name=BloodGroup>
-        <dt>Date of Birth:
-        <dd><input type=text size=30 name=DateOfBirth>
-        <dt>Age:
-        <dd><input type=text size=30 name=Age>
-        <dt>Type:
-        <dd><input type=text size=30 name=Type>
-        <dt>Phone Number:
-        <dd><input type=text size=10 name=PhoneNumber>
-        <!-- Limiting the phone number to 10 digit ph. no's -->
-        <dt>Address:
-        <dd><textarea name=text rows=5 cols=40></textarea>
-        <dt>Email:
-        <dd><input type=email size=100 name=email>
-        <dd><input type=submit value=Share>
-      </dl>
+    <form action="{{ url_for('add') }}" method=post class=add-entry>
+<div class="row">
+          <div class="col-lg-10 col-lg-offset-1">
+            <div class="well bs-component col-lg-offset-1">
+              <div class="form-horizontal" >
+                <fieldset>
+                  <legend>Registration Form</legend>
+                  <div class="form-group">
+                    <label for="regNumber"  class="col-lg-2 col-lg-offset-1 control-label">S.No:</label>
+                    <div class="col-lg-4">
+                      <input type="number" class="form-control"  required name="Sno" placeholder="Serial Number">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="regNumber"  style="text-align:center;font-size:96.3%;"class="col-lg-2 col-lg-offset-1">Registration Number/Employee ID</label>
+                    <div class="col-lg-4">
+                      <input type="text" class="form-control"  required name="Regno" placeholder="Enter your Reg. Number/Employee ID">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="select" class="col-lg-2 col-lg-offset-1 control-label"  >Who are you?</label>
+                    <div class="col-lg-4">
+                      <select class="form-control" name="Type" >
+                        <option value="0">Select One Option</option>
+                        <option value="1">Student</option>
+                        <option value="2">Employee</option>
+                        <option value="3">Guest</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputName" class="col-lg-2 col-lg-offset-1 control-label">Full Name</label>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                      <input type="text" name="FirstName" id="fname" class="form-control input-sm" required="required"  title="only alphabets" placeholder="First Name">
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 " style="margin-left:-25px">
+                      <input type="text" name="MiddleName" id="mname" class="form-control input-sm" required="required"  title="only alphabets" placeholder="Middle Name">
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 " style="margin-left:-25px">
+                      <input type="text" name="LastName" id="lname" class="form-control input-sm" required="required"  title="only alphabets" placeholder="Last Name">
+                    </div>    
+                  </div>
+                  <div class="form-group">
+                    <label for="gender" class="col-lg-2 col-lg-offset-1 control-label">Gender</label>
+                    <div class="col-lg-3">
+                      <select class="form-control" name="sex">
+                        <option>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="username" class="col-lg-2 col-lg-offset-1 control-label">UserName</label>
+                    <div class="col-lg-5">
+                      <input type="text" class="form-control" name="uname"  required placeholder="UserName">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="password" class="col-lg-2 col-lg-offset-1 control-label">Password</label>
+                    <div class="col-lg-5">
+                      <input type="password" class="form-control" name="pwd"  required placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="confirmPassword" class="col-lg-2 col-lg-offset-1 control-label">Confirm Password</label>
+                    <div class="col-lg-5">
+                      <input type="password"  required class="form-control" name="con_password" placeholder="Confirm Password" onchange="check();">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="bloodGroup" class="col-lg-2 col-lg-offset-1 control-label">Blood Group</label>
+                    <div class="col-lg-3">
+                      <select class="form-control" name="BloodGroup"  required>
+                        <option value="0">Select One Option</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="dateofBirth" class="col-lg-2 col-lg-offset-1 control-label">Date Of Birth</label>
+                      <div class="col-lg-3">
+                      <input type="date" class="form-control" name="dateofbirth"  placeholder="DD/MM/YYYY">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Age"  class="col-lg-2 col-lg-offset-1 control-label">Age:</label>
+                    <div class="col-lg-4">
+                      <input type="number" class="form-control"  required name="Age" placeholder="Enter your Age:">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="phoneNumber" class="col-lg-2 col-lg-offset-1 control-label">Phone Number</label>
+                      <div class="col-lg-4">
+                      <input type='tel' pattern='[\+]\d{2}[\-]\d{10}'  required  class="form-control" name="phno" placeholder="Mobile Number (Format: +91-1234567890)">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="textArea" class="col-lg-2 col-lg-offset-1 control-label">Address</label>
+                    <div class="col-lg-6">
+                      <textarea class="form-control" rows="3" name="address"></textarea>
+                      <span class="help-block">Enter your address here!</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="mail" class="col-lg-2 col-lg-offset-1 control-label">Email address</label>
+                      <div class="col-lg-8">
+                      <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" name="emailid" placeholder="Enter Email address (example: abcdef@abcd.com)"  >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                      <button class="btn btn-default">Cancel</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+    </div>
     </form>
-  {% endif %}
-  <ul class=entries>
-    <h3>Here are the list of Entries / Next In Line Patients</h3>
-  {% for user in Users %}
-    <li><h2>{{ user.Sno }}</h2>{{ user.RegNo|safe }}
-  {% else %}
-    <li><em>Unbelievable.  No entries here so far</em>
-  {% endfor %}
-  </ul>
 {% endblock %}

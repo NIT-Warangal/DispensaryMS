@@ -8,7 +8,7 @@
 
 			<ul class="menu">
 				<li><a href="/">Home</a></li>
-				<li><a href="/">Register</a></li>
+				<li><a href="/register">Register</a></li>
         <li><a href="/login">Login</a></li>
 				<li><a href="/prescription">Prescription</a></li>
 				<li><a href="/inventory">Inventory</a></li>
@@ -16,13 +16,6 @@
 			</ul>
 		</div><!--end of header -section-->
   <!-- <h1>Dispensary Management System</h1> -->
-  <div class=metanav>
-  {% if not session.logged_in %}
-    <!-- <a href="{{ url_for('login') }}">log in</a> -->
-  {% else %}
-    <a href="{{ url_for('logout') }}">log out</a>
-  {% endif %}
-  </div>
   {% for message in get_flashed_messages() %}
     <div class=flash>{{ message }}</div>
   {% endfor %}
