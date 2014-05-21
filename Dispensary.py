@@ -30,7 +30,7 @@ def show_entries():
     db = get_cursor()
     db.execute('select title, text from entries order by id desc')
     entries = db.fetchall()
-    return render_template('show_entries.html', entries=entries)
+    return render_template('screen.html', entries=entries) #show_entries
 
 @app.route('/add', methods=['POST']) #add
 def add_entry():

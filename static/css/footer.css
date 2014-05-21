@@ -1,0 +1,35 @@
+body {
+ 	margin: 0;
+ 	padding: 0;
+ 	height: 100%;
+}
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+* html #wrapper {
+    height:100%; 
+}
+#wrapper {
+    min-height: 100%;
+    position: relative;
+}
+#content {
+    padding-bottom: 30px; /* ATTENTION! padding-bottom should be equal to the footer height (this keeps the footer from overlapping the content) */
+}
+#footer {
+    position: absolute;
+    width: 100%;
+	clear: both;
+    bottom: 0;
+	padding: 0;
+    margin: 0;
+    /* ATTENTION! The following elements below 
+    can be set to whatever your heart desires */
+    height: 30px; /* REMEMBER height = padding-bottom */
+    background: #333;
+}
+#footertext {
+  color:white;
+  text-align: center;
