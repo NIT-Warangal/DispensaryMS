@@ -9,10 +9,17 @@
 			<ul class="menu">
 				<li><a href="/">Home</a></li>
 				<li><a href="/register">Register</a></li>
-        <li><a href="/login">Login</a></li>
+        		{% if not session.logged_in %}
+        			<li><a href="/login">Login</a></li>
+        		{% endif %}
 				<li><a href="/prescription">Prescription</a></li>
 				<li><a href="/inventory">Inventory</a></li>
-				<li><a href="/logout">Logout</a></li>
+				{% if session.logged_in %}
+					<li><a href="/logout">Logout</a></li>
+					{% if error %}
+	  					<p class=error><strong>Error:</strong> {{ error }}
+	  				{% endif %}
+	  			{% endif %}
 			</ul>
 		</div><!--end of header -section-->
   <!-- <h1>Dispensary Management System</h1> -->

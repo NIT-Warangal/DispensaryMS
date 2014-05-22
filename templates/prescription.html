@@ -7,7 +7,6 @@
   <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
   <form action="{{url_for('fileprescription')}}" method="post">
-{% endif %}
 <dl>
 <dt>Doctor No:</dt>
 <dd><input type="number" name=DoctorNo></dd>
@@ -22,6 +21,7 @@
 <dt>Remarks:</dt>
 <dd><textarea name=Remarks rows=5 cols=40></textarea><br>
 <input type="submit" value="submit">
+{% endif %}
 </form>
 	{% for values in Prescription %}
 		<h1>{{values.DoctorNo}}</h1>
