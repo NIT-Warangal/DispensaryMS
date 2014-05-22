@@ -1,24 +1,24 @@
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
 {% extends "layout.html" %}
 {% block body %}
-	<div class=metanav>
+<div class=metanav>
   {% if not session.logged_in %}
-    <!-- <a href="{{ url_for('login') }}">log in</a> -->
-    <div class="jumbotron">
+  <!-- <a href="{{ url_for('login') }}">log in</a> -->
+  <div class="jumbotron">
     <h1>To use this, you need to login, Use the button below to Login into the portal with the appropriate rights.</h1><h3> If you're a student who needs to register to use the NITW Dispensary and haven't registered yet, please register using the Register button below</h3>
     <span>
-    <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('login') }}">Login</a></p>
-    <p><a class="btn btn-success btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p>
+      <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('login') }}">Login</a></p>
+      <p><a class="btn btn-success btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p>
     </span>    
-    </div>
-  {% else %}
-  	<div class="jumbotron">
-  		<h1>Hello!</h1>
-  		<p>Thank you for using Dispensary System. As a first time user, you would have to register. Please click the register button to register your data with the dispensary so that you can use it.</p>
-  		<p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p>
-  		<p><a class="btn btn-primary btn-lg" role="button" href="#">Check Prescriptions</a></p>
-  		<p><a class="btn btn-primary btn-lg" role="button" href="/logout">Logout</a></p>
-	</div>
-  {% endif %}
   </div>
+  {% else %}
+  <div class="jumbotron">
+    <h1>Hello!</h1>
+    <p>Thank you for using Dispensary System. As a first time user, you would have to register. Please click the register button to register your data with the dispensary so that you can use it.</p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="#">Check Prescriptions</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/logout">Logout</a></p>
+  </div>
+  {% endif %}
+</div>
 {% endblock %}

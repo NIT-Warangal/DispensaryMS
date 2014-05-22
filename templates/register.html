@@ -5,6 +5,11 @@
       $( "#datepicker" ).datepicker();
     });
   </script>
+  {% if session.logged_in %}
+  <div class="jumbotron">
+    <h1>You're already logged in, You can't register.</h1>
+  </div>
+  {% else %}
   <div class="col-md-5">
     <form action="{{ url_for('add_user') }}" method=post class=add-entry>
       <dl>
@@ -37,6 +42,7 @@
       </dl>
     </form>
   </div>
+  {% endif %}
   <div class="col-md-5">
   <ul class=entries>
     <h3>Here are the list of Entries / Next In Line Patients</h3>
