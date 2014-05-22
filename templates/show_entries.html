@@ -1,5 +1,10 @@
 {% extends "layout1.html" %}
 {% block body %}
+<script>
+    $(function() {
+      $( "#datepicker" ).datepicker();
+    });
+  </script>
     <form action="{{ url_for('add') }}" method=post class=add-entry>
 <div class="row">
           <div class="col-lg-10 col-lg-offset-1">
@@ -89,7 +94,7 @@
                   <div class="form-group">
                       <label for="dateofBirth" class="col-lg-2 col-lg-offset-1 control-label">Date Of Birth</label>
                       <div class="col-lg-3">
-                      <input type="date" class="form-control" name="dateofbirth"  placeholder="DD/MM/YYYY">
+                      <input type="date" class="form-control" name="dateofbirth"  placeholder="DD/MM/YYYY" id="datepicker">
                     </div>
                   </div>
                   <div class="form-group">
