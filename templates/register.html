@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block body %}
-  {% if session.logged_in %}
+   <script>
+    $(function() {
+      $( "#datepicker" ).datepicker();
+    });
+  </script>
   <div class="col-md-5">
     <form action="{{ url_for('add_user') }}" method=post class=add-entry>
       <dl>
@@ -17,7 +21,7 @@
         <dt>Blood Group:
         <dd><input type=text size=30 name=BloodGroup>
         <dt>Date of Birth:
-        <dd><input type=text size=30 name=DateOfBirth>
+        <dd><input type=text size=30 name=DateOfBirth id="datepicker">
         <dt>Age:
         <dd><input type=text size=30 name=Age>
         <dt>Type:
@@ -33,7 +37,6 @@
       </dl>
     </form>
   </div>
-  {% endif %}
   <div class="col-md-5">
   <ul class=entries>
     <h3>Here are the list of Entries / Next In Line Patients</h3>

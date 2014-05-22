@@ -29,9 +29,9 @@
 @import "morris-0.4.3.min.css";
 @import "dataurl.css";
 @import "nvd3.css";
-@import "selectize.css";
-@import "selectize.legacy.css";
-@import "selectize.default.css";
+@import "selectize/selectize.css";
+@import "selectize/selectize.legacy.css";
+@import "selectize/selectize.default.css";
 @import "jquery.gritter.css";
 @import "lightbox.css";
 @import "bootstrap-dialog.min.css";
