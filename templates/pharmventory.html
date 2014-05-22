@@ -1,41 +1,138 @@
 {% extends "layout.html" %}
 {% block body %}
+<script>
+    $(function() {
+      $( "#datepicker" ).datepicker();
+    });
+  </script>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+<style type="text/css">
+    	.row{
+		    margin-top:40px;
+		    padding: 0 10px;
+		}
+		.clickable{
+		    cursor: pointer;   
+		}
+
+		.panel-heading div {
+			margin-top: -18px;
+			font-size: 15px;
+		}
+		.panel-heading div span{
+			margin-left:5px;
+		}
+		.panel-body{
+			display: none;
+		}
+.panel.panel-primary > .panel-heading{
+	color:#fff !important;
+	background: #428bca;
+	border-top: 1px solid #23bab5;	
+}
+</style>
 {% if session.logged_in %}
-<h1>Pharmacy Inventory</h1>
   {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
   <form action="{{url_for('insert')}}" method="post">
   {%set i=0 %}
-    <table class="table table-hover" >
-
+      <div class="panel panel-primary">
+      		<div class="panel-heading">
+                <h1 class="panel-title" style="text-align:center;font-weight:300%;font-size:40px;">Inventory Items</h1>
+                <div class="pull-right">
+                <span class="" data-toggle="tooltip" title="Toggle table filter"><i class="glyphicon glyphicon-filter"></i></span>
+                </div>
+            </div>
+    <table class="item-table table table-hover" id="dev-table" >
+			<thead>
+				<tr>
+					<th><!-- <input type="number" class="form-control" placeholder="# Serial Number" disabled> -->Serial Number</th>
+					<th><!-- <input type="text" class="form-control" placeholder="Name" disabled> --> Name</th>
+					<th><!-- <input type="number" class="form-control" placeholder="Quantity" disabled> -->Quantity</th>
+					<th><!-- <input type="number" class="form-control" placeholder="Batch Number" disabled> -->Batch Number</th>
+					<th><!-- <input type="text" class="form-control" placeholder="Manufacture Date" disabled> -->Manufacture Date</th>
+					<th><!-- <input type="text" class="form-control" placeholder="Expiry Date" disabled> -->Expiry</th>
+					<th><!-- <input type="text" class="form-control" placeholder="Update" disabled> -->Update</th>
+					<th><!-- <input type="text" class="form-control" placeholder="Delete" disabled> -->Delete</th>
+				</tr>
+			</thead>
+			<tbody>
   {% for entry in entries%}
   {%set i=i+1 %}
-<tr><td><input type="number" size=10 value="{{entry[0]}}" name="Sno{{i}}"></td>
-<td><td><input type="name" value="{{entry[1]}}" name="Name{{i}}"></td>
+<tr><td><input type="number" value="{{entry[0]}}" name="Sno{{i}}"></td>
+<td><input type="name" value="{{entry[1]}}" name="Name{{i}}"></td>
 <td><input type="number" value="{{entry[2]}}" name="qty{{i}}"></td>
 <td><input type="number" value="{{entry[3]}}" name="bno{{i}}"></td>
-<td><input type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" value="{{entry[4]}}" name="mfgdate{{i}}"></td>
-<td><input type="date" value="{{entry[5]}}" pattern="\d{1,2}/\d{1,2}/\d{4}" name="expdate{{i}}"></td>
+<td><input type="date"  value="{{entry[4]}}" name="mfgdate{{i}}" id="datepicker"></td>
+<td><input type="date"  value="{{entry[5]}}" name="expdate{{i}}" id="datepicker"></td>
 <td><input type="submit" value="update{{i}}" name="btn"></td>
 <td><input type="submit" value="delete{{i}}" name="btn"></td><br>
 </tr>
 {% endfor %}
-
+</tbody>
 </table >
+</div>
+
 {% endif %}
-<dl>
-<dt>Sno:</dt>
-<dd><input type="number" name=Sno></dd>
-<dt>Name:</dt>
-<dd>  <input type="name" name=Name></dd>
-<dt>Quantity:</dt>
-<dd>  <input type="number" name=qty></dd>
-<dt>Batch Number:</dt>
-<dd>  <input type="number" name=bno></dd>
-<dt>Manufacturing Date:</dt>
-<input type="date" name=mfgdate placeholder="dd/mm/yyyy">
-<dt>Expiry Date:</dt>
-<dd>  <input type="date" name=expdate></dd><br>
-<input type="submit" value="insert" name="btn">
+
+<div class="container">
+<div class="row">
+	<div class="col-md-10 col-md-offset-3">
+		<div class="form-horizontal" role="form">
+    		<fieldset>
+    			<legend>Insert new Inventory Item</legend>
+    				<div class="form-group">
+            			<label class="col-sm-2 control-label" for="serialNumber">S.No:</label>
+            			<div class="col-sm-4">
+            				<input type="number" placeholder="Serial Number" class="form-control" name="Sno">
+            			</div>
+            		</div>
+            		<div class="form-group">
+            			<label class="col-sm-2 control-label" for="medicineName">Name:</label>
+            			<div class="col-sm-4">
+            				<input type="text" placeholder="Name of the item" class="form-control" name="Name">
+            			</div>
+            		</div>
+            		<div class="form-group">
+            			<label class="col-sm-2 control-label" for="quantity">Quantity:</label>
+            			<div class="col-sm-4">
+            				<input type="number" placeholder="Quantity" class="form-control" name="qty">
+            			</div>
+            		</div>
+            		<div class="form-group">
+            			<label class="col-sm-2 control-label" for="batchNumber">Batch Number:</label>
+            			<div class="col-sm-4">
+            				<input type="number" placeholder="Quantity" class="form-control" name="bno">
+            			</div>
+            		</div>
+            		<div class="form-group">
+            			<label class="col-sm-2 control-label" for="mfgDate">Manufacturing Date:</label>
+            			<div class="col-sm-4">
+            				<input type="date" placeholder="MM/DD/YYYY" class="form-control" name="mfgdate" id="datepicker">
+            			</div>
+            		</div>
+            		<div class="form-group">
+            			<label class="col-sm-2 control-label" for="expDate">Expiry Date:</label>
+            			<div class="col-sm-4">
+            				<input type="date" placeholder="MM/DD/YYYY" class="form-control" name="expdate" id="datepicker">
+            			</div>
+            		</div>
+
+          			<div class="form-group">
+            			<div class="col-sm-5 col-sm-offset-1">
+              				<div class="pull-right">
+                				<input type="submit" class="btn btn-default" name="btn" value="Cancel">
+                				<input type="submit" class="btn btn-primary" name="btn" value="insert">
+              				</div>
+            			</div>
+          			</div>
+        </fieldset>
+      </form>
+
+    </div><!-- /.col-lg-12 -->
+</div><!-- /.row 
+</div>  <!--  /.container -->
+</div>
+</div>
 </form>
+<br><br>
 {% endblock %}
