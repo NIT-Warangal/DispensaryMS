@@ -4,7 +4,9 @@
      $(function() {
       var j = $('#jvalue').attr("value");
       while(j) {
-      $( "#datepicker"+j ).datepicker({ dateFormat: 'dd/mm/yy' });
+      $( "#datepicker"+j ).datepicker({
+       dateFormat: 'dd/mm/yy',
+       buttonImage:'{{url_for("static",filename="images/calendar.png")}}'       });
       --j;
       };
     });
