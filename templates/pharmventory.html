@@ -7,178 +7,138 @@
       while(j) {
       $( "#datepicker"+j ).datepicker({
        dateFormat: 'dd/mm/yy',
-       buttonImage:'{{url_for("static",filename="images/calendar.png")}}'       });
+       changeMonth: true,
+       changeYear: true
+             });
       --j;
       };
     });
   </script>
-  <script type="text/javascript">
-<!--
-    function toggle_visibility(id) {
-       var e = document.getElementById(id);
-       if(e.style.display == 'block')
-          e.style.display = 'none';
-       else
-          e.style.display = 'block';
-    }
-//-->
-</script>
+
 <script type="text/javascript">
   $(document).ready( function () {
     $('#item-table').DataTable();
 } );
 </script>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
-<style type="text/css">
-    	.row{
-		    margin-top:40px;
-		    padding: 0 10px;
-		}
-		.clickable{
-		    cursor: pointer;   
-		}
-    .panel{
-      margin-left: 10%;
-      width: 80%;
-    }
-		.panel-heading div {
-			margin-top: -18px;
-			font-size: 15px;
-		}
-		.panel-heading div span{
-			margin-left:5px;
-		}
-		.panel-body{
-			display: none;
-		}
-.panel.panel-primary > .panel-heading{
-	color:#fff !important;
-	background: #428bca;
-	border-top: 1px solid #23bab5;	
-}
-</style>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/inventory.css') }}">
 
 {% if not session.logged_in %}
 <div class="jumbotron">
   <h1>You have to be logged in as Pharmacist.</h1>
 </div>
 {% if error %}
-<p class=error><strong>Error:</strong> {{ error }}
+<p class="bg-danger text-danger"><strong>Error:</strong> {{ error }}
 {% endif %}
 {% else %}
-  <form action="{{url_for('updel')}}" method="post">
-  {%set i=0 %}
-  {%set j=0 %}
-      <div class="panel panel-primary">
-      		<div class="panel-heading">
-                <h1 class="panel-title" style="text-align:center;font-weight:300%;font-size:40px;">Inventory Items</h1>
-                <div class="pull-right">
-                <span class="clickable" onclick="toggle_visibility('show')" data-toggle="tooltip" title="Toggle table filter"><i class="glyphicon glyphicon-filter"></i></span>
+
+<div class="row">
+    <div class="col-xs-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-10">
+                    <form action="{{url_for('insert')}}" method="post">
+                        <div class="form-horizontal" role="form">
+                            <fieldset>
+                                <legend>Insert new Inventory Item</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="serialNumber">S.No:</label>
+                                    <div class="col-sm-4">
+                                        <input type="number" placeholder="Serial Number" class="form-control" value="{{entries|length+1}}" name="Sno">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="medicineName">Name:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" placeholder="Name of the item" class="form-control" name="Name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="quantity">Quantity:</label>
+                                    <div class="col-sm-4">
+                                        <input type="number" placeholder="Quantity" class="form-control" name="qty">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="batchNumber">Batch Number:</label>
+                                    <div class="col-sm-4">
+                                        <input type="number" placeholder="Quantity" class="form-control" name="bno">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="mfgDate">Manufacturing Date:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" placeholder="DD/MM/YYYY" class="form-control" name="mfgdate" id="datepicker{{(entries|length)*2+1}}"  data-toggle="tooltip" title="dd/mm/yyyy">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="expDate">Expiry Date:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" placeholder="DD/MM/YYYY" class="form-control" name="expdate" id="datepicker{{(entries|length)*2+2}}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-5 col-sm-offset-1">
+                                        <div class="pull-right">
+                                            <input type="submit" class="btn btn-default" name="btn" value="Cancel">
+                                            <input type="submit" class="btn btn-primary" name="btn" value="insert">
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="panel-body" id="show">
-              <input type="search" placeholder="Filter Items"  class="light-table-filter form-control" data-table="item-table">
+        </div>
+    </div>
+    <div class="col-xs-8">
+    <div class="container">
+        <form action="{{url_for('updel')}}" method="post">
+        {%set i=0 -%}
+        {%set j=0 -%}
+            <div class="panel panel-primary">
+      		    <div class="panel-heading">
+                    <h1 class="panel-title" style="text-align:center;font-size:30px;"><b>Inventory Items</b></h1>
+                </div>
+                <table class="table table-condensed table-responsive table-hover" id="item-table">
+                    <thead>
+				        <tr>
+					       <th class="col-sm-1" width="3%">#S.No</th>
+					       <th class="col-sm-3">Name of Item</th>
+					       <th class="col-sm-1">Quantity</th>
+					       <th class="col-sm-1">Batch Number</th>
+					       <th class="col-sm-2">Manufacture Date</th>
+					       <th class="col-sm-3">Expiry Date</th>
+					       <th class="col-sm-1" style="font-size:11px;"><strong><b>Update</b></strong></th>
+					       <th class="col-sm-1"style="font-size:11px;"><strong><b>Delete</b></strong></th>
+				        </tr>
+                    </thead>
+                    <tbody>
+                        {%if entries|length>0 -%}
+                        {% for entry in entries -%}
+                        {%set i=i+1 %}
+                        {%set j=j+1 -%}
+                        <tr>
+                            <td><input type="number" value="{{entry[0]}}" name="Sno{{i}}" class="form-control"></td>
+                            <td><input type="name" value="{{entry[1]}}" name="Name{{i}}" class="form-control"></td>
+                            <td><input type="number" value="{{entry[2]}}" name="qty{{i}}" class="form-control"></td>
+                            <td><input type="number" value="{{entry[3]}}" name="bno{{i}}" class="form-control"></td>
+                            <td><input type="text"  value="{{entry[4].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="mfgdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control"></td>
+                        {%set j=j+1 -%}
+                            <td><input type="text"  value="{{entry[5].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="expdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control"></td>
+                            <td><button type="submit" value="update{{i}}" name="btn1" class="btn btn-sm btn-primary"><span style="font-size:15px;"class="glyphicon glyphicon-edit"></span></button></td>
+                            <td><button type="submit" value="delete{{i}}" name="btn1" class="btn btn-sm btn-danger"><span style="font-size:15px;"class="glyphicon glyphicon-remove"></span></button></td><br>
+                        </tr>
+                        {% endfor -%}
+                        {% endif -%}
+                        <input type="hidden" value="{{entries|length*2+2}}" id="jvalue">
+                    </tbody>
+                </table >
             </div>
-    <table class="table table-hover" id="item-table">
-			<thead>
-				<tr>
-					<th>Serial Number</th>
-					<th>Name</th>
-					<th>Quantity</th>
-					<th>Batch Number</th>
-					<th>Manufacture Date</th>
-					<th>Expiry</th>
-					<th>Update</th>
-					<th>Delete</th>
-				</tr>
-			</thead>
-			<tbody>
-  {%if entries|length>0 %}
-  {% for entry in entries%}
-  {%set i=i+1 %}
-  {%set j=j+1 %}
-<tr><td><input type="number" value="{{entry[0]}}" name="Sno{{i}}" class="form-control"></td>
-<td><input type="name" value="{{entry[1]}}" name="Name{{i}}" class="form-control"></td>
-<td><input type="number" value="{{entry[2]}}" name="qty{{i}}" class="form-control"></td>
-<td><input type="number" value="{{entry[3]}}" name="bno{{i}}" class="form-control"></td>
-<td><input type="text"  value="{{entry[4].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="mfgdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control"></td>
-{%set j=j+1%}
-<td><input type="text"  value="{{entry[5].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="expdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control"></td>
-<td><button type="submit" value="update{{i}}" name="btn1" class="btn btn-sm btn-primary"><span style="font-size:15px;"class="glyphicon glyphicon-edit"></span></button></td>
-<td><button type="submit" value="delete{{i}}" name="btn1" class="btn btn-sm btn-danger"><span style="font-size:15px;"class="glyphicon glyphicon-remove"></span></button></td><br>
-</tr>
-{% endfor %}
-{% endif %}
-<input type="hidden" value="{{entries|length*2+2}}" id="jvalue">
-</tbody>
-</table >
-</form>
+        </form>
+        </div>
+    </div>
 </div>
-
-
-
-<div class="container">
-<div class="row">
-	<div class="col-md-10">
-  <form action="{{url_for('insert')}}" method="post">
-		<div class="form-horizontal" role="form">
-    		<fieldset>
-    			<legend>Insert new Inventory Item</legend>
-    				<div class="form-group">
-            			<label class="col-sm-2 control-label" for="serialNumber">S.No:</label>
-            			<div class="col-sm-4">
-            				<input type="number" placeholder="Serial Number" class="form-control" name="Sno">
-            			</div>
-            		</div>
-            		<div class="form-group">
-            			<label class="col-sm-2 control-label" for="medicineName">Name:</label>
-            			<div class="col-sm-4">
-            				<input type="text" placeholder="Name of the item" class="form-control" name="Name">
-            			</div>
-            		</div>
-            		<div class="form-group">
-            			<label class="col-sm-2 control-label" for="quantity">Quantity:</label>
-            			<div class="col-sm-4">
-            				<input type="number" placeholder="Quantity" class="form-control" name="qty">
-            			</div>
-            		</div>
-            		<div class="form-group">
-            			<label class="col-sm-2 control-label" for="batchNumber">Batch Number:</label>
-            			<div class="col-sm-4">
-            				<input type="number" placeholder="Quantity" class="form-control" name="bno">
-            			</div>
-            		</div>
-            		<div class="form-group">
-            			<label class="col-sm-2 control-label" for="mfgDate">Manufacturing Date:</label>
-            			<div class="col-sm-4">
-            				<input type="text" placeholder="DD/MM/YYYY" class="form-control" name="mfgdate" id="datepicker{{(entries|length)*2+1}}"  data-toggle="tooltip" title="dd/mm/yyyy">
-            			</div>
-            		</div>
-            		<div class="form-group">
-            			<label class="col-sm-2 control-label" for="expDate">Expiry Date:</label>
-            			<div class="col-sm-4">
-            				<input type="text" placeholder="DD/MM/YYYY" class="form-control" name="expdate" id="datepicker{{(entries|length)*2+2}}">
-            			</div>
-            		</div>
-
-          			<div class="form-group">
-            			<div class="col-sm-5 col-sm-offset-1">
-              				<div class="pull-right">
-                				<input type="submit" class="btn btn-default" name="btn" value="Cancel">
-                				<input type="submit" class="btn btn-primary" name="btn" value="insert">
-              				</div>
-            			</div>
-          			</div>
-        </fieldset>
-      </form>
-
-    </div><!-- /.col-lg-12 -->
-</div><!-- /.row 
-</div>  <!--  /.container -->
-</div>
-</div>
-</form>
-<br><br>
 
 {% endif %}
 {% endblock %}
