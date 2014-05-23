@@ -128,9 +128,18 @@ def insert():
         flash('New entry successfully inserted')
         return redirect(url_for('inventory'))
     else:
-        for i in range( 1, t+1):
+        flash('Record not inserted')
+    return redirect(url_for('inventory'))
+
+@app.route('/updel',methods=['GET','POST'])
+def updel():
+    global t
+    db=get_cursor()
+    db.execute('select Count(1) from Pharmacy')
+    t=db.fetchone()[0]
+    for i in range( 1, t+1):
             r = str(i)
-            if request.form['btn'] == 'update' + r:
+            if request.form['btn1'] == 'update'+r:
                 sno=request.form['Sno' + r]
                 name=request.form['Name' + r]
                 quantity=request.form['qty' + r]
@@ -142,14 +151,15 @@ def insert():
                 db.execute("COMMIT")
                 flash('Record '+sno+' updated')
                 return redirect(url_for('inventory'))       
-            elif request.form['btn'] == 'delete' + r:
+            elif request.form['btn1'] == 'delete'+r:
                 sno=request.form['Sno' + r]
                 query='delete from Pharmacy where Sno='+str(sno)
                 db.execute(query)
                 db.execute("COMMIT")
                 flash('Record '+sno+' deleted')
                 return redirect(url_for('inventory'))
-    flash('Nothing occured'+request.form['btn'])
+            i=i+1
+    flash('Nothing occured')
     return redirect(url_for('inventory'))
 
 @app.route('/prescription')

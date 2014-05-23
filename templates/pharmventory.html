@@ -18,7 +18,10 @@
 		.clickable{
 		    cursor: pointer;   
 		}
-
+    .panel{
+      margin-left: 10%;
+      width: 80%;
+    }
 		.panel-heading div {
 			margin-top: -18px;
 			font-size: 15px;
@@ -44,14 +47,14 @@
 <p class=error><strong>Error:</strong> {{ error }}
 {% endif %}
 {% else %}
-  <form action="{{url_for('insert')}}" method="post">
+  <form action="{{url_for('updel')}}" method="post">
   {%set i=0 %}
   {%set j=0 %}
       <div class="panel panel-primary">
       		<div class="panel-heading">
                 <h1 class="panel-title" style="text-align:center;font-weight:300%;font-size:40px;">Inventory Items</h1>
                 <div class="pull-right">
-                <span class="" data-toggle="tooltip" title="Toggle table filter"><i class="glyphicon glyphicon-filter"></i></span>
+                <span class="clickable" data-toggle="tooltip" title="Toggle table filter"><i class="glyphicon glyphicon-filter"></i></span>
                 </div>
             </div>
     <table class="item-table table table-hover" id="dev-table" >
@@ -72,28 +75,30 @@
   {% for entry in entries%}
   {%set i=i+1 %}
   {%set j=j+1 %}
-<tr><td><input type="number" value="{{entry[0]}}" name="Sno{{i}}"></td>
-<td><input type="name" value="{{entry[1]}}" name="Name{{i}}"></td>
-<td><input type="number" value="{{entry[2]}}" name="qty{{i}}"></td>
-<td><input type="number" value="{{entry[3]}}" name="bno{{i}}"></td>
-<td><input type="text"  value="{{entry[4].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="mfgdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy"></td>
+<tr><td><input type="number" value="{{entry[0]}}" name="Sno{{i}}" class="form-control"></td>
+<td><input type="name" value="{{entry[1]}}" name="Name{{i}}" class="form-control"></td>
+<td><input type="number" value="{{entry[2]}}" name="qty{{i}}" class="form-control"></td>
+<td><input type="number" value="{{entry[3]}}" name="bno{{i}}" class="form-control"></td>
+<td><input type="text"  value="{{entry[4].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="mfgdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control"></td>
 {%set j=j+1%}
-<td><input type="text"  value="{{entry[5].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="expdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy"></td>
-<td><input type="submit" value="update{{i}}" name="btn"></td>
-<td><input type="submit" value="delete{{i}}" name="btn"></td><br>
+<td><input type="text"  value="{{entry[5].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="expdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control"></td>
+<td><button type="submit" value="update{{i}}" name="btn1" class="btn btn-sm btn-primary"><span style="font-size:15px;"class="glyphicon glyphicon-edit"></span></button></td>
+<td><button type="submit" value="delete{{i}}" name="btn1" class="btn btn-sm btn-danger"><span style="font-size:15px;"class="glyphicon glyphicon-remove"></span></button></td><br>
 </tr>
 {% endfor %}
 {% endif %}
 <input type="hidden" value="{{entries|length*2+2}}" id="jvalue">
 </tbody>
 </table >
+</form>
 </div>
 
 
 
 <div class="container">
 <div class="row">
-	<div class="col-md-10 col-md-offset-3">
+	<div class="col-md-10">
+  <form action="{{url_for('insert')}}" method="post">
 		<div class="form-horizontal" role="form">
     		<fieldset>
     			<legend>Insert new Inventory Item</legend>
