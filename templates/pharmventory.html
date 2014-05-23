@@ -1,3 +1,4 @@
+
 {% extends "layout.html" %}
 {% block body %}
 <script>
@@ -11,6 +12,22 @@
       };
     });
   </script>
+  <script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#item-table').DataTable();
+} );
+</script>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
 <style type="text/css">
     	.row{
@@ -56,10 +73,13 @@
       		<div class="panel-heading">
                 <h1 class="panel-title" style="text-align:center;font-weight:300%;font-size:40px;">Inventory Items</h1>
                 <div class="pull-right">
-                <span class="clickable" data-toggle="tooltip" title="Toggle table filter"><i class="glyphicon glyphicon-filter"></i></span>
+                <span class="clickable" onclick="toggle_visibility('show')" data-toggle="tooltip" title="Toggle table filter"><i class="glyphicon glyphicon-filter"></i></span>
                 </div>
             </div>
-    <table class="item-table table table-hover" id="dev-table" >
+            <div class="panel-body" id="show">
+              <input type="search" placeholder="Filter Items"  class="light-table-filter form-control" data-table="item-table">
+            </div>
+    <table class="table table-hover" id="item-table">
 			<thead>
 				<tr>
 					<th>Serial Number</th>
