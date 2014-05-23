@@ -1,8 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
 <script>
-    $(function() {
-      $( "#datepicker" ).datepicker();
+     $(function() {
+      var j = $('#jvalue').attr("value");
+      while(j) {
+      $( "#datepicker"+j ).datepicker({ dateFormat: 'dd/mm/yy' });
+      --j;
+      };
     });
   </script>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
@@ -31,10 +35,18 @@
 	border-top: 1px solid #23bab5;	
 }
 </style>
-{% if session.logged_in %}
-  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
+{% if not session.logged_in %}
+<div class="jumbotron">
+  <h1>You have to be logged in as Pharmacist.</h1>
+</div>
+{% if error %}
+<p class=error><strong>Error:</strong> {{ error }}
+{% endif %}
+{% else %}
   <form action="{{url_for('insert')}}" method="post">
   {%set i=0 %}
+  {%set j=0 %}
       <div class="panel panel-primary">
       		<div class="panel-heading">
                 <h1 class="panel-title" style="text-align:center;font-weight:300%;font-size:40px;">Inventory Items</h1>
@@ -45,34 +57,39 @@
     <table class="item-table table table-hover" id="dev-table" >
 			<thead>
 				<tr>
-					<th><!-- <input type="number" class="form-control" placeholder="# Serial Number" disabled> -->Serial Number</th>
-					<th><!-- <input type="text" class="form-control" placeholder="Name" disabled> --> Name</th>
-					<th><!-- <input type="number" class="form-control" placeholder="Quantity" disabled> -->Quantity</th>
-					<th><!-- <input type="number" class="form-control" placeholder="Batch Number" disabled> -->Batch Number</th>
-					<th><!-- <input type="text" class="form-control" placeholder="Manufacture Date" disabled> -->Manufacture Date</th>
-					<th><!-- <input type="text" class="form-control" placeholder="Expiry Date" disabled> -->Expiry</th>
-					<th><!-- <input type="text" class="form-control" placeholder="Update" disabled> -->Update</th>
-					<th><!-- <input type="text" class="form-control" placeholder="Delete" disabled> -->Delete</th>
+					<th>Serial Number</th>
+					<th>Name</th>
+					<th>Quantity</th>
+					<th>Batch Number</th>
+					<th>Manufacture Date</th>
+					<th>Expiry</th>
+					<th>Update</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
+  {%if entries|length>0 %}
   {% for entry in entries%}
   {%set i=i+1 %}
+  {%set j=j+1 %}
 <tr><td><input type="number" value="{{entry[0]}}" name="Sno{{i}}"></td>
 <td><input type="name" value="{{entry[1]}}" name="Name{{i}}"></td>
 <td><input type="number" value="{{entry[2]}}" name="qty{{i}}"></td>
 <td><input type="number" value="{{entry[3]}}" name="bno{{i}}"></td>
-<td><input type="date"  value="{{entry[4]}}" name="mfgdate{{i}}" id="datepicker"></td>
-<td><input type="date"  value="{{entry[5]}}" name="expdate{{i}}" id="datepicker"></td>
+<td><input type="text"  value="{{entry[4].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="mfgdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy"></td>
+{%set j=j+1%}
+<td><input type="text"  value="{{entry[5].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="expdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy"></td>
 <td><input type="submit" value="update{{i}}" name="btn"></td>
 <td><input type="submit" value="delete{{i}}" name="btn"></td><br>
 </tr>
 {% endfor %}
+{% endif %}
+<input type="hidden" value="{{entries|length*2+2}}" id="jvalue">
 </tbody>
 </table >
 </div>
 
-{% endif %}
+
 
 <div class="container">
 <div class="row">
@@ -107,13 +124,13 @@
             		<div class="form-group">
             			<label class="col-sm-2 control-label" for="mfgDate">Manufacturing Date:</label>
             			<div class="col-sm-4">
-            				<input type="date" placeholder="MM/DD/YYYY" class="form-control" name="mfgdate" id="datepicker">
+            				<input type="text" placeholder="DD/MM/YYYY" class="form-control" name="mfgdate" id="datepicker{{(entries|length)*2+1}}"  data-toggle="tooltip" title="dd/mm/yyyy">
             			</div>
             		</div>
             		<div class="form-group">
             			<label class="col-sm-2 control-label" for="expDate">Expiry Date:</label>
             			<div class="col-sm-4">
-            				<input type="date" placeholder="MM/DD/YYYY" class="form-control" name="expdate" id="datepicker">
+            				<input type="text" placeholder="DD/MM/YYYY" class="form-control" name="expdate" id="datepicker{{(entries|length)*2+2}}">
             			</div>
             		</div>
 
@@ -135,4 +152,6 @@
 </div>
 </form>
 <br><br>
+
+{% endif %}
 {% endblock %}

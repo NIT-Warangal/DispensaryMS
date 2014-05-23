@@ -120,16 +120,8 @@ def insert():
         name = (request.form['Name'])
         quantity = (request.form['qty'])
         batchno = request.form['bno']
-        mfg=str(request.form['mfgdate'])
-        year=int(mfg[0:4])
-        month=int(mfg[5:7])
-        date=int(mfg[8:10])
-        mfg=datetime.date(year,month,date)
-        exp = str(request.form['expdate'])
-        year=int(exp[0:4])
-        month=int(exp[5:7])
-        date=int(exp[8:10])
-        exp=datetime.date(year,month,date)
+        mfg =datetime.datetime.strptime(request.form['mfgdate'],"%d/%m/%Y")
+        exp =datetime.datetime.strptime(request.form['expdate'],"%d/%m/%Y")
         sql = 'insert into Pharmacy values(%s,"%s",%s,%s,"%s","%s")'
         db.execute(sql%(sno,name,quantity,batchno,mfg,exp))
         db.execute("COMMIT")
@@ -143,16 +135,8 @@ def insert():
                 name=request.form['Name' + r]
                 quantity=request.form['qty' + r]
                 batchno=request.form['bno' + r]
-                mfg = request.form['mfgdate' + r]
-                year=int(mfg[0:4])
-                month=int(mfg[5:7])
-                date=int(mfg[8:10])
-                mfg=datetime.date(year,month,date)
-                exp = request.form['expdate' + r]
-                year=int(exp[0:4])
-                month=int(exp[5:7])
-                date=int(exp[8:10])
-                exp=datetime.date(year,month,date)
+                mfg =datetime.datetime.strptime(request.form['mfgdate' + r],"%d/%m/%Y")
+                exp =datetime.datetime.strptime(request.form['expdate' + r],"%d/%m/%Y")
                 query = 'update Pharmacy set Name="%s",Quantity=%s,Batchno=%s,ManufactureDate="%s",ExpiryDate="%s" where Sno=%s'
                 db.execute(query%(name,quantity,batchno,mfg,exp,sno))
                 db.execute("COMMIT")
