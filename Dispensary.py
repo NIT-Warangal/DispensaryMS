@@ -23,7 +23,7 @@ def get_cursor():
 @app.teardown_appcontext
 def close_db():
     """Closes the database again at the end of the request."""
-    mysql.connect().close()
+    get_cursor().close()
 
 @app.route('/')
 def screen():
@@ -183,7 +183,7 @@ def fileprescription():
 @app.route('/checkprescription',methods=['GET','POST'])
 def checkprescription():
     db=get_cursor()
-    sql="select * from Prescription where Regno='%s'"%(app.config['USERID'])
+    sql="select * from Prescription where Regno='%s' order by Date desc"%(app.config['USERID'])
     db.execute(sql)
     entries = db.fetchall()
     db.execute("COMMIT")
@@ -225,7 +225,6 @@ def student():
     return render_template('student_profile.html',entries = entries,chars=chars)
 def years_between(d1):
     d2=datetime.datetime.today()
-    d1=datetime.datetime.strptime(str(d1),"%Y-%m-%d")
     return ((d2-d1).days-(d2-d1).seconds/86400.0)/365.2425
 @app.route('/studentinfo',methods=['GET','POST'])
 def studentinfo():
@@ -236,7 +235,6 @@ def studentinfo():
         mname=request.form['mname']
         regno=request.form['registration_number']
         sex=request.form['gender']
-        dob=str(request.form['dob'])
         dob =datetime.datetime.strptime(request.form['dob'],"%d/%m/%Y")
         email=request.form['email']
         phno=request.form['phone_number']
