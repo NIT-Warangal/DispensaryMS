@@ -80,33 +80,42 @@ def add():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
-
+store=0
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    global store
     error = None
     db=get_cursor()
+    session['temp']=0
     if request.method == 'POST':
         uname=str(request.form['username'])
         pwd=str(request.form['password'])
         sql='select Count(*) from Login where UserName="%s" and Password="%s"'%(uname,pwd)
         db.execute(sql)
         data = db.fetchone()[0]
-        if data ==0:
+        if data == 0:
             error='Invalid username/password'
         else:
             session['logged_in'] = True
+            sql='select Occupation from Login where UserName="%s" and Password="%s"'%(uname,pwd)
+            db.execute(sql)
+            result=db.fetchone()[0]
+            session['temp']=result
+            db.execute("COMMIT")
             app.config['USERNAME'] = uname
             flash('You were logged in ')
-        return redirect(url_for('screen'))
+            return redirect(url_for('screen'))
     return render_template('login.html', error=error) #login.html
 
 t=0
 @app.route('/inventory')
 def inventory():
+    global store
     db=get_cursor()
     db.execute('select * from Pharmacy order by Sno')
     entries = db.fetchall()
     db.execute('commit')
+    flash(session['temp'])
     return render_template('pharmventory.html',entries = entries)
 
 @app.route('/insert',methods=['GET','POST'])
@@ -255,6 +264,7 @@ def studentinfo():
 def logout():
     if session['logged_in']==True:
         session.pop('logged_in', None)
+        session.pop('temp',0)
         flash('You were logged out')
     return redirect(url_for('screen'))#show_entries.html
 
