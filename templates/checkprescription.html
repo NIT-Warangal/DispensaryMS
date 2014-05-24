@@ -1,0 +1,41 @@
+{% extends "layout.html"%}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-xs-offset-2 col-xs-8 col-sm-8 col-md-8 col-lg-8">
+			
+			<table class="table table-condensed table-responsive table-striped">
+				<thead>
+					<tr>
+						<th>Doctor#</th>
+						{% if session.temp==1 %}
+						<th>Reg.No</th>
+						{% endif %}
+						{% if session.temp==2 %}
+						<th>Emp ID</th>
+						{% endif %}
+						<th>Date</th>
+						<th>Cause</th>
+						<th>Medication</th>
+						<th>Quantity</th>
+						<th>Remarks</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for entry in entries%}
+					<tr>
+						<td>{{entry[0]}}</td>
+						<td>{{entry[1]}}</td>
+						<td>{{entry[6]}}</td>
+						<td>{{entry[2]}}</td>
+						<td>{{entry[3]}}</td>
+						<td>{{entry[4]}}</td>
+						<td>{{entry[5]}}</td>
+					</tr>
+				{% endfor %}					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{%- endblock %}

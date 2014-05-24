@@ -1,4 +1,3 @@
-
 {% extends "layout.html" %}
 {% block body %}
 <script>
@@ -23,10 +22,13 @@
 <style>
 .divider{
     position:absolute;
-    left:25%;
-    top:10%;
+    left:33%;
+    top:22%;
+    /*height: 105%;*/
     bottom:10%;
-    border-left:1px solid black;
+    background: none repeat scroll 0 0 #777;
+    border-left:2px solid black;
+    margin-left: 20px;
 }
 </style>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/inventory.css') }}">
@@ -36,16 +38,12 @@
   <h1>You have to be logged in as Pharmacist.</h1>
 </div>
 {% if error %}
-<p class="bg-danger text-danger"><strong>Error:</strong> {{ error }}
+<p class="bg-danger"><strong>Error:</strong> {{ error }}
 {% endif %}
 {% else %}
 
 <div class="row">
-<<<<<<< HEAD
-    <div class="col-xs-4" >
-=======
     <div class="col-xs-3">
->>>>>>> 7d0ad13d6aa675439edf81d5b7dfb516853d7947
         <div class="container">
             <div class="row">
                 <div class="col-xs-6">
@@ -114,22 +112,22 @@
         <form action="{{url_for('updel')}}" method="post">
         {%set i=0 -%}
         {%set j=0 -%}
-            <div class="panel panel-primary" style="padding-right: 100px;">
-      		    <div class="panel-heading">
+            <div class="panel panel-primary" style="padding-right: 50px; margin-left:130px; margin-top:40px;">
+                <div class="panel-heading">
                     <h1 class="panel-title" style="text-align:center;font-size:30px;"><b>Inventory Items</b></h1>
                 </div>
-                <table class="table table-condensed table-responsive table-hover" id="item-table">
+                <table class="table table-condensed table-responsive table-hover" id="item-table" >
                     <thead>
-				        <tr>
-					       <th class="col-sm-1" width="3%">#S.No</th>
-					       <th class="col-sm-3">Name of Item</th>
-					       <th class="col-sm-1">Quantity</th>
-					       <th class="col-sm-1">Batch Number</th>
-					       <th class="col-sm-2">Manufacture Date</th>
-					       <th class="col-sm-3">Expiry Date</th>
-					       <th class="col-sm-1" style="font-size:11px;"><strong><b>Update</b></strong></th>
-					       <th class="col-sm-1"style="font-size:11px;"><strong><b>Delete</b></strong></th>
-				        </tr>
+                        <tr>
+                           <th class="col-sm-1">#S.No</th>
+                           <th class="col-sm-3">Name of Item</th>
+                           <th class="col-sm-1">Quantity</th>
+                           <th class="col-sm-1">Batch Number</th>
+                           <th class="col-sm-2">Manufacture Date</th>
+                           <th class="col-sm-3">Expiry Date</th>
+                           <th class="col-sm-1" style="font-size:11px;"><strong><b>Update</b></strong></th>
+                           <th class="col-sm-1"style="font-size:11px;"><strong><b>Delete</b></strong></th>
+                        </tr>
                     </thead>
                     <tbody>
                         {%if entries|length>0 -%}
@@ -137,13 +135,13 @@
                         {%set i=i+1 %}
                         {%set j=j+1 -%}
                         <tr>
-                            <td><input type="number" value="{{entry[0]}}" name="Sno{{i}}" class="form-control"></td>
-                            <td><input type="name" value="{{entry[1]}}" name="Name{{i}}" class="form-control"></td>
-                            <td><input type="number" value="{{entry[2]}}" name="qty{{i}}" class="form-control"></td>
-                            <td><input type="number" value="{{entry[3]}}" name="bno{{i}}" class="form-control"></td>
-                            <td><input type="text"  value="{{entry[4].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="mfgdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control"></td>
+                            <td><input type="number" value="{{entry[0]}}" name="Sno{{i}}" class="form-control" style="font-size:13px;"></td>
+                            <td><input type="name" value="{{entry[1]}}" name="Name{{i}}" class="form-control" style="font-size:13px;"></td>
+                            <td><input type="number" value="{{entry[2]}}" name="qty{{i}}" class="form-control" style="font-size:13px;"></td>
+                            <td><input type="number" value="{{entry[3]}}" name="bno{{i}}" class="form-control" style="font-size:13px;"></td>
+                            <td><input type="text"  value="{{entry[4].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="mfgdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control" style="font-size:13px;"></td>
                         {%set j=j+1 -%}
-                            <td><input type="text"  value="{{entry[5].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="expdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control"></td>
+                            <td><input type="text"  value="{{entry[5].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="expdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control" style="font-size:13px;"></td>
                             <td><button type="submit" value="update{{i}}" name="btn1" class="btn btn-sm btn-primary"><span style="font-size:15px;"class="glyphicon glyphicon-edit"></span></button></td>
                             <td><button type="submit" value="delete{{i}}" name="btn1" class="btn btn-sm btn-danger"><span style="font-size:15px;"class="glyphicon glyphicon-remove"></span></button></td><br>
                         </tr>
