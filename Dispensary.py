@@ -42,11 +42,12 @@ def add():
     mname=request.form['MiddleName']
     lname=request.form['LastName']
     bgroup=request.form['BloodGroup']
-    dob=request.form['dateofbirth']
-    year=int(dob[0:4])
-    month=int(dob[5:7])
-    date=int(dob[8:10])
-    dob=datetime.date(year,month,date)
+    # dob=request.form['dateofbirth']
+    # year=int(dob[6:10])
+    # month=int(dob[3:5])
+    # date=int(dob[0:2])
+    dob = datetime.datetime.strptime(request.form['DateOfBirth'],"%d/%m/%Y")
+    # dob=datetime.date(year,month,date)
     age=request.form['Age']
     typ=request.form['Type']
     phn=request.form['phno']
