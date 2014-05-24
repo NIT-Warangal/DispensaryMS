@@ -17,8 +17,18 @@
 			{% if not session.logged_in %}
 			<li><a href="/login">Login</a></li>
 			{% endif %}
+			{% if session.temp==1 %}
+			<li><a href="/student">Profile</a></li>
+			{% endif%}
+			{% if session.temp==2 %}
+			<li><a href="/employee">Profile</a></li>
+			{% endif%}
+			{% if session.temp==3 %}
 			<li><a href="/prescription">Prescription</a></li>
+			{% endif%}
+			{% if session.temp==4 %}
 			<li><a href="/inventory">Inventory</a></li>
+			{% endif%}
 			{% if session.logged_in %}
 			<li><a href="/logout">Logout</a></li>
 			{% if error %}

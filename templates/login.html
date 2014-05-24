@@ -1,9 +1,14 @@
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/login.css') }}">
 {% extends "layout.html" %}
 {% block body %}
   <h2 style="text-align:center;">Login</h2>
-  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  {% if error %}<p class="bg-danger"><strong>Error:</strong> {{ error }}</p>{% endif %}
   <style>
+    .bg-danger{
+      margin-top: -70px;
+      text-align: center;
+    }
     #submit{
       font-family: sans-serif;
       border: 0px none;
