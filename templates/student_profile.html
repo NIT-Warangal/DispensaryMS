@@ -1,6 +1,15 @@
 {% extends "layout.html" %}
 {% block body %}
 {% if session.logged_in %}
+<script>
+$(function() {
+  $( "#datepicker" ).datepicker({
+    dateFormat: 'dd/mm/yy',
+       changeMonth: true,
+       changeYear: true
+    });
+});
+</script>
  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
 <h1 style="text-align:center;">Student Profile</h1>
 <div class="clearfix visible-xs hidden-print"></div>
@@ -55,7 +64,7 @@
       <div class="form-group">
         <label for="inputDob" class="col-sm-4  ">Date of Birth</label>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
-          <input type="datetime" name="dob" id="inputDob" class="form-control input-sm" value="{{entry[6]}}" required="required" title="">
+          <input type="datetime" name="dob" id="datepicker" class="form-control input-sm" value="{{entry[6].strftime('%d/%m/%Y')}}" required="required" title="">
         </div>
       </div>
 

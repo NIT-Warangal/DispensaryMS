@@ -61,18 +61,6 @@ def add():
     flash('New user '+ regno + ' registered')
     return redirect(url_for('screen'))#show_entriesreturn render_template(url_for('show_entries.html'))
 
-# @app.route('/reg', methods=['POST']) #reg
-# def add_user():
-#     if not session.get('logged_in'):
-#         abort(401)
-#     db = get_cursor()
-#     db.execute('insert into Users (Sno, RegNo, First Name, Middle Name,Last Name, Blood Group, Date of Birth, Age, Type, Phone number, Address, email) values (%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
-#         [request.form['Sno'], request.form['RegNo'],request.form['FirstName'],request.form['MiddleName'],request.form['LastName'],request.form['BloodGroup'],request.form['DateOfBirth'],request.form['Age'],request.form['Type'],request.form['PhoneNumber'],request.form['text'],request.form['email']])
-
-#     db.commit()
-#     flash('New entry was successfully posted')
-#     return redirect(url_for('show_entries'))
-
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
