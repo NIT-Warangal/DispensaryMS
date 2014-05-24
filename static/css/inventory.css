@@ -1,0 +1,74 @@
+.row{
+		    margin-top:40px;
+		    padding: 0 10px;
+		}
+		.clickable{
+		    cursor: pointer;   
+		}
+    .panel{
+      width: 74%;
+      margin-left: 29px;
+      margin-right: 35px;
+      padding-right: 35px;
+    }
+		.panel-heading div {
+			margin-top: -18px;
+			font-size: 15px;
+		}
+		.panel-heading div span{
+			margin-left:5px;
+		}
+		.panel-body{
+			display: none;
+		}
+.panel.panel-primary > .panel-heading{
+	color:#fff !important;
+	background: #428bca;
+	border-top: 1px solid #23bab5;	
+}
+.dataTables_filter>label>input{
+height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.dataTables_filter>label>input:focus{
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+.dataTables_filter>label>input::-moz-placeholder {
+  color: #999;
+  opacity: 1;
+}
+.dataTables_filter>label>input:-ms-input-placeholder {
+  color: #999;
+}
+.dataTables_filter>label>input::-webkit-input-placeholder {
+  color: #999;
+}
+.dataTables_filter>label>input[disabled],
+.dataTables_filter>label>input[readonly],
+fieldset[disabled] ..dataTables_filter>label>input {
+  cursor: not-allowed;
+  background-color: #eee;
+  opacity: 1;
+}
+.dataTables_wrapper{
+  margin-top: -190px;
+  margin-bottom: 40px;
+}
+table>thead>tr>th{
+  text-align: center;
+  text-indent: right;
+}

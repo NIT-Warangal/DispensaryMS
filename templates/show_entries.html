@@ -2,7 +2,11 @@
 {% block body %}
 <script>
 $(function() {
-  $( "#datepicker" ).datepicker();
+  $( "#datepicker" ).datepicker({
+    dateFormat: 'dd/mm/yy',
+       changeMonth: true,
+       changeYear: true
+    });
 });
 </script>
 {% if session.logged_in %}

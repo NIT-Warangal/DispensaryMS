@@ -42,12 +42,16 @@ def add():
     mname=request.form['MiddleName']
     lname=request.form['LastName']
     bgroup=request.form['BloodGroup']
+<<<<<<< HEAD
     # dob=request.form['dateofbirth']
     # year=int(dob[6:10])
     # month=int(dob[3:5])
     # date=int(dob[0:2])
     dob = datetime.datetime.strptime(request.form['DateOfBirth'],"%d/%m/%Y")
     # dob=datetime.date(year,month,date)
+=======
+    dob =datetime.datetime.strptime(request.form['dateofbirth'],"%d/%m/%Y")
+>>>>>>> 8022497e268c3c5fa487527bfa1f343cbe22508d
     age=request.form['Age']
     typ=request.form['Type']
     phn=request.form['phno']
@@ -102,8 +106,12 @@ def login():
             db.execute(sql)
             result=db.fetchone()[0]
             session['temp']=result
+            sql='select EmpID from Login where UserName="%s" and Password="%s"'%(uname,pwd)
+            db.execute(sql)
+            uid=db.fetchone()[0]
             db.execute("COMMIT")
             app.config['USERNAME'] = uname
+            app.config['USERID'] = uid
             flash('You were logged in ')
             return redirect(url_for('screen'))
     return render_template('login.html', error=error) #login.html
@@ -116,7 +124,6 @@ def inventory():
     db.execute('select * from Pharmacy order by Sno')
     entries = db.fetchall()
     db.execute('commit')
-    flash(session['temp'])
     return render_template('pharmventory.html',entries = entries)
 
 @app.route('/insert',methods=['GET','POST'])
@@ -188,10 +195,20 @@ def fileprescription():
     meds = request.form['Medicine']
     qty = request.form['Quantity']
     remark = request.form['Remarks']
-    db.execute('insert into Prescription values(%s,"%s","%s","%s",%s,"%s")'%(docno,regno,cause,meds,qty,remark))
+    today=datetime.date.today()
+    db.execute('insert into Prescription values(%s,"%s","%s","%s",%s,"%s","%s")'%(docno,regno,cause,meds,qty,remark,today))
     db.execute("COMMIT")
     flash('Prescription for '+regno+' has been given')
     return redirect(url_for('prescription'))
+
+@app.route('/checkprescription',methods=['GET','POST'])
+def checkprescription():
+    db=get_cursor()
+    sql="select * from Prescription where Regno='%s'"%(app.config['USERID'])
+    db.execute(sql)
+    entries = db.fetchall()
+    db.execute("COMMIT")
+    return render_template('checkprescription.html',entries=entries)
 
 @app.route('/employee',methods=['GET','POST'])
 def employee():
@@ -241,10 +258,7 @@ def studentinfo():
         regno=request.form['registration_number']
         sex=request.form['gender']
         dob=str(request.form['dob'])
-        year=int(dob[0:4])
-        month=int(dob[5:7])
-        date=int(dob[8:10])
-        dob=datetime.date(year,month,date)
+        dob =datetime.datetime.strptime(request.form['dob'],"%d/%m/%Y")
         email=request.form['email']
         phno=request.form['phone_number']
         age=int(years_between(dob))
