@@ -1,10 +1,16 @@
 {% extends "layout.html"%}
 {% block body %}
+{% if session.logged_in %}
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#item-table').DataTable();
+} );
+</script>
 <div class="container">
 	<div class="row">
 		<div class="col-xs-offset-2 col-xs-8 col-sm-8 col-md-8 col-lg-8">
 			
-			<table class="table table-condensed table-responsive table-striped">
+			<table class="table table-condensed table-responsive table-striped" id="item-table">
 				<thead>
 					<tr>
 						<th>Doctor#</th>
@@ -26,7 +32,7 @@
 					<tr>
 						<td>{{entry[0]}}</td>
 						<td>{{entry[1]}}</td>
-						<td>{{entry[6]}}</td>
+						<td title="dd/mm/yyyy">{{entry[6].strftime("%d/%m/%Y")}}</td>
 						<td>{{entry[2]}}</td>
 						<td>{{entry[3]}}</td>
 						<td>{{entry[4]}}</td>
@@ -38,4 +44,5 @@
 		</div>
 	</div>
 </div>
+{%endif%}
 {%- endblock %}

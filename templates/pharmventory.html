@@ -16,7 +16,12 @@
 
 <script type="text/javascript">
   $(document).ready( function () {
-    $('#item-table').DataTable();
+    var table=$('#item-table').DataTable({
+         "iDisplayLength":5,
+     "sPaginationType": "full_numbers",
+    "oLanguage": {"sSearch": "Filter: "},
+    "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
+    });
 } );
 </script>
 <style>
@@ -46,12 +51,12 @@
     <div class="col-xs-3">
         <div class="container">
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-8">
                     <form action="{{url_for('insert')}}" method="post">
-                        <div class="form-horizontal" role="form">
+                        <div class="form-horizontal" role="form" >
                             <fieldset>
-                                <div class="panel panel-primary">
-                                <div class="panel-heading">
+                                <div class="panel panel-primary" style="padding-right:120px;margin-left:-20px">
+                                <div class="panel-heading" >
                                     <h1 class="panel-title" style="text-align:left;font-size:30px;"><b>Add New Item</b></h1>
                                 </div>
                                 </div>
@@ -112,7 +117,7 @@
         <form action="{{url_for('updel')}}" method="post">
         {%set i=0 -%}
         {%set j=0 -%}
-            <div class="panel panel-primary" style="padding-right: 50px; margin-left:130px; margin-top:40px;">
+            <div class="panel panel-primary" style="padding-right: 20px; margin-left:130px; margin-top:40px;">
                 <div class="panel-heading">
                     <h1 class="panel-title" style="text-align:center;font-size:30px;"><b>Inventory Items</b></h1>
                 </div>
@@ -129,7 +134,7 @@
                            <th class="col-sm-1"style="font-size:11px;"><strong><b>Delete</b></strong></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody align="center">
                         {%if entries|length>0 -%}
                         {% for entry in entries -%}
                         {%set i=i+1 %}

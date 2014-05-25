@@ -23,7 +23,7 @@ def get_cursor():
 @app.teardown_appcontext
 def close_db():
     """Closes the database again at the end of the request."""
-    mysql.connect().close()
+    get_cursor().close()
 
 @app.route('/')
 def screen():
@@ -43,6 +43,7 @@ def add():
     lname=request.form['LastName']
     bgroup=request.form['BloodGroup']
 <<<<<<< HEAD
+<<<<<<< HEAD
     # dob=request.form['dateofbirth']
     # year=int(dob[6:10])
     # month=int(dob[3:5])
@@ -52,6 +53,9 @@ def add():
 =======
     dob =datetime.datetime.strptime(request.form['dateofbirth'],"%d/%m/%Y")
 >>>>>>> 8022497e268c3c5fa487527bfa1f343cbe22508d
+=======
+    dob =datetime.datetime.strptime(request.form['dateofbirth'],"%d/%m/%Y")
+>>>>>>> 10b84a4da5ee5b2c7bd1bfefdb3e9717098c31d5
     age=request.form['Age']
     typ=request.form['Type']
     phn=request.form['phno']
@@ -69,18 +73,6 @@ def add():
     db.execute("COMMIT")
     flash('New user '+ regno + ' registered')
     return redirect(url_for('screen'))#show_entriesreturn render_template(url_for('show_entries.html'))
-
-# @app.route('/reg', methods=['POST']) #reg
-# def add_user():
-#     if not session.get('logged_in'):
-#         abort(401)
-#     db = get_cursor()
-#     db.execute('insert into Users (Sno, RegNo, First Name, Middle Name,Last Name, Blood Group, Date of Birth, Age, Type, Phone number, Address, email) values (%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
-#         [request.form['Sno'], request.form['RegNo'],request.form['FirstName'],request.form['MiddleName'],request.form['LastName'],request.form['BloodGroup'],request.form['DateOfBirth'],request.form['Age'],request.form['Type'],request.form['PhoneNumber'],request.form['text'],request.form['email']])
-
-#     db.commit()
-#     flash('New entry was successfully posted')
-#     return redirect(url_for('show_entries'))
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -204,7 +196,7 @@ def fileprescription():
 @app.route('/checkprescription',methods=['GET','POST'])
 def checkprescription():
     db=get_cursor()
-    sql="select * from Prescription where Regno='%s'"%(app.config['USERID'])
+    sql="select * from Prescription where Regno='%s' order by Date desc"%(app.config['USERID'])
     db.execute(sql)
     entries = db.fetchall()
     db.execute("COMMIT")
@@ -246,7 +238,6 @@ def student():
     return render_template('student_profile.html',entries = entries,chars=chars)
 def years_between(d1):
     d2=datetime.datetime.today()
-    d1=datetime.datetime.strptime(str(d1),"%Y-%m-%d")
     return ((d2-d1).days-(d2-d1).seconds/86400.0)/365.2425
 @app.route('/studentinfo',methods=['GET','POST'])
 def studentinfo():
@@ -257,7 +248,6 @@ def studentinfo():
         mname=request.form['mname']
         regno=request.form['registration_number']
         sex=request.form['gender']
-        dob=str(request.form['dob'])
         dob =datetime.datetime.strptime(request.form['dob'],"%d/%m/%Y")
         email=request.form['email']
         phno=request.form['phone_number']
