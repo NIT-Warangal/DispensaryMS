@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if session.logged_in %}
+    <title>Upload Bill Scans</title>
+    <div class="col-xs-1"></div>
+    <div class="col-xs-10">
+    <form class="form-horizontal" action="" method=post enctype=multipart/form-data>
+    	<fieldset>
+    	<legend>Bills Upload</legend>
+		<div class="control-group">
+			<label class="control-label" for="File">Select File</label>
+			<div class="controls">
+				<input id="file" name="file" class="input-file" type="file">
+			</div>
+		</div>
+         <input type=submit value=Upload>
+     	</fieldset>
+    </form>
+    <div class="jumbotron">
+		<h1>You will be redirected to see the final uploaded file once it has been successfully uploaded. The Date of the upload and the filename are tracked.</h1>
+	</div>
+    </div>
+    <div class="col-xs-1"></div>
+    {%else%}
+	<div class="jumbotron">
+		<h1>Only Pharmacists are allowed to use this.</h1>
+	</div>
+{% endif %}
+{% endblock %}
