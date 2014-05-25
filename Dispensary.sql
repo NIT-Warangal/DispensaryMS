@@ -72,6 +72,19 @@ CREATE TABLE IF NOT EXISTS `Login` (
 
 -- --------------------------------------------------------
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Bills` to keep track of uploads
+--
+
+CREATE TABLE IF NOT EXISTS `Bills` (
+  `FileName` text NOT NULL,
+  `Date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `Pharmacy`
 --

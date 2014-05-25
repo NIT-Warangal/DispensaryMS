@@ -4,11 +4,18 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 from flaskext.mysql import MySQL
 from config import config
+from werkzeug.utils import secure_filename
+from flask import send_from_directory
 import datetime
  
 mysql = MySQL()
 # create our little application :)
 app = Flask(__name__)
+
+# Managing Bills Position
+UPLOAD_FOLDER = 'bills/'
+ALLOWED_EXTENSIONS = set(['pdf', 'png', 'tiff', 'jpg', 'jpeg', 'gif'])
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 for key in config:
     app.config[key] = config[key]
@@ -24,6 +31,33 @@ def get_cursor():
 def close_db():
     """Closes the database again at the end of the request."""
     get_cursor().close()
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
+
+@app.route('/bills', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        db = get_cursor()
+        file = request.files['file']
+        now = datetime.datetime.now()
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            sql ='insert into Bills values ("%s","%s")'
+            db.execute(sql%(filename,now))
+            db.execute("COMMIT")
+            return redirect(url_for('uploaded_file',
+                                    filename=filename))
+        else:
+            flash('This type of file is invalid. Use \'pdf\', \'png\', \'tiff\', \'jpg\', \'jpeg\', \'gif\'')
+    return render_template('fileupload.html')
 
 @app.route('/')
 def screen():
