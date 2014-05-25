@@ -42,20 +42,12 @@ def add():
     mname=request.form['MiddleName']
     lname=request.form['LastName']
     bgroup=request.form['BloodGroup']
-<<<<<<< HEAD
-<<<<<<< HEAD
     # dob=request.form['dateofbirth']
     # year=int(dob[6:10])
     # month=int(dob[3:5])
     # date=int(dob[0:2])
-    dob = datetime.datetime.strptime(request.form['DateOfBirth'],"%d/%m/%Y")
     # dob=datetime.date(year,month,date)
-=======
     dob =datetime.datetime.strptime(request.form['dateofbirth'],"%d/%m/%Y")
->>>>>>> 8022497e268c3c5fa487527bfa1f343cbe22508d
-=======
-    dob =datetime.datetime.strptime(request.form['dateofbirth'],"%d/%m/%Y")
->>>>>>> 10b84a4da5ee5b2c7bd1bfefdb3e9717098c31d5
     age=request.form['Age']
     typ=request.form['Type']
     phn=request.form['phno']
@@ -196,7 +188,7 @@ def fileprescription():
 @app.route('/checkprescription',methods=['GET','POST'])
 def checkprescription():
     db=get_cursor()
-    sql="select * from Prescription where Regno='%s' order by Date desc"%(app.config['USERID'])
+    sql="select * from Prescription where RegNo='%s' order by Date desc"%(app.config['USERID'])
     db.execute(sql)
     entries = db.fetchall()
     db.execute("COMMIT")

@@ -1,12 +1,22 @@
 {% extends "layout.html"%}
 {% block body %}
 {% if session.logged_in %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
 <script type="text/javascript">
   $(document).ready( function () {
     $('#item-table').DataTable();
 } );
 </script>
-<div class="container">
+<script>
+	function printDiv(divName) {
+		var printContents = document.getElementById(divName).innerHTML;
+		var originalContents = document.body.innerHTML;
+		document.body.innerHTML = printContents;
+		window.print();
+		document.body.innerHTML = originalContents;
+	}
+</script>
+<div class="container" id="printable">
 	<div class="row">
 		<div class="col-xs-offset-2 col-xs-8 col-sm-8 col-md-8 col-lg-8">
 			
@@ -43,6 +53,9 @@
 			</table>
 		</div>
 	</div>
+</div>
+<div class="wrapper" style="text-align:center;">
+	<input class="btn btn-primary" type="button" onclick="printDiv('printable')" value="Print Your Prescription" />
 </div>
 {%endif%}
 {%- endblock %}

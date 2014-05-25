@@ -97,7 +97,8 @@ CREATE TABLE IF NOT EXISTS `Prescription` (
   `Cause` text NOT NULL,
   `Medicine` text NOT NULL,
   `Quantity` int(11) NOT NULL,
-  `Remarks` text NOT NULL
+  `Remarks` text NOT NULL,
+  `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
