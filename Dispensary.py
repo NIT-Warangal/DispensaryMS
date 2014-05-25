@@ -76,11 +76,6 @@ def add():
     mname=request.form['MiddleName']
     lname=request.form['LastName']
     bgroup=request.form['BloodGroup']
-    # dob=request.form['dateofbirth']
-    # year=int(dob[6:10])
-    # month=int(dob[3:5])
-    # date=int(dob[0:2])
-    # dob=datetime.date(year,month,date)
     dob =datetime.datetime.strptime(request.form['dateofbirth'],"%d/%m/%Y")
     age=request.form['Age']
     typ=request.form['Type']
@@ -247,6 +242,27 @@ def employee():
 def employeeinfo():
     return redirect(url_for('employee'))
 
+@app.route('/register_dependency',methods=['GET','POST'])
+def register_dependency():
+    if request.method=='POST':
+        i=0
+        db=get_cursor()
+        number_of_dependencies=0
+        for i in range(1,10):
+            if request.form['btn']=='add'+str(i):
+                number_of_dependencies=i
+                for j in range(0,number_of_dependencies):
+                    regno=app.config['USERID']
+                    name=request.form['name'+str(j)]
+                    dob=request.form['dob'+str(j)]
+                    dob =datetime.datetime.strptime(dob,"%d/%m/%Y")
+                    sex=request.form['gender'+str(j)]
+                    relation=request.form['rel'+str(j)]
+                    sql='insert into Dependencies values("%s","%s","%s","%s","%s")'%(regno,name,dob,sex,relation)
+                    db.execute(sql)
+                db.execute("commit")
+                flash('working'+str(i))
+    return render_template('register_dependency.html')
 @app.route('/student',methods=['GET','POST'])
 def student():
     db = get_cursor()
@@ -293,10 +309,13 @@ def studentinfo():
 
 @app.route('/logout')
 def logout():
-    if session['logged_in']==True:
-        session.pop('logged_in', None)
-        session.pop('temp',0)
-        flash('You were logged out')
+    if session['logged_in'] != None:
+        if session['logged_in']==True:
+            session.pop('logged_in', None)
+            session.pop('temp',0)
+            flash('You were logged out')
+        else:
+            flash('Welcome Back!')
     return redirect(url_for('screen'))#show_entries.html
 
 if __name__ == '__main__':

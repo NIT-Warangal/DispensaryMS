@@ -1,4 +1,3 @@
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
 {% extends "layout.html" %}
 {% block body %}
 <div class=metanav>
@@ -16,6 +15,9 @@
     <h1>Hello!</h1>
     <p>Thank you for using Dispensary System. As a first time user, you would have to register. Please click the register button to register your data with the dispensary so that you can use it.</p>
     <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p>
+    {% if session.temp==2%}
+    <p><a class="btn btn-info btn-lg" role="button" href="{{url_for('register_dependency')}}">Add Your Family Details</a></p>
+    {% endif %}
     <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription">Check Prescriptions</a></p>
     <p><a class="btn btn-primary btn-lg" role="button" href="/logout">Logout</a></p>
   </div>
