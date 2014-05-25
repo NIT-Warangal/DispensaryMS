@@ -51,7 +51,7 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             sql ='insert into Bills values ("%s","%s")'
-            db.execute(sql%(filename,now))
+            db.execute(sql%((filename+now.strftime("%Y-%m-%d %H:%M")),now))
             db.execute("COMMIT")
             return redirect(url_for('uploaded_file',
                                     filename=filename))
