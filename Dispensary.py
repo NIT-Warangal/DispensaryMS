@@ -263,6 +263,13 @@ def register_dependency():
                 db.execute("commit")
                 flash('working'+str(i))
     return render_template('register_dependency.html')
+@app.route('/show_dependency',methods=['GET','POST'])
+def show_dependency():
+    db=get_cursor()
+    sql='select * from Dependencies where Regno="%s"'%(app.config['USERID'])
+    db.execute(sql)
+    entries=db.fetchall()
+    return render_template('show_dependency.html',entries=entries)
 @app.route('/student',methods=['GET','POST'])
 def student():
     db = get_cursor()
@@ -321,4 +328,5 @@ def logout():
 if __name__ == '__main__':
     app.debug = True
     app.secret_key=os.urandom(24)
+    # app.permanent_session_lifetime = datetime.timedelta(seconds=200)
     app.run()

@@ -1,40 +1,40 @@
 {% extends "layout.html" %}
 {% block body %}
 <script>
-     $(function() {
+   $(function() {
       var j = $('#jvalue').attr("value");
       while(j) {
-      $( "#datepicker"+j ).datepicker({
-       dateFormat: 'dd/mm/yy',
-       changeMonth: true,
-       changeYear: true
-             });
-      --j;
+          $( "#datepicker"+j ).datepicker({
+             dateFormat: 'dd/mm/yy',
+             changeMonth: true,
+             changeYear: true
+         });
+          --j;
       };
-    });
-  </script>
+  });
+</script>
 
 <script type="text/javascript">
   $(document).ready( function () {
     var table=$('#item-table').DataTable({
-         "iDisplayLength":5,
-     "sPaginationType": "full_numbers",
-    "oLanguage": {"sSearch": "Filter: "},
-    "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
-    });
+       "iDisplayLength":5,
+       "sPaginationType": "full_numbers",
+       "oLanguage": {"sSearch": "Filter: "},
+       "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
+   });
 } );
 </script>
 <style>
-.divider{
-    position:absolute;
-    left:33%;
-    top:22%;
-    /*height: 105%;*/
-    bottom:10%;
-    background: none repeat scroll 0 0 #777;
-    border-left:2px solid black;
-    margin-left: 20px;
-}
+    .divider{
+        position:absolute;
+        left:33%;
+        top:22%;
+        /*height: 105%;*/
+        bottom:10%;
+        background: none repeat scroll 0 0 #777;
+        border-left:2px solid black;
+        margin-left: 20px;
+    }
 </style>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/inventory.css') }}">
 
@@ -44,119 +44,119 @@
 </div>
 {% if error %}
 <p class="bg-danger"><strong>Error:</strong> {{ error }}
-{% endif %}
-{% else %}
+    {% endif %}
+    {% else %}
 
-<div class="row">
-    <div class="col-xs-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-8">
-                    <form action="{{url_for('insert')}}" method="post">
-                        <div class="form-horizontal" role="form" >
-                            <fieldset>
-                                <div class="panel panel-primary" style="padding-right:120px;margin-left:-20px">
-                                <div class="panel-heading" >
-                                    <h1 class="panel-title" style="text-align:left;font-size:30px;"><b>Add New Item</b></h1>
-                                </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="serialNumber">S.No:</label>
-                                    <div class="col-sm-4">
-                                        <input type="number" placeholder="Serial Number" class="form-control" value="{{entries|length+1}}" name="Sno">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="medicineName">Name:</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" placeholder="Name of the item" class="form-control" name="Name">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="quantity">Quantity:</label>
-                                    <div class="col-sm-4">
-                                        <input type="number" placeholder="Quantity" class="form-control" name="qty">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="batchNumber">Batch Number:</label>
-                                    <div class="col-sm-4">
-                                        <input type="number" placeholder="Quantity" class="form-control" name="bno">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="mfgDate">Manufacturing Date:</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" placeholder="DD/MM/YYYY" class="form-control" name="mfgdate" id="datepicker{{(entries|length)*2+1}}"  data-toggle="tooltip" title="dd/mm/yyyy">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="expDate">Expiry Date:</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" placeholder="DD/MM/YYYY" class="form-control" name="expdate" id="datepicker{{(entries|length)*2+2}}">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-5 col-sm-offset-1">
-                                        <div class="pull-right" style="margin: 0px auto; width: 100%;">
-                                            <input type="submit" class="btn btn-default" name="btn" value="Cancel">
-                                            <input type="submit" class="btn btn-primary" name="btn" value="Insert">
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <form action="{{url_for('insert')}}" method="post">
+                            <div class="form-horizontal" role="form" >
+                                <fieldset>
+                                    <div class="panel panel-primary" style="padding-right:120px;margin-left:-20px">
+                                        <div class="panel-heading" >
+                                            <h1 class="panel-title" style="text-align:left;font-size:30px;"><b>Add New Item</b></h1>
                                         </div>
                                     </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </form>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="serialNumber">S.No:</label>
+                                        <div class="col-sm-4">
+                                            <input type="number" placeholder="Serial Number" class="form-control" value="{{entries|length+1}}" name="Sno">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="medicineName">Name:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" placeholder="Name of the item" class="form-control" name="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="quantity">Quantity:</label>
+                                        <div class="col-sm-4">
+                                            <input type="number" placeholder="Quantity" class="form-control" name="qty">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="batchNumber">Batch Number:</label>
+                                        <div class="col-sm-4">
+                                            <input type="number" placeholder="Quantity" class="form-control" name="bno">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="mfgDate">Manufacturing Date:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" placeholder="DD/MM/YYYY" class="form-control" name="mfgdate" id="datepicker{{(entries|length)*2+1}}"  data-toggle="tooltip" title="dd/mm/yyyy">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="expDate">Expiry Date:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" placeholder="DD/MM/YYYY" class="form-control" name="expdate" id="datepicker{{(entries|length)*2+2}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-5 col-sm-offset-1">
+                                            <div class="pull-right" style="margin: 0px auto; width: 100%;">
+                                                <input type="submit" class="btn btn-default" name="btn" value="Cancel">
+                                                <input type="submit" class="btn btn-primary" name="btn" value="Insert">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="divider"></div>
-    <div class="col-xs-2 col-md-2 col-lg-2">
-    <div class="container">
-        <form action="{{url_for('updel')}}" method="post">
-        {%set i=0 -%}
-        {%set j=0 -%}
-            <div class="panel panel-primary" style="padding-right: 20px; margin-left:130px; margin-top:40px;">
-                <div class="panel-heading">
-                    <h1 class="panel-title" style="text-align:center;font-size:30px;"><b>Inventory Items</b></h1>
+        <div class="divider"></div>
+        <div class="col-xs-2 col-md-2 col-lg-2">
+            <div class="container">
+                <form action="{{url_for('updel')}}" method="post">
+                    {%set i=0 -%}
+                    {%set j=0 -%}
+                    <div class="panel panel-primary" style="padding-right: 20px; margin-left:130px; margin-top:40px;">
+                        <div class="panel-heading">
+                            <h1 class="panel-title" style="text-align:center;font-size:30px;"><b>Inventory Items</b></h1>
+                        </div>
+                        <table class="table table-condensed table-responsive table-hover" id="item-table" >
+                            <thead>
+                                <tr>
+                                 <th class="col-sm-1">#S.No</th>
+                                 <th class="col-sm-3">Name of Item</th>
+                                 <th class="col-sm-1">Quantity</th>
+                                 <th class="col-sm-1">Batch Number</th>
+                                 <th class="col-sm-2">Manufacture Date</th>
+                                 <th class="col-sm-3">Expiry Date</th>
+                                 <th class="col-sm-1" style="font-size:11px;"><strong><b>Update</b></strong></th>
+                                 <th class="col-sm-1"style="font-size:11px;"><strong><b>Delete</b></strong></th>
+                             </tr>
+                         </thead>
+                         <tbody align="center">
+                            {%if entries|length>0 -%}
+                            {% for entry in entries -%}
+                            {%set i=i+1 %}
+                            {%set j=j+1 -%}
+                            <tr>
+                                <td><input type="number" value="{{entry[0]}}" name="Sno{{i}}" class="form-control" style="font-size:13px;"></td>
+                                <td><input type="name" value="{{entry[1]}}" name="Name{{i}}" class="form-control" style="font-size:13px;"></td>
+                                <td><input type="number" value="{{entry[2]}}" name="qty{{i}}" class="form-control" style="font-size:13px;"></td>
+                                <td><input type="number" value="{{entry[3]}}" name="bno{{i}}" class="form-control" style="font-size:13px;"></td>
+                                <td><input type="text"  value="{{entry[4].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="mfgdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control" style="font-size:13px;"></td>
+                                {%set j=j+1 -%}
+                                <td><input type="text"  value="{{entry[5].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="expdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control" style="font-size:13px;"></td>
+                                <td><button type="submit" value="update{{i}}" name="btn1" class="btn btn-sm btn-primary"><span style="font-size:15px;"class="glyphicon glyphicon-edit"></span></button></td>
+                                <td><button type="submit" value="delete{{i}}" name="btn1" class="btn btn-sm btn-danger"><span style="font-size:15px;"class="glyphicon glyphicon-remove"></span></button></td><br>
+                            </tr>
+                            {% endfor -%}
+                            {% endif -%}
+                            <input type="hidden" value="{{entries|length*2+2}}" id="jvalue">
+                        </tbody>
+                    </table >
                 </div>
-                <table class="table table-condensed table-responsive table-hover" id="item-table" >
-                    <thead>
-                        <tr>
-                           <th class="col-sm-1">#S.No</th>
-                           <th class="col-sm-3">Name of Item</th>
-                           <th class="col-sm-1">Quantity</th>
-                           <th class="col-sm-1">Batch Number</th>
-                           <th class="col-sm-2">Manufacture Date</th>
-                           <th class="col-sm-3">Expiry Date</th>
-                           <th class="col-sm-1" style="font-size:11px;"><strong><b>Update</b></strong></th>
-                           <th class="col-sm-1"style="font-size:11px;"><strong><b>Delete</b></strong></th>
-                        </tr>
-                    </thead>
-                    <tbody align="center">
-                        {%if entries|length>0 -%}
-                        {% for entry in entries -%}
-                        {%set i=i+1 %}
-                        {%set j=j+1 -%}
-                        <tr>
-                            <td><input type="number" value="{{entry[0]}}" name="Sno{{i}}" class="form-control" style="font-size:13px;"></td>
-                            <td><input type="name" value="{{entry[1]}}" name="Name{{i}}" class="form-control" style="font-size:13px;"></td>
-                            <td><input type="number" value="{{entry[2]}}" name="qty{{i}}" class="form-control" style="font-size:13px;"></td>
-                            <td><input type="number" value="{{entry[3]}}" name="bno{{i}}" class="form-control" style="font-size:13px;"></td>
-                            <td><input type="text"  value="{{entry[4].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="mfgdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control" style="font-size:13px;"></td>
-                        {%set j=j+1 -%}
-                            <td><input type="text"  value="{{entry[5].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="expdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control" style="font-size:13px;"></td>
-                            <td><button type="submit" value="update{{i}}" name="btn1" class="btn btn-sm btn-primary"><span style="font-size:15px;"class="glyphicon glyphicon-edit"></span></button></td>
-                            <td><button type="submit" value="delete{{i}}" name="btn1" class="btn btn-sm btn-danger"><span style="font-size:15px;"class="glyphicon glyphicon-remove"></span></button></td><br>
-                        </tr>
-                        {% endfor -%}
-                        {% endif -%}
-                        <input type="hidden" value="{{entries|length*2+2}}" id="jvalue">
-                    </tbody>
-                </table >
-            </div>
-        </form>
+            </form>
         </div>
     </div>
 </div>

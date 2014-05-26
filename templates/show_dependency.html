@@ -1,0 +1,70 @@
+{%extends "layout.html"%}
+{%block body%}
+{%if session.logged_in==true %}
+{% if session.temp==2 %}
+<div class="container">
+	<div class="row">
+		<div class="form-horizontal" role='form'>
+			<form action="update_dependency" method="POST">
+				<table class="table table-condensed table-responsive">
+					<thead>
+						<tr>
+							<th class="col-xs-1">#</th>
+							<th>Name</th>
+							<th>Date of Birth</th>
+							<th>Age</th>
+							<th>Gender</th>
+							<th>Relation</th>
+						</tr>
+					</thead>
+					{%set k=1%}
+					<tbody >
+					{%for entry in entries%}
+						<tr>
+							<td class="col-xs-1"><input value="{{k}}" type="number" class="form-control"></td>
+							<td>{{entry[1]}}</td>
+						
+							<td>{{entry[2].strftime("%d/%m/%Y")}}</td>
+							<td>20</td>
+							<td>
+							{%set selM=''%}
+							{%set selF=''%}
+								<select class="form-control" name="gender">
+								{%if entry[3]=="Male"%}
+								{%set selM='selected'%}
+								{%elif entry[3]=="Female"%}
+								{%set selF='selected'%}
+								{%endif%}
+									<option value="Male" {{selM}}>Male</option>
+									<option value="Female" {{selF}}>Female</option>
+								</select>
+							</td>
+							<td>
+								<select class="form-control" name="rel">
+										<option>Select Gender</option>
+								{%set x=['Father','Mother','Husband','Wife','Son','Daughter']%}
+								{%for i in range(0,x|length)%}
+								{% if entry[4]==x[i]%}
+								<option value="{{entry[4]}}" selected>{{x[i]}}</option>
+								{% else %}
+								<option value="{{x[i]}}" >{{x[i]}}</option>
+								{%endif%}
+								{%endfor%}
+								</select>
+							</td>
+							{%set k=k+1%}
+							{%endfor%}
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>
+{%else%}
+<h1>Access Denied! Please contact webmaster</h1>
+{%endif%}
+{%else%}
+<h1>Access Denied! Please contact webmaster</h1>
+{%endif%}
+{%endblock%}

@@ -4,80 +4,80 @@
 {% if session.temp==2 %}
 <script type="text/javascript">
 	$(document).ready(function(){
-      var i=1;
-      $( "#datepicker0" ).datepicker({
-       dateFormat: 'dd/mm/yy',
-       changeMonth: true,
-       changeYear: true
-             });
-     $("#add_row").click(function(){
-      $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='name"+i+"' type='text' placeholder='Name' class='form-control'/> </td><td><input  name='dob"+i+"'  type='text' placeholder='DateofBirth'  class='form-control' id='datepicker"+i+"' ></td><td><select  name='gender"+i+"' class='form-control'><option>Select Gender</option><option value='Male'>Male</option><option value='Female'>Female</option></select></td><td><select class='form-control' name='rel"+i+"'><option>Select Gender</option><option value='Father'>Father</option><option value='Mother'>Mother</option><option value='Husband'>Husband</option><option value='Wife'>Wife</option><option value='Son'>Son</option><option value='Daughter'>Daughter</option></select></td>");
+		var i=1;
+		$( "#datepicker0" ).datepicker({
+			dateFormat: 'dd/mm/yy',
+			changeMonth: true,
+			changeYear: true
+		});
+		$("#add_row").click(function(){
+			$('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='name"+i+"' type='text' placeholder='Name' class='form-control'/> </td><td><input  name='dob"+i+"'  type='text' placeholder='DateofBirth'  class='form-control' id='datepicker"+i+"' ></td><td><select  name='gender"+i+"' class='form-control'><option>Select Gender</option><option value='Male'>Male</option><option value='Female'>Female</option></select></td><td><select class='form-control' name='rel"+i+"'><option>Select Gender</option><option value='Father'>Father</option><option value='Mother'>Mother</option><option value='Husband'>Husband</option><option value='Wife'>Wife</option><option value='Son'>Son</option><option value='Daughter'>Daughter</option></select></td>");
 
-      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
-      $( "#datepicker"+i ).datepicker({
-       dateFormat: 'dd/mm/yy',
-       changeMonth: true,
-       changeYear: true
-             });
-      i++; 
-      $('#btn').val('add'+i);
-  });
-     $("#delete_row").click(function(){
-    	 if(i>1){
-		 $("#addr"+(i-1)).html('');
-		 i--;
-		 $('#btn').val('add'+i);
-		 }
-	 });
-});
+			$('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+			$( "#datepicker"+i ).datepicker({
+				dateFormat: 'dd/mm/yy',
+				changeMonth: true,
+				changeYear: true
+			});
+			i++; 
+			$('#btn').val('add'+i);
+		});
+		$("#delete_row").click(function(){
+			if(i>1){
+				$("#addr"+(i-1)).html('');
+				i--;
+				$('#btn').val('add'+i);
+			}
+		});
+	});
 </script>
 <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-12">
-		<form action="{{url_for('register_dependency')}}" method="POST">
-			<div class="form-horizontal" role="form">
-			<h1 class="bg-primary" style="text-align:center">Enter Family Details</h1>
-				<table class="table table-condensed table-hovered" align="center" id="tab_logic">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Name</th>
-							<th>Date of Birth</th>
-							<th>Sex</th>
-							<th>Relation</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr id="addr0">
-							<td>1</td>
-							<td><input type="text" name="name0" class="form-control"></td>
-							<td><input type="text" name="dob0" id="datepicker0" class="form-control"></td>
-							<td>
-								<select class="form-control" name="gender0">
-                  				<option>Select Gender</option>
-                  				<option value="Male">Male</option>
-                  				<option value="Female">Female</option>
-                				</select>
-                			</td>
-                			<td>
-                				<select class="form-control" name="rel0">
-                  				<option>Select Gender</option>
-                  				<option value="Father">Father</option>
-                  				<option value="Mother">Mother</option>
-                  				<option value="Husband">Husband</option>
-                  				<option value="Wife">Wife</option>
-                  				<option value="Son">Son</option>
-                  				<option value="Daughter">Daughter</option>
-                				</select>
-                			</td>
-						</tr>
-                    <tr id='addr1'></tr>
-				
-					</tbody>
-				</table>
-				<a id="add_row" class="btn btn-default pull-left">Add Row</a><button type="submit" value="add1" class="btn btn-success btn-lg col-lg-offset-4" name="btn" id="btn">Update my dependencies</button><a id='delete_row' class="pull-right btn btn-default">Delete Row</a>
-			</div>
-		</form>
+			<form action="{{url_for('register_dependency')}}" method="POST">
+				<div class="form-horizontal" role="form">
+					<h1 class="bg-primary" style="text-align:center">Enter Family Details</h1>
+					<table class="table table-condensed table-hovered" align="center" id="tab_logic">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Name</th>
+								<th>Date of Birth</th>
+								<th>Sex</th>
+								<th>Relation</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="addr0">
+								<td>1</td>
+								<td><input type="text" name="name0" class="form-control"></td>
+								<td><input type="text" name="dob0" id="datepicker0" class="form-control"></td>
+								<td>
+									<select class="form-control" name="gender0">
+										<option>Select Gender</option>
+										<option value="Male">Male</option>
+										<option value="Female">Female</option>
+									</select>
+								</td>
+								<td>
+									<select class="form-control" name="rel0">
+										<option>Select Gender</option>
+										<option value="Father">Father</option>
+										<option value="Mother">Mother</option>
+										<option value="Husband">Husband</option>
+										<option value="Wife">Wife</option>
+										<option value="Son">Son</option>
+										<option value="Daughter">Daughter</option>
+									</select>
+								</td>
+							</tr>
+							<tr id='addr1'></tr>
+							
+						</tbody>
+					</table>
+					<a id="add_row" class="btn btn-default pull-left">Add Row</a><button type="submit" value="add1" class="btn btn-success btn-lg col-lg-offset-4" name="btn" id="btn">Update my dependencies</button><a id='delete_row' class="pull-right btn btn-default">Delete Row</a>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
