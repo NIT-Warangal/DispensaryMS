@@ -22,7 +22,7 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 create table `entries` (
-  `id` integer primary key autoincrement,
+  `id` integer primary key AUTO_INCREMENT,
   `title` text not null,
   `text` text not null
 );
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `Student` (
 --
 
 CREATE TABLE IF NOT EXISTS `Users` (
-  `Sno` int(11) NOT NULL,
+  `Sno` int(11) NOT NULL AUTO_INCREMENT,
   `RegNo` text NOT NULL,
   `FirstName` text NOT NULL,
   `MiddleName` text,
@@ -149,7 +149,8 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `Phonenumber` text NOT NULL,
   `Address` text NOT NULL,
   `email` text NOT NULL,
-  `gender` text NOT NULL
+  `gender` text NOT NULL,
+  PRIMARY KEY (Sno)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `Dependencies` (
