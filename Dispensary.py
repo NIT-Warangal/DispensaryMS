@@ -74,7 +74,7 @@ def register():
 @app.route('/add', methods=['POST']) #add
 def add():
     db = get_cursor()
-    sno=request.form['Sno']
+    # sno=request.form['Sno']
     regno= request.form['Regno']
     fname=request.form['FirstName']
     mname=request.form['MiddleName']
@@ -90,11 +90,11 @@ def add():
     uname=request.form['uname']
     password=request.form['pwd']
     sql='insert into Users \
-    (Sno, RegNo, FirstName, MiddleName,LastName, BloodGroup, DateofBirth, Age, Type, Phonenumber, Address,\
-     email,gender) values (%s,%s,"%s","%s","%s","%s","%s",%s,%s,"%s","%s","%s","%s")'
-    db.execute(sql%(sno,regno,fname,mname,lname,bgroup,dob,age,typ,phn,address,email,gender))
+    (RegNo, FirstName, MiddleName,LastName, BloodGroup, DateofBirth, Age, Type, Phonenumber, Address,\
+     email,gender) values (%s,"%s","%s","%s","%s","%s",%s,%s,"%s","%s","%s","%s")'
+    db.execute(sql%(regno,fname,mname,lname,bgroup,dob,age,typ,phn,address,email,gender))
     db.execute("COMMIT")
-    db.execute("insert into Login values('%s','%s','%s',%s)"%(regno,uname,password,typ))
+    db.execute("insert into Login values('%s','%s',MD5('%s'),%s)"%(regno,uname,password,typ))
     db.execute("COMMIT")
     flash('New user '+ regno + ' registered')
     return redirect(url_for('screen'))#show_entriesreturn render_template(url_for('show_entries.html'))
@@ -112,18 +112,18 @@ def login():
     if request.method == 'POST':
         uname=str(request.form['username'])
         pwd=str(request.form['password'])
-        sql='select Count(*) from Login where UserName="%s" and Password="%s"'%(uname,pwd)
+        sql='select Count(*) from Login where UserName="%s" and Password=MD5("%s")'%(uname,pwd)
         db.execute(sql)
         data = db.fetchone()[0]
         if data == 0:
             error='Invalid username/password'
         else:
             session['logged_in'] = True
-            sql='select Occupation from Login where UserName="%s" and Password="%s"'%(uname,pwd)
+            sql='select Occupation from Login where UserName="%s" and Password=MD5("%s")'%(uname,pwd)
             db.execute(sql)
             result=db.fetchone()[0]
             session['temp']=result
-            sql='select EmpID from Login where UserName="%s" and Password="%s"'%(uname,pwd)
+            sql='select EmpID from Login where UserName="%s" and Password=MD5("%s")'%(uname,pwd)
             db.execute(sql)
             uid=db.fetchone()[0]
             db.execute("COMMIT")
@@ -267,6 +267,7 @@ def register_dependency():
                 db.execute("commit")
                 flash('working'+str(i))
     return render_template('register_dependency.html')
+
 @app.route('/show_dependency',methods=['GET','POST'])
 def show_dependency():
     db=get_cursor()
@@ -274,6 +275,7 @@ def show_dependency():
     db.execute(sql)
     entries=db.fetchall()
     return render_template('show_dependency.html',entries=entries)
+
 @app.route('/student',methods=['GET','POST'])
 def student():
     db = get_cursor()
@@ -289,9 +291,11 @@ def student():
         db.execute('select * from Users join Student where Users.Regno=Student.Regno and Users.Regno=%s',[data[0]])
         entries = db.fetchall()
     return render_template('student_profile.html',entries = entries,chars=chars)
+
 def years_between(d1):
     d2=datetime.datetime.today()
     return ((d2-d1).days-(d2-d1).seconds/86400.0)/365.2425
+
 @app.route('/studentinfo',methods=['GET','POST'])
 def studentinfo():
     db=get_cursor()
