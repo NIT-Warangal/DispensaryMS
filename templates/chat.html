@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if not session.logged_in %}
+<div class="jumbotron">
+	<h1>You have to be logged in as Student or Employee.</h1>
+</div>
+{% if error %}
+	<p class=error><strong>Error:</strong> {{ error }}
+{% endif %}
+{% else %}
+<div class="jumbotron" style="text-align:center;">
+	<h1>Launching Soon.</h1>
+</div>
+<div class="jumbotron">
+	<h1>You can get basic medication by speaking to the doctors about your problems online.</h1>
+	<h3>We know it takes a long time to walk long distances and thats why we have launched this so that you can get prescription from doctors by telling them about your condition. Also If many people face the same symptom at the same time, it could be deduced that something has gone wrong with respect to the food</h3>
+</div>
+{% endif %}
+{% endblock %}

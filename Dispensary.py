@@ -63,6 +63,10 @@ def upload_file():
 def screen():
     return render_template('screen.html') #show_entries
 
+@app.route('/chat')
+def chat():
+    return render_template('chat.html')
+
 @app.route('/register')
 def register():
     return render_template('show_entries.html')
