@@ -120,6 +120,7 @@ CREATE TABLE IF NOT EXISTS `Prescription` (
 -- Table structure for table `Student`
 --
 
+
 CREATE TABLE IF NOT EXISTS `Student` (
   `Year` int(11) NOT NULL,
   `Section` text NOT NULL,
@@ -127,9 +128,10 @@ CREATE TABLE IF NOT EXISTS `Student` (
   `Degree` text NOT NULL,
   `RegNo` text NOT NULL,
   `RollNo` text NOT NULL,
-  `Hostel` text
+  `Emergencyphone` text NOT NULL,
+  `Hostel` text,
+  `HostelRoomNo` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 -- --------------------------------------------------------
 
 --

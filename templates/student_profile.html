@@ -160,36 +160,26 @@ $(function() {
           <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
             <select name="hostel" id="inputHostel" class="form-control input-sm">
               <option value="">-- Select One --</option>
-              <option value="day">Day Scholar</option>
-              <option value="1">Azad Hall (1st Block)</option>
-              <option value="2">Bose Hall (2nd Block)</option>
-              <option value="3">Ambedkar Hall (3rd Block)</option>
-              <option value="4">Babha Hall (4th Block)</option>
-              <option value="5">Gandhi Hall (5th Block)</option>
-              <option value="6">Gokhale Hall (6th Block)</option>
-              <option value="7">Radhakrishnan Hall (7th Block)</option>
-              <option value="8">Raman Hall (8th Block)</option>
-              <option value="9">Nehru Hall (9th Block)</option>
-              <option value="10">Patel Hall (10th Block)</option>
-              <option value="11">Tagore Hall (11th Block)</option>
-              <option value="12">Viswesvraya Hall (12th Block)</option>
-              <option value="13">Rajendra Prasad Hall (13th Block)</option>
-              <option value="14">Vikram Sarabhai Hall (14th Block)</option>
-              <option value="1k">1K Hall of Residence</option>
-              <option value="1.8k">1.8K Ultra Mega Hostel</option>
-              <option value="dasa">International Student Hall</option>
-              <option value="ph">Priyadarshini Hall (LH-PH)</option>
-              <option value="sh">Sarojini Hall(LH-SH)</option>
-              <option value="lha">New Ladies Hostel - A (New LH-A)</option>
-              <option value="lhb">New Ladies Hostel - B (New LH-B)</option>
-              <option value="lhc">New Ladies Hostel - C (New LH-C)</option>
+              {% set hostelkey=['day','1','2','3','4','5','6','7','8','9','10','11','12','13','14','1k','1.8k','dasa','ph','sh','lha','lhb','lhc'] %}
+              {% set hostels=['Day Scholar','Azad Hall (1st Block)','Bose Hall (2nd Block)','Ambedkar Hall (3rd Block)','Babha Hall  (4th Block)','Gandhi Hall (5th Block)','Gokhale Hall (6th Block)','Radhakrishna Hall (7th Block)','Raman Hall (8th Block)','Nehru Hall (9th Block)','Patel Hall (10th Block)','Tagore Hall (11th Block)','Viswesvraya Hall (12th Block)','Rajendra Prasad Hall (13th Block)','Vikram Sarabhai Hall (14th Block)','1K Hall of Residence ','1.8K Ultra Mega Hall ','International Student Hall ','Priyadarshini Hall (LH-PH) ','Sarojini Hall ','New Ladies Hostel - A (New LH-A) ','New Ladies - B (New LH-B) ','New Ladies Hostel - C (New LH-C)' ] %} 
+              {% set sel='' %}
+              {% set k=0 %}
+              {% for item in hostels %}
+              {% if hostelkey[k] == entry[-2] %}
+              {% set sel='selected' %}
+              {% else %}
+              {% set sel='' %}
+              {% endif %}
+              <option value="{{hostelkey[k]}}" {{sel}}>{{item}}</option>
+              {%set k=k+1%}
+              {%endfor%}
             </select>
           </div>
         </div>
         <div class="form-group">
           <label for="inputRoom_number" class="col-sm-4  ">Hostel Room No.</label>
           <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
-            <input type="text" name="room_number" id="inputRoom_number" class="form-control input-sm" value="" required="required" title="">
+            <input type="text" name="room_number" id="inputRoom_number" class="form-control input-sm" value="{{entry[-1]}}" required="required" title="">
           </div>
         </div>
       </div>

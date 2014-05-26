@@ -99,6 +99,29 @@ def add():
     flash('New user '+ regno + ' registered')
     return redirect(url_for('screen'))#show_entriesreturn render_template(url_for('show_entries.html'))
 
+@app.route('/student_details')
+def student_details():
+    chars=[chr(i) for i in xrange(ord('A'), ord('N')+1)]
+    return render_template('student_details.html',chars=chars)
+@app.route('/student_register',methods=['GET','POST'])
+def student_register():
+    db=get_cursor()
+    if request.method=="POST":
+        regno=app.config['USERID']
+        year_join=int(request.form['year'])
+        degree=request.form['course']
+        branch=request.form['branch']
+        section=request.form['section']
+        rno=request.form['roll_number']
+        emergency_phn=request.form['emergency_contact']
+        hostel=request.form['hostel']
+        hostelroomno=request.form['room_number']
+        db.execute('insert into Student (`Year`, `Section`, `Branch`, `Degree`, `RegNo`, `RollNo`, `Emergencyphone`, `Hostel`, `HostelRoomNo`) values(%s,"%s","%s","%s","%s","%s","%s","%s","%s")'%(year_join,section,branch,degree,regno,rno,emergency_phn,hostel,hostelroomno))
+        db.execute("COMMIT")
+        # flash(regno+str(year_join)+degree+' '+branch+section+rno+emergency_phn+hostel+' '+hostelroomno)
+        flash('Record for '+regno+' has been successfully inserted') 
+    return redirect(url_for('student'))
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
@@ -316,8 +339,9 @@ def studentinfo():
         branch=request.form['branch']
         section=request.form['section']
         rno=request.form['roll_number']
+        hostel=request.form['hostel']
         hostelroomno=request.form['room_number']
-        db.execute('update Student set Year=%s,Section="%s",Branch="%s",Degree="%s",RollNo="%s" where RegNo="%s"'%(year_join,section,branch,degree,rno,regno))
+        db.execute('update Student set Year=%s,Section="%s",Branch="%s",Degree="%s",RollNo="%s",Hostel="%s",HostelRoomNo="%s" where RegNo="%s"'%(year_join,section,branch,degree,rno,hostel,hostelroomno,regno))
         db.execute("COMMIT")
         flash('Record '+regno+' updated') 
     return redirect(url_for('student'))
