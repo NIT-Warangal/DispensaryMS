@@ -29,14 +29,13 @@ create table `entries` (
 --
 -- Table structure for table `Employee`
 --
-
 CREATE TABLE IF NOT EXISTS `Employee` (
   `RegNo` text NOT NULL,
   `Occupation` text NOT NULL,
+  `EmergencyContact` text NOT NULL,
   `Location` text NOT NULL,
   `NoOfDependencies` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 --
 -- Dumping data for table `Employee`
 --

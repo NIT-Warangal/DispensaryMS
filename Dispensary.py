@@ -81,7 +81,7 @@ def add():
     lname=request.form['LastName']
     bgroup=request.form['BloodGroup']
     dob =datetime.datetime.strptime(request.form['dateofbirth'],"%d/%m/%Y")
-    age=request.form['Age']
+    age=int(years_between(dob))
     typ=request.form['Type']
     phn=request.form['phno']
     address=request.form['address']
@@ -253,22 +253,49 @@ def checkprescription():
 @app.route('/employee',methods=['GET','POST'])
 def employee():
     db = get_cursor()
-    error=None
-    query = 'select EmpID from Login where UserName="%s"'
-    db.execute(query%(app.config['USERNAME']))
-    data = db.fetchone()
-    entries =None
-    if data is None:
-        error = 'User details not entered properly in the database'
-    else:
-        db.execute('select * from Users join Employee where Users.RegNo=Employee.RegNo and Users.RegNo=%s',[data[0]])
-        entries = db.fetchall()
+    db.execute('select * from Users join Employee where Users.RegNo=Employee.RegNo and Users.RegNo="%s"'%(app.config['USERID']))
+    entries = db.fetchall()
     return render_template('employee_profile.html',entries = entries)
 
 @app.route('/employeeinfo',methods=['GET','POST'])
 def employeeinfo():
+    if request.method=="POST":
+        db=get_cursor()
+        lname=request.form['lname']
+        fname=request.form['fname']
+        mname=request.form['mname']
+        regno=app.config['USERID']
+        sex=request.form['gender']
+        dob =datetime.datetime.strptime(request.form['dob'],"%d/%m/%Y")
+        email=request.form['email']
+        phno=request.form['phone_number']
+        age=int(years_between(dob))
+        db.execute('update Users set FirstName="%s",MiddleName="%s",LastName="%s",DateofBirth="%s",Age=%s,Phonenumber="%s",email="%s",gender="%s" where Regno=%s'%(fname,mname,lname,dob,age,phno,email,sex,regno))
+        db.execute('COMMIT')
+        emergency_phn=request.form['emergency_contact']
+        location = request.form['location']
+        db.execute('Update Employee set EmergencyContact="%s",Location="%s" where RegNo="%s"'%(emergency_phn,location,regno))
+        db.execute("COMMIT")
+        flash("Record Updated")
     return redirect(url_for('employee'))
-
+@app.route('/employee_details',methods=['GET','POST'])
+def employee_details():
+    return render_template('employee_details.html')
+@app.route('/employee_register',methods=['GET','POST'])
+def employee_register():
+    if request.method=='POST':
+        db=get_cursor()
+        regno=app.config['USERID']
+        occupation=request.form['occupation']
+        emergency_phn=request.form['emergency_phn']
+        location=request.form['location']
+        number_of_dependencies=int(request.form['num_of_dependencies'])
+        sql='insert into Employee values("%s","%s","%s","%s",%s)'%(regno,occupation,emergency_phn,location,number_of_dependencies)
+        db.execute(sql)
+        db.execute("COMMIT")
+        flash("Record for "+regno+" has been added")
+        return redirect(url_for('employee'))
+    return redirect(url_for('/'))        
 @app.route('/register_dependency',methods=['GET','POST'])
 def register_dependency():
     if request.method=='POST':

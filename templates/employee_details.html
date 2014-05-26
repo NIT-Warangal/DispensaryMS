@@ -1,0 +1,48 @@
+{%extends "layout.html"%}
+{%block body%}
+{%if session.logged_in==True and session.temp==2%}
+<div class="container">
+  <div class="row">
+    <div class="col-xs-8 col-sm-6 col-md-6 col-xs-offset-3">
+      <div class="well bs-component">
+        <div class="form-horizontal" role="form">
+          <form action="{{url_for('employee_register')}}" method="POST">
+          <legend class="text-info">Employee Details</legend>
+          <div class="form-group">
+            <label class="col-sm-4">Occupation:</label>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
+              <input class="form-control" type="text" name="occupation" placeholder="Your occupation">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4">Location of work:</label>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
+              <input class="form-control" type="text" name="location" placeholder="Your Location of work in college">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4">Emergency Contact:</label>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
+              <input class="form-control" type="text" name="emergency_phn" placeholder="Emergency contact number">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4">Number of Dependencies:</label>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
+              <input class="form-control" type="number" name="num_of_dependencies" placeholder="Number of dependencies">
+            </div>
+          </div>
+          <div class="col-sm-offset-7 col-sm-12">
+          <a href="/" role="button" class="btn btn-lg btn-danger">Cancel</a>
+          <button class="btn btn-lg btn-primary ">Submit</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%else%}
+<h1>Access Denied.</h1>
+{%endif%}
+{%endblock%}

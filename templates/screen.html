@@ -17,6 +17,8 @@
     <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p>
     {% if session.temp==2%}
     <p><a class="btn btn-info btn-lg" role="button" href="{{url_for('register_dependency')}}">Add Your Family Details</a></p>
+        <p class="pull-right text-danger" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developping a profile</p>
+    <p><a class="btn btn-info btn-lg" role="button" href="/employee_details">Enter Profile Details</a></p>
     {% endif %}
     {% if session.temp==1%}
     <p class="pull-right text-danger" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developping a profile</p>

@@ -65,6 +65,12 @@ $(function() {
                 <input type="datetime" name="dob" id="datepicker" class="form-control input-sm" value="{{entry[6].strftime('%d/%m/%Y')}}" required="required" title="">
               </div>
             </div>
+            <div class="form-group">
+              <label for="inputRegistration_number" class="col-sm-4  ">Age</label>
+              <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
+                <input type="text" readonly name="age" id="age" readonly class="form-control input-sm" value="{{entry[7]}}" required="required" title="Age" >
+              </div>
+            </div>
             <legend>Contact Details</legend>
             <div class="form-group">
             <label for="inputEmail" class="col-sm-4  ">Email Id</label>
@@ -81,7 +87,7 @@ $(function() {
             <div class="form-group">
               <label for="inputEmergency_contact" class="col-sm-4  ">Emergency Contact</label>
               <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
-                <input type="text" name="emergency_contact" id="inputEmergency_contact" class="form-control input-sm" value="{{entry[9]}}" required="required" title="" placeholder="Parent phone number">
+                <input type="text" name="emergency_contact" id="inputEmergency_contact" class="form-control input-sm" value="{{entry[19]}}" required="required" title="" placeholder="Parent phone number">
               </div>
             </div>
           </div>
