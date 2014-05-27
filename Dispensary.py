@@ -67,6 +67,21 @@ def screen():
 def chat():
     return render_template('chat.html')
 
+@app.route('/printletter')
+def printletter():
+    db=get_cursor()
+    sql = 'select * from Users,Student where Users.RegNo=811262 and Users.RegNo = Student.RegNo'
+    db.execute(sql)
+    entries = db.fetchall()
+    today=datetime.date.today()
+    now = datetime.datetime.now()
+    days = 0 # No. of days to put leave for
+    sql = 'insert into Letters values ("%s","%s","%s")'
+    db.execute(sql%(811262,now,days))
+    db.execute("commit")
+    # flash(sql)
+    return render_template('Letter.html',entries = entries, today=today, days=days)
+    
 @app.route('/register')
 def register():
     return render_template('show_entries.html')
@@ -103,6 +118,7 @@ def add():
 def student_details():
     chars=[chr(i) for i in xrange(ord('A'), ord('N')+1)]
     return render_template('student_details.html',chars=chars)
+
 @app.route('/student_register',methods=['GET','POST'])
 def student_register():
     db=get_cursor()
@@ -125,6 +141,7 @@ def student_register():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
 store=0
 @app.route('/login', methods=['GET', 'POST'])
 def login():
