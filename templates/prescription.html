@@ -8,6 +8,41 @@
 <p class=error><strong>Error:</strong> {{ error }}
 	{% endif %}
 	{% else %}
+	<script type="text/javascript">
+		$(document).ready( function () {
+			var table=$('#item-table').DataTable({
+				"iDisplayLength":5,
+				"sPaginationType": "full_numbers",
+				"oLanguage": {"sSearch": "Filter: "},
+				"lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
+			});
+		} );
+	</script>
+	<script type="text/javascript">
+	var i=1;
+	function additem() {
+		var newtext,oldtext;
+		if(document.getElementById('Medicine').value==null){
+			oldtext='';
+		}
+		else{
+			oldtext=document.getElementById('Medicine').value;
+		}
+		if(document.getElementById('selectMedicine').value=="0"){
+			newtext='';
+		}
+		else{
+			newtext=document.getElementById('selectMedicine').value;
+		}
+		if(i==1){
+		document.getElementById('Medicine').value=newtext;
+		i=0;
+		}
+		else{
+		document.getElementById('Medicine').value=oldtext+', '+newtext;
+		}
+	}
+	</script>
 	<div class="col-lg-12">
 		<form class="form-horizontal add-entry" action="{{ url_for('fileprescription') }}" style="text-align:center;" method=post>
 			<fieldset>
@@ -37,10 +72,26 @@
 				</div>
 
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="Medicine">Medication Given</label>  
+					<label class="col-md-4 control-label" for="Medicine">Choose Medicine</label>  
 					<div class="col-md-4">
-						<input id="Medicine" name="Medicine" placeholder="Medicines" class="form-control input-md" required="" type="text">
-
+						<select name="selectMedicine" class="form-control input-md" onchange="additem()" id="selectMedicine">
+							<option value="0">---Select one---</option>
+							{%for item in pharmacy%}
+							<option value="{{item[1]}}">{{item[1]}}</option>
+							{%endfor%}
+						</select>
+						
+					</div>
+					<div class="col-md-4">
+						<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+							Check Availability
+						</button>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="MedicineGiven">Medicine Given</label>  
+					<div class="col-md-4">
+						<textarea id="Medicine" name="Medicine" placeholder="Medicines Given" class="form-control input-md" required="" ></textarea>
 					</div>
 				</div>
 
@@ -58,19 +109,45 @@
 						<textarea class="form-control" id="Remarks" name="Remarks"></textarea>
 					</div>
 				</div>
+				<a href="{{url_for('prescription')}}" class="btn btn-danger">Cancel</a>
 				<input type="submit" value="submit" class="btn btn-success">
 			</fieldset>
 			{% endif %}
 		</form>
 	</div>
-	<div class="col-md-5">
-		{% for values in Prescription %}
-		<h1>{{values.DoctorNo}}</h1>
-		<h2>{{values.RegNo}}</h2>
-		<h3>{{values.Cause}}</h3>
-		<h4>{{values.Medicine}}</h4>
-		<h5>{{values.Quantity}}</h5>
-		<h6>{{values.Remarks}}</h6>
-		{% endfor %}
-	</div>
+	<!--Modal-->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table table-condensed table-responsive" style="margin:0px auto;" align="center" id="item-table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Medicine</th>
+								<th>Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+							{%for item in pharmacy %}
+							<tr>
+								<td>{{item[0]}}</td>
+								<td>{{item[1]}}</td>
+								<td>{{item[2]}}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<!--end of modal-->
 	{% endblock %}

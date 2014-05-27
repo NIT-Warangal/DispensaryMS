@@ -224,7 +224,9 @@ def prescription():
     db = get_cursor()
     db.execute('select * from Prescription order by RegNo asc')
     entries = db.fetchall()
-    return render_template('prescription.html',entries = entries)
+    db.execute('select * from Pharmacy order by Sno asc')
+    pharmacy=db.fetchall()
+    return render_template('prescription.html',entries = entries,pharmacy=pharmacy)
 
 @app.route('/fileprescription', methods=['GET','POST'])
 def fileprescription():
