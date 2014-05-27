@@ -20,9 +20,9 @@
 
 		<ul class="menu">
 			<li><a href="/">Home</a></li>
-			<li><a href="/register">Register</a></li>
 			{% if not session.logged_in %}
 			<li><a href="/login">Login</a></li>
+			<li><a href="/register">Register</a></li>
 			{% endif %}
 			{% if session.temp==1 %}
 			<li><a href="/student">Profile</a></li>
@@ -34,10 +34,11 @@
 			{% endif%}
 			{% if session.temp==3 %}
 			<li><a href="/prescription">Prescription</a></li>
-			<li><a href="/bills">Upload Bills</a></li>
+			<li><a href="/chat">Online Doctor Consulting</a></li>
 			{% endif%}
 			{% if session.temp==4 %}
 			<li><a href="/inventory">Inventory</a></li>
+			<li><a href="/bills">Upload Bills</a></li>
 			{% endif%}
 			{% if session.logged_in %}
 			<li><a href="/logout">Logout</a></li>

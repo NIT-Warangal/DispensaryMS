@@ -11,10 +11,11 @@ $(function() {
 });
 </script>
 <h1 style="text-align:center;">Student Profile</h1>
+<hr>
 <form action="{{url_for('studentinfo')}}" method="post"> 
 <div class="container">
 <div class="row">
-  <div class="col-xs-12 col-sm-9 col-md-10 col-xs-offset-1">
+  <div class="col-xs-12 col-sm-12 col-md-12">
     {% for entry in entries %}
       <div class="form-horizontal" name="form_profile" role="form" >
         <div class="row">
@@ -204,7 +205,10 @@ $(function() {
 </form>
 </div>
 </div>
-
+<br>
+<br>
+<br>
+<br>
 {%else%}
 <div class="jumbotron">
 <h1>Student? Please Login!</h1>

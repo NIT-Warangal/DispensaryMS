@@ -278,9 +278,11 @@ def employeeinfo():
         db.execute("COMMIT")
         flash("Record Updated")
     return redirect(url_for('employee'))
+
 @app.route('/employee_details',methods=['GET','POST'])
 def employee_details():
     return render_template('employee_details.html')
+
 @app.route('/employee_register',methods=['GET','POST'])
 def employee_register():
     if request.method=='POST':
@@ -290,12 +292,13 @@ def employee_register():
         emergency_phn=request.form['emergency_phn']
         location=request.form['location']
         number_of_dependencies=int(request.form['num_of_dependencies'])
-        sql='insert into Employee values("%s","%s","%s","%s",%s)'%(regno,occupation,emergency_phn,location,number_of_dependencies)
+        sql='insert into Employee values("%s","%s","%s","%s","%s")'%(regno,occupation,emergency_phn,location,number_of_dependencies)
         db.execute(sql)
         db.execute("COMMIT")
         flash("Record for "+regno+" has been added")
         return redirect(url_for('employee'))
-    return redirect(url_for('/'))        
+    return render_template('show_entries.html')    
+
 @app.route('/register_dependency',methods=['GET','POST'])
 def register_dependency():
     if request.method=='POST':
@@ -315,7 +318,8 @@ def register_dependency():
                     sql='insert into Dependencies values("%s","%s","%s","%s","%s")'%(regno,name,dob,sex,relation)
                     db.execute(sql)
                 db.execute("commit")
-                flash('working'+str(i))
+                flash('Entered '+name+' as Dependency for '+regno)
+                #Shouldn't the Dependency details also go into the Users table ?
     return render_template('register_dependency.html')
 
 @app.route('/show_dependency',methods=['GET','POST'])

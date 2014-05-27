@@ -9,7 +9,7 @@
 				<table class="table table-condensed table-responsive">
 					<thead>
 						<tr>
-							<th class="col-xs-1">#</th>
+							<!-- <th class="col-xs-1">#</th> -->
 							<th>Name</th>
 							<th>Date of Birth</th>
 							<th>Age</th>
@@ -21,7 +21,7 @@
 					<tbody >
 					{%for entry in entries%}
 						<tr>
-							<td class="col-xs-1"><input value="{{k}}" type="number" class="form-control"></td>
+							<!-- <td class="col-xs-1"><input value="{{k}}" type="number" class="form-control"></td> -->
 							<td>{{entry[1]}}</td>
 						
 							<td>{{entry[2].strftime("%d/%m/%Y")}}</td>
