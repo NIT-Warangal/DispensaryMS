@@ -14,7 +14,59 @@
 	.header-section>.menu>li>a{
 		font-weight:100;
 	}
+	.header {
+  overflow: hidden;
+  display:block;
+  position:fixed;
+  top:0;
+  margin:0;
+  width:100%;
+  height:4px;
+  text-align:center;
+}
+
+.header ul {
+  margin:0;
+  padding:0;
+}
+
+.header ul li {
+  overflow:hidden;
+  display:block;
+  float:left;
+  width:20%;
+  height:4px;
+}
+
+.header .cor-1 {
+  background:#f1c40f;
+}
+
+.header .cor-2 {
+  background:#e67e22;
+}
+
+.header .cor-3 {
+  background:#e74c3c;
+}
+
+.header .cor-4 {
+  background:#9b59b6;
+}
+
+.header .cor-5 {
+  background-color: hsla(10,40%,50%,1);
+}
 </style>
+<header class="header">
+  <ul>
+    <li class="cor-1"></li>
+    <li class="cor-2"></li>
+    <li class="cor-3"></li>
+    <li class="cor-4"></li>
+    <li class="cor-5"></li>
+  </ul>
+</header>
 <div class=header-section>
 	<a href="/"><img src="{{url_for('static',filename='images/logo_nitw.png')}}" alt="NITWarangal">
 		<img src="{{url_for('static',filename='images/loginlogo.png')}}" alt=""></a>

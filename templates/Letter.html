@@ -1,0 +1,324 @@
+{% extends "layout.html" %}
+{% block body %}
+{% for entry in entries %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+<script>
+	function printDiv(divName) {
+		var printContents = document.getElementById(divName).innerHTML;
+		var originalContents = document.body.innerHTML;
+		document.body.innerHTML = printContents;
+		window.print();
+		document.body.innerHTML = originalContents;
+	}
+</script>
+<style>
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,600,300);
+
+body {
+  margin:0;
+  font-family: 'Open Sans', sans-serif;
+  background: #eee;
+}
+
+hr {
+  background:#dedede;
+  border:0;
+  height:1px;
+}
+
+.header {
+  overflow: hidden;
+  display:block;
+  position:fixed;
+  top:0;
+  margin:0;
+  width:100%;
+  height:4px;
+  text-align:center;
+}
+
+.header ul {
+  margin:0;
+  padding:0;
+}
+
+.header ul li {
+  overflow:hidden;
+  display:block;
+  float:left;
+  width:20%;
+  height:4px;
+}
+
+.header .cor-1 {
+  background:#f1c40f;
+}
+
+.header .cor-2 {
+  background:#e67e22;
+}
+
+.header .cor-3 {
+  background:#e74c3c;
+}
+
+.header .cor-4 {
+  background:#9b59b6;
+}
+
+.header .cor-5 {
+  background-color: hsla(10,40%,50%,1);
+}
+
+.wrap {
+  width: 950px;
+  margin:25px auto;
+}
+
+nav.menu ul {
+  overflow:hidden;
+  float:left;
+  width: 650px;
+  padding:0;
+  margin:0 0 0;
+  list-style: none;
+  color:#fff;
+  background: #1abc9c;
+    -webkit-box-shadow: 1px 1px 1px 0px rgba(204,204,204,0.55);
+  -moz-box-shadow: 1px 1px 1px 0px rgba(204,204,204,0.55);
+  box-shadow: 1px 1px 1px 0px rgba(204,204,204,0.55);
+}
+
+nav.menu ul li {
+  float:left;
+  margin:0;
+}
+
+nav.menu ul a {
+  display:block;
+  padding:25px;
+  font-size: 16px;
+  font-weight:600;
+  text-transform: uppercase;
+  color:#fff;
+  text-decoration: none;
+  transition: all 0.5s ease;
+}
+
+nav.menu ul a:hover {
+  background:#16a085;
+  text-decoration: underline;
+}
+
+.sidebar {
+  width:275px;
+  float:right;
+}
+
+.sidebar .widget {
+  margin:0 0 25px;
+  padding:25px;
+  background:#fff;
+  transition: all 0.5s ease;
+  border-bottom: 2px solid #fff;
+}
+
+.sidebar .widget:hover {
+  border-bottom: 2px solid #3498db;
+}
+
+.sidebar .widget h2 {
+  margin:0 0 15px;
+  padding:0;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight:800;
+  color:#3498db;
+}
+
+.sidebar .widget p {
+  font-size: 14px;
+}
+
+.sidebar .widget p:last-child {
+  margin:0;
+}
+
+.blog {
+  float:left;
+}
+
+.conteudo {
+  width:600px;
+  margin:25px auto;
+  padding:25px;
+  background: #fff;
+  border:1px solid #dedede;
+  -webkit-box-shadow: 1px 1px 1px 0px rgba(204,204,204,0.35);
+  -moz-box-shadow: 1px 1px 1px 0px rgba(204,204,204,0.35);
+  box-shadow: 1px 1px 1px 0px rgba(204,204,204,0.35);
+}
+
+.conteudo h1 {
+  margin:0 0 15px;
+  padding:0;
+  font-family: Georgia;
+  font-weight: normal;
+  color: #666;
+}
+
+.conteudo p:last-child {
+  margin: 0;
+}
+
+.conteudo .continue-lendo {
+  color:#000;
+  font-weight: 700; 
+  text-decoration: none;
+  transition: all 0.5s ease;
+}
+
+.conteudo .continue-lendo:hover {
+  margin-left:10px;
+}
+
+.post-info {
+  float: right;
+  margin: -10px 0 15px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 960px) {
+  
+  .header {
+  position:inherit;
+}
+  
+.wrap {
+  width: 90%;
+  margin:25px auto;
+}
+.sidebar {
+  width:100%;
+  float:right;
+    margin:25px 0 0;
+}
+  
+ .sidebar .widget {
+  padding:5%;
+}
+  
+  nav.menu ul {
+  width: 100%;
+}
+  
+    nav.menu ul {
+  float:inherit;
+}
+  
+  nav.menu ul li {
+  float:inherit;
+  margin:0;
+}
+  
+nav.menu ul a {
+  padding:15px;
+  font-size: 16px;
+  border-bottom:1px solid #16a085;
+  border-top:1px solid #1abf9f;
+}
+  
+.blog {
+  width:90%;
+}
+  
+.conteudo {
+  float:inherit;
+  width:101%;
+  padding:5%;  
+  margin:0 auto 25px;
+  background: #fff;
+  border:1px solid #dedede;
+}
+
+  
+    .conteudo .continue-lendo:hover {
+  margin-left:0;
+}
+
+
+}
+
+@media screen and (max-width: 460px) {
+ 
+  nav.menu ul a {
+  padding:15px;
+  font-size: 14px;
+}
+  
+.sidebar {
+  display:none
+}
+  .post-info {
+  display:none;
+}
+  
+  .conteudo {
+  margin:25px auto;
+  }
+  
+
+  
+}
+</style>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.10.2.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jspdf.js') }}"></script>
+
+<script>
+function test(){
+	var doc = new jsPDF();
+	doc.setFontSize(22);
+	doc.text(20, 20, 'This is a title');
+	doc.setFontSize(16);
+	doc.text(20, 30, 'This is some normal sized text underneath.');
+	}
+</script>
+<!-- <button onclick="test()">TEST</button> -->
+<header class="header">
+  <ul>
+    <li class="cor-1"></li>
+    <li class="cor-2"></li>
+    <li class="cor-3"></li>
+    <li class="cor-4"></li>
+    <li class="cor-5"></li>
+  </ul>
+ </header>
+<div class="wrap" id="printable">
+ 
+    <div class="blog">
+  <div class="conteudo">
+    <div style="text-align:center;">
+    <img src="../static/images/logo_nitw.png">
+    </div>
+    <br>
+    <h1 style="text-align:center;">To Whomsoever It May Concern</h1>
+    <hr>
+    <p>
+      This is to inform you that <b>{{entry[2]}} {{entry[4]}}</b> of {{entry[16]}}, {{entry[15]}} Department, residing at {{entry[20]}} at {{entry[21]}} bearing Registration Number <b>{{entry[1]}}</b> has been diagnosed as being sick and is requested to be granted a sick leave of <pre>{{days}}</pre> Days only from the date of issue this letter.
+    </p>
+     <p>
+      This letter has been given by Doctor {{DoctorName}}, at the NIT Warangal, Dispensary. This letter hereby signed is to serve as a document to be allowed officially as the leave letter with medical permission.
+    </p>
+    <p>Doctor Signature : __________________________.</p>
+    <br>
+    <p>Doctor Name : __________________________.</p>
+    <p>Date  of issue           : <b>{{today}}</b></p>
+     <div class="wrapper" style="text-align:center;">
+	<input class="btn btn-primary" type="button" onclick="printDiv('printable')" value="Print Letter" />
+  	</div>
+  </div>
+  </div>
+</div>
+  {% endfor %}
+{% endblock %}

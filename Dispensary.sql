@@ -162,6 +162,17 @@ CREATE TABLE IF NOT EXISTS `Dependencies` (
   `Relation` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
+--
+-- Table structure for table `Letters` to keep track of uploads
+--
+
+CREATE TABLE IF NOT EXISTS `Letters` (
+  `RegNo` text NOT NULL,
+  `Date` datetime NOT NULL,
+  `Days` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
