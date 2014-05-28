@@ -1,32 +1,44 @@
 {% extends "layout.html" %}
 {% block body %}
 {%if session.logged_in==True and session.temp==4%}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
 <style>
 table,th,td
 {
-border:1px solid black;
+  border:1px solid black;
 }
 </style>
-{% for bill in bills %}
-</head>
 <body>
-
-<table>
-  <tr>
-    <th>Date</th>
-    <th>Time</th>
-    <th>File Link</th>
-  </tr>
-  <tr>
-    <td>{{bill[1]}}</td>
-    <td>{{bill[2]}}</td>
-    <td><a href="/uploads/{{bill[0]}}" target="_blank">{{bill[0]}}</a></td>
-  </tr>
-</table>
-{% endfor %}
-{%else%}
-<div class="jumbotron">
-  <h1>Access Denied</h1>
+<h1 style="text-align:center;">Uploaded Bills</h1>
+<p style="text-align:center;">The bills are displayed from latest uploaded date to oldest.</p>
+<div class="container" id="printable">
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-10 col-sm-10 col-md-10 col-lg-10">
+      
+      <table class="table table-condensed table-responsive table-striped" id="item-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time Uploaded</th>
+            <th>File Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for bill in bills %}
+          <tr>
+            <td>{{bill[1].strftime("%d/%m/%Y")}}</td>
+            <td>{{bill[2]}}</td>
+            <td><a class="btn btn-info" href="/uploads/{{bill[0]}}" target="_blank">{{bill[0]}}</a></td>
+          </tr>
+        {% endfor %}          
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-{% endif %}
-{% endblock %}
+  {%else%}
+  <div class="jumbotron">
+    <h1>Access Denied</h1>
+  </div>
+  {% endif %}
+  {% endblock %}

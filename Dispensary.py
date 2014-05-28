@@ -70,7 +70,7 @@ def chat():
 @app.route('/showfiles')
 def showfiles():
     db=get_cursor()
-    sql = 'select * from Bills'
+    sql = 'select * from Bills order by Time desc'
     db.execute(sql)
     bills = db.fetchall()
     if not bills:
