@@ -79,7 +79,8 @@ CREATE TABLE IF NOT EXISTS `Login` (
 
 CREATE TABLE IF NOT EXISTS `Bills` (
   `FileName` text NOT NULL,
-  `Date` date NOT NULL
+  `Date` date NOT NULL,
+  `Time` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

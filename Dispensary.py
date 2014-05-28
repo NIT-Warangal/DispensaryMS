@@ -50,11 +50,11 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            sql ='insert into Bills values ("%s","%s")'
-            db.execute(sql%((filename+now.strftime("%Y-%m-%d %H:%M")),now))
+            sql ='insert into Bills values ("%s","%s","%s")'
+            db.execute(sql%(filename,now,now.strftime("%H:%M")))
             db.execute("COMMIT")
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
+            flash(filename+' successfully uploaded at '+now.strftime("%H:%M"))
+            #return redirect(url_for('uploaded_file',filename=filename))
         else:
             flash('This type of file is invalid. Use \'pdf\', \'png\', \'tiff\', \'jpg\', \'jpeg\', \'gif\'')
     return render_template('fileupload.html')
@@ -67,6 +67,17 @@ def screen():
 def chat():
     return render_template('chat.html')
 
+@app.route('/showfiles')
+def showfiles():
+    db=get_cursor()
+    sql = 'select * from Bills'
+    db.execute(sql)
+    bills = db.fetchall()
+    if not bills:
+        flash('There are no bills uploaded yet')
+        return redirect(url_for('screen'))
+    return render_template('showfiles.html',bills = bills)
+
 @app.route('/printletter',methods=['GET','POST'])
 def printletter():
     if request.method=="POST":
@@ -75,6 +86,9 @@ def printletter():
         sql = 'select * from Users,Student where Users.RegNo="%s" and Users.RegNo = Student.RegNo'%(regno)
         db.execute(sql)
         entries = db.fetchall()
+        if not entries:
+            flash('No one with that data found.')
+            return redirect(url_for('screen'))
         today=datetime.date.today()
         now = datetime.datetime.now()
         days_extend = int(request.form['days']) # No. of days to put leave for
