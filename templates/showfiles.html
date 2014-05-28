@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+{%if session.logged_in==True and session.temp==4%}
+<style>
+table,th,td
+{
+border:1px solid black;
+}
+</style>
+{% for bill in bills %}
+</head>
+<body>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Time</th>
+    <th>File Link</th>
+  </tr>
+  <tr>
+    <td>{{bill[1]}}</td>
+    <td>{{bill[2]}}</td>
+    <td><a href="/uploads/{{bill[0]}}" target="_blank">{{bill[0]}}</a></td>
+  </tr>
+</table>
+{% endfor %}
+{%else%}
+<div class="jumbotron">
+  <h1>Access Denied</h1>
+</div>
+{% endif %}
+{% endblock %}
