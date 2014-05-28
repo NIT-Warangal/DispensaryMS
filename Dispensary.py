@@ -67,21 +67,25 @@ def screen():
 def chat():
     return render_template('chat.html')
 
-@app.route('/printletter')
+@app.route('/printletter',methods=['GET','POST'])
 def printletter():
-    db=get_cursor()
-    sql = 'select * from Users,Student where Users.RegNo=811262 and Users.RegNo = Student.RegNo'
-    db.execute(sql)
-    entries = db.fetchall()
-    today=datetime.date.today()
-    now = datetime.datetime.now()
-    days_extend = 4 # No. of days to put leave for
-    newdate = today+datetime.timedelta(days=days_extend)
-    sql = 'insert into Letters values ("%s","%s","%s")'
-    db.execute(sql%(811262,now,days_extend))
-    db.execute("commit")
-    # flash(sql)
-    return render_template('Letter.html',entries = entries, today=today, days=days_extend, newdate = newdate)
+    if request.method=="POST":
+        db=get_cursor()
+        regno=request.form['regno']
+        sql = 'select * from Users,Student where Users.RegNo="%s" and Users.RegNo = Student.RegNo'%(regno)
+        db.execute(sql)
+        entries = db.fetchall()
+        today=datetime.date.today()
+        now = datetime.datetime.now()
+        days_extend = int(request.form['days']) # No. of days to put leave for
+        newdate = today+datetime.timedelta(days=days_extend)
+        sql = 'insert into Letters values ("%s","%s","%s")'
+        db.execute(sql%(regno,now,days_extend))
+        db.execute("commit")
+        return render_template('Letter.html',entries = entries, today=today, days=days_extend, newdate = newdate)
+    else:
+        flash('Error occured with the form')
+        return redirect(url_for('screen'))
     
 @app.route('/register')
 def register():

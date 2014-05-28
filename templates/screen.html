@@ -31,6 +31,7 @@
     <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription">Check Prescriptions</a></p>
     {% if session.temp==3 %}
     <!-- The doctor should be able to enter the EMP_ID / REG_NO and see their prescription table -->
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Sick Letter</button></p>
     <p><a href="/checkpatienthistory" role="button" class="btn btn-info btn-lg">Check Patient Prescription History</a></p>
     {% endif %}
     {% if session.temp==4 %}
@@ -39,6 +40,45 @@
     {% endif %}
     <p><a class="btn btn-primary btn-lg" role="button" href="/logout">Logout</a></p>
   </div>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Sick Letter</h4>
+        </div>
+        <form action="{{url_for('printletter')}}" method="POST">
+        <div class="modal-body">
+          
+            <div class="container">
+              <div class="row">      
+              <div class="form-horizontal">
+                  <div class="form-group">
+                  <label class="col-md-2 control-label" style="margin-top:5px;">Enter student Regno</label>
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" name="regno" placeholder="Enter regno" autofocus/>
+                  </div>
+                  </div>
+                  
+                  <div class="form-group">
+                  <label class="col-md-2 control-label" >Enter number of days</label>
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" name="days" placeholder="Enter no. of days">
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+              </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" >Get Letter!</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>  
   {% endif %}
 </div>
 {% endblock %}

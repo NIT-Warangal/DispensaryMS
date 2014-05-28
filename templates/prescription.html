@@ -22,6 +22,7 @@
 	var i=1;
 	function additem() {
 		var newtext,oldtext;
+		var Quantity=document.getElementById('Quantity').value;
 		if(document.getElementById('Medicine').value==null){
 			oldtext='';
 		}
@@ -33,6 +34,7 @@
 		}
 		else{
 			newtext=document.getElementById('selectMedicine').value;
+			newtext=newtext+' '+Quantity;
 		}
 		if(i==1){
 		document.getElementById('Medicine').value=newtext;
@@ -73,16 +75,18 @@
 
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="Medicine">Choose Medicine</label>  
-					<div class="col-md-4">
-						<select name="selectMedicine" class="form-control input-md" onchange="additem()" id="selectMedicine">
+					<div class="col-md-2">
+						<select name="selectMedicine" class="form-control input-md"  id="selectMedicine">
 							<option value="0">---Select one---</option>
 							{%for item in pharmacy%}
 							<option value="{{item[1]}}">{{item[1]}}</option>
 							{%endfor%}
 						</select>
-						
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-2">
+						<input id="Quantity" name="Quantity" placeholder="Quantity of each medicine" class="form-control input-md" required="" type="text" onchange="additem()">
+					</div>
+					<div class="col-md-3">
 						<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
 							Check Availability
 						</button>
@@ -95,13 +99,12 @@
 					</div>
 				</div>
 
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label class="col-md-4 control-label" for="Quantity">Quantity</label>  
 					<div class="col-md-4">
-						<input id="Quantity" name="Quantity" placeholder="Quantity of each medication" class="form-control input-md" required="" type="text">
 
 					</div>
-				</div>
+				</div> -->
 
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="Remarks">Remarks</label>
