@@ -273,7 +273,18 @@ def checkprescription():
     entries = db.fetchall()
     db.execute("COMMIT")
     return render_template('checkprescription.html',entries=entries)
-
+@app.route('/checkpatienthistory',methods=['GET','POST'])
+def checkpatienthistory():
+    if request.method=="POST":
+        db=get_cursor()
+        regno=request.form['regno']
+        sql='select * from Prescription where RegNo="%s" order by Date desc'%(regno)
+        db.execute(sql)
+        entries=db.fetchall()
+        db.execute("COMMIT")
+        flash('Viewing patient prescription history')
+        return render_template('patienthistory.html',entries=entries)
+    return redirect(url_for('screen'))
 @app.route('/employee',methods=['GET','POST'])
 def employee():
     db = get_cursor()
