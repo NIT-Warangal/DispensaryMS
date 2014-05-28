@@ -287,6 +287,7 @@ def checkprescription():
     entries = db.fetchall()
     db.execute("COMMIT")
     return render_template('checkprescription.html',entries=entries)
+
 @app.route('/checkpatienthistory',methods=['GET','POST'])
 def checkpatienthistory():
     if request.method=="POST":
@@ -299,6 +300,7 @@ def checkpatienthistory():
         flash('Viewing patient prescription history')
         return render_template('patienthistory.html',entries=entries)
     return redirect(url_for('screen'))
+
 @app.route('/employee',methods=['GET','POST'])
 def employee():
     db = get_cursor()
