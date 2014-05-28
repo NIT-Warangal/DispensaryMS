@@ -2,6 +2,7 @@
 {% block body %}
 {% for entry in entries %}
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/editor.css') }}">
 <script>
 	function printDiv(divName) {
 		var printContents = document.getElementById(divName).innerHTML;
@@ -272,17 +273,22 @@ nav.menu ul a {
   
 }
 </style>
-<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.10.2.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/jspdf.js') }}"></script>
 
 <script>
-function test(){
-	var doc = new jsPDF();
-	doc.setFontSize(22);
-	doc.text(20, 20, 'This is a title');
-	doc.setFontSize(16);
-	doc.text(20, 30, 'This is some normal sized text underneath.');
-	}
+  function printPDF(){
+    var printDoc = new jsPDF();
+
+
+    };
+
+
+    printDoc.fromHTML($('#pdf').get(0), 10, 10, {
+        'width': 180
+    });
+
+    printDoc.autoPrint()
+    printDoc.output("dataurlnewwindow") // this opens a new popup,  after this the PDF opens the print window view but there are browser inconsistencies with how this is handled
+}
 </script>
 <!-- <button onclick="test()">TEST</button> -->
 <header class="header">
@@ -294,10 +300,18 @@ function test(){
     <li class="cor-5"></li>
   </ul>
  </header>
-<div class="wrap" id="printable">
+<div class="container" >
+
+      <!-- <div class="row-fluid"> -->
+        <!-- <div class="col-xs-10" style="text-align:center;">
+          <iframe class="preview-pane" width="100%" height="650" frameborder="0"></iframe>
+        </div>
+
+        <div id="editor" class="bypass" style="visibility:hidden;"></div> -->
+        <div class="wrap" id="printable">
  
-    <div class="blog">
-  <div class="conteudo">
+    <div class="col-xs-6" style="float:left;">
+  <div class="conteudo" id="pdf">
     <div style="text-align:center;">
     <img src="../static/images/logo_nitw.png">
     </div>
@@ -305,20 +319,64 @@ function test(){
     <h1 style="text-align:center;">To Whomsoever It May Concern</h1>
     <hr>
     <p>
-      This is to inform you that <b>{{entry[2]}} {{entry[4]}}</b> of {{entry[16]}}, {{entry[15]}} Department, residing at {{entry[20]}} at {{entry[21]}} bearing Registration Number <b>{{entry[1]}}</b> has been diagnosed as being sick and is requested to be granted a sick leave of <pre>{{days}}</pre> Days only from the date of issue this letter.
+      This is to inform you that <b>{{entry[2]}} {{entry[4]}}</b> of {{entry[16]}}, {{entry[15]}} Department, residing at {{entry[20]}} at {{entry[21]}} bearing Registration Number <b>{{entry[1]}}</b> has been diagnosed as being sick and is requested to be granted a sick leave of <pre style="text-align:center;">{{days}}</pre> Days only from the date of issue this letter.
     </p>
      <p>
       This letter has been given by Doctor {{DoctorName}}, at the NIT Warangal, Dispensary. This letter hereby signed is to serve as a document to be allowed officially as the leave letter with medical permission.
     </p>
+    <p>This letter is valid until end of day for <b>{{newdate}}</b></p>
     <p>Doctor Signature : __________________________.</p>
     <br>
     <p>Doctor Name : __________________________.</p>
+    <p style="text-align:right;">________</p>
+    <p style="text-align:right;">Stamp of Officer in charge</p>
     <p>Date  of issue           : <b>{{today}}</b></p>
      <div class="wrapper" style="text-align:center;">
-	<input class="btn btn-primary" type="button" onclick="printDiv('printable')" value="Print Letter" />
-  	</div>
+  <input class="btn btn-primary" type="button" onclick="printDiv('printable')" value="Print Letter" />
+    </div>
   </div>
   </div>
 </div>
+        
+         <!-- <div class="controls">
+          <div class="pull-right">
+            <a href="#" class="btn btn-primary">Download Your Code</a>
+            <a href="#" class="btn btn-primary download-pdf">Download PDF</a>
+          </div>
+
+          <label class="checkbox">
+            <input type="checkbox" id="auto-refresh" checked="checked"> Auto refresh on changes?
+          </label>
+          <a href="#" class="run-code hide btn btn-success">Run Code</a>
+
+          <div class="alert hide">
+            Auto refresh disabled for this
+          </div>
+
+         </div> -->
+
+      </div>
+      <div class="clerfix"></div>
+    </div> 
+    <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/js/editor.js"></script>
+
+    <!-- Scripts in development mode -->
+    <script type="text/javascript" src="../static/js/jspdf.js"></script>
+    <script type="text/javascript" src="../static/js/libs/FileSaver.js/FileSaver.js"></script>
+    <script type="text/javascript" src="../static/js/libs/Blob.js/Blob.js"></script>
+    <script type="text/javascript" src="../static/js/libs/Blob.js/BlobBuilder.js"></script>
+
+    <script type="text/javascript" src="../static/js/libs/Deflate/deflate.js"></script>
+    <script type="text/javascript" src="../static/js/libs/Deflate/adler32cs.js"></script>
+
+    <script type="text/javascript" src="../static/js/jspdf.plugin.addimage.js"></script>
+    <script type="text/javascript" src="../static/js/jspdf.plugin.from_html.js"></script>
+    <script type="text/javascript" src="../static/js/jspdf.plugin.ie_below_9_shim.js"></script>
+    <script type="text/javascript" src="../static/js/jspdf.plugin.sillysvgrenderer.js"></script>
+    <script type="text/javascript" src="../static/js/jspdf.plugin.split_text_to_size.js"></script>
+    <script type="text/javascript" src="../static/js/jspdf.plugin.standard_fonts_metrics.js"></script>
+
+
   {% endfor %}
 {% endblock %}

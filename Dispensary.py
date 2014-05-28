@@ -75,12 +75,13 @@ def printletter():
     entries = db.fetchall()
     today=datetime.date.today()
     now = datetime.datetime.now()
-    days = 0 # No. of days to put leave for
+    days_extend = 4 # No. of days to put leave for
+    newdate = today+datetime.timedelta(days=days_extend)
     sql = 'insert into Letters values ("%s","%s","%s")'
-    db.execute(sql%(811262,now,days))
+    db.execute(sql%(811262,now,days_extend))
     db.execute("commit")
     # flash(sql)
-    return render_template('Letter.html',entries = entries, today=today, days=days)
+    return render_template('Letter.html',entries = entries, today=today, days=days_extend, newdate = newdate)
     
 @app.route('/register')
 def register():
