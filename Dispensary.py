@@ -194,7 +194,7 @@ def insert():
     db=get_cursor()
     db.execute('select Count(1) from Pharmacy')
     t=db.fetchone()[0]
-    if request.form['btn'] == 'insert':
+    if request.form['btn'] == 'Insert':
         sno = (request.form['Sno'])
         name = (request.form['Name'])
         quantity = (request.form['qty'])
