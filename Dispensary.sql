@@ -174,6 +174,17 @@ CREATE TABLE IF NOT EXISTS `Letters` (
   `Days` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Table structure for table `ResetPassword` to keep track of uploads
+--
+
+CREATE TABLE IF NOT EXISTS `ResetPassword` (
+  `RegNo` text NOT NULL,
+  `Date` datetime NOT NULL,
+  `Password` text NOT NULL, -- store MD5 of new genereated password here, push this to Login.Password where ResetPassword.RegNo = Login.RegNo
+  `PlainKeyHash` text NOT NULL -- store password as text directly here, use this column to send new password
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 --
 -- Table structure for table `ChatSessionHistory` to keep track of uploads
