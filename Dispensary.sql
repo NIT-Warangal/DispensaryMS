@@ -49,12 +49,12 @@ INSERT INTO `Employee` (`RegNo`, `Occupation`, `Location`, `NoOfDependencies`) V
 -- Table structure for table `HostelWorker`
 --
 
-CREATE TABLE IF NOT EXISTS `HostelWorker` (
-  `RegNo` text NOT NULL,
-  `Occupation` text NOT NULL,
-  `Location` text NOT NULL,
-  `NoOfDependencies` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- CREATE TABLE IF NOT EXISTS `HostelWorker` (
+--   `RegNo` text NOT NULL,
+--   `Occupation` text NOT NULL,
+--   `Location` text NOT NULL,
+--   `NoOfDependencies` int(11) NOT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -172,6 +172,33 @@ CREATE TABLE IF NOT EXISTS `Letters` (
   `RegNo` text NOT NULL,
   `Date` datetime NOT NULL,
   `Days` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Table structure for table `ChatSessionHistory` to keep track of uploads
+--
+
+CREATE TABLE IF NOT EXISTS `ChatSessionHistory` (
+  `DoctorNo` text NOT NULL, -- Doctor Employee No.
+  `RegNo` text NOT NULL, -- Student Registration No.
+  `Date` datetime NOT NULL, -- Date of chat
+  `StartTime` time NOT NULL,
+  `EndTime` time NOT NULL, -- Calculate this by using StartTime+Duration
+  `Duration` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `ChatTransactions` to keep track of uploads
+--
+
+-- Link will be <url>?regno, Once the camera and audio have been shared, thats when it enters
+-- the database, The list is stored ordered by the number of people who wish to go online.
+
+CREATE TABLE IF NOT EXISTS `ChatTransactions` (
+  `Sno` int AUTO_INCREMENT,
+  `RegNo` text NOT NULL,
+  `Date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
