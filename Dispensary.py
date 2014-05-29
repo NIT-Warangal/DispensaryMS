@@ -123,6 +123,10 @@ def add():
     gender=request.form['sex']
     uname=request.form['uname']
     password=request.form['pwd']
+    con_password=request.form['con_password']
+    if con_password!=password:
+        flash('Confirm password doesnot match with password')
+        return redirect(url_for('register'))
     sql='insert into Users \
     (RegNo, FirstName, MiddleName,LastName, BloodGroup, DateofBirth, Age, Type, Phonenumber, Address,\
      email,gender) values (%s,"%s","%s","%s","%s","%s",%s,%s,"%s","%s","%s","%s")'
@@ -135,8 +139,15 @@ def add():
 
 @app.route('/student_details')
 def student_details():
+    db=get_cursor()
     chars=[chr(i) for i in xrange(ord('A'), ord('N')+1)]
-    return render_template('student_details.html',chars=chars)
+    sql='select Count(*) from Student where RegNo="%s"'%(app.config['USERID'])
+    db.execute(sql)
+    data = db.fetchone()[0]
+    if data ==0 :
+        return render_template('student_details.html',chars=chars)
+    flash('You have already filled the data!')
+    return redirect(url_for('screen'))
 
 @app.route('/student_register',methods=['GET','POST'])
 def student_register():
@@ -343,7 +354,14 @@ def employeeinfo():
 
 @app.route('/employee_details',methods=['GET','POST'])
 def employee_details():
-    return render_template('employee_details.html')
+    db=get_cursor()
+    sql='select Count(*) from Employee where RegNo="%s"'%(app.config['USERID'])
+    db.execute(sql)
+    data = db.fetchone()[0]
+    if data == 0 :
+        return render_template('employee_details.html')
+    flash('You have already filled the data!')
+    return redirect(url_for('screen'))
 
 @app.route('/employee_register',methods=['GET','POST'])
 def employee_register():
