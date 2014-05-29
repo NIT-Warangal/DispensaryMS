@@ -23,6 +23,8 @@ for key in config:
 mysql.init_app(app)
 app.config.from_object(__name__)
 
+def tup2float(tup):
+    return float('.'.join(str(x) for x in tup))
 
 def get_cursor():
     return mysql.connect().cursor()
@@ -287,15 +289,19 @@ def fileprescription():
     today=datetime.date.today()
     db.execute('insert into Prescription values(%s,"%s","%s","%s",%s,"%s","%s")'%(docno,regno,cause,meds,qty,remark,today))
     db.execute("COMMIT")
-    sql = 'select Quantity from Prescription where Medicine = "%s" and RegNo = "%s"'
-    db.execute(sql%(meds,regno))
+    sql = 'select Quantity from Pharmacy where Name = "%s"'
+    db.execute(sql%(meds))
     value = db.fetchall()
+    flash(value)
+    value = ''.join(value)
+    print value
     db.execute("commit")
     # Example : update Pharmacy set Quantity= Quantity-(select Quantity from Prescription where Medicine like 'PARACETAMOL' and RegNo=811262) where Name like 'PARACETAMOL';
-    # new_value = value-qty # New medicine quantity
+    new_value = int(value)-int(qty) # New medicine quantity
+    # new_value = int(value)
     # Updation failing, no idea why.
-    updatesql = 'update Pharmacy set Quantity = Quantity-"%s" where Name = "%s"'
-    db.execute(updatesql%(value,meds))
+    updatesql = 'update Pharmacy set Quantity = "%s" where Name = "%s"'
+    db.execute(updatesql%(new_value,meds))
     print updatesql
     db.execute("commit")
     flash('Prescription for '+regno+' has been given')

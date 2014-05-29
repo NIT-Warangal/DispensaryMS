@@ -108,12 +108,21 @@ CREATE TABLE IF NOT EXISTS `Prescription` (
   `DoctorNo` int(11) NOT NULL,
   `RegNo` text NOT NULL,
   `Cause` text NOT NULL,
-  `Medicine` text NOT NULL,
-  `Quantity` int(11) NOT NULL,
+  `Indexes` text NOT NULL, -- store Sno's from Prescription Index
   `Remarks` text NOT NULL,
   `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Table structure for table `PrescriptionIndex`
+--
+
+CREATE TABLE IF NOT EXISTS `PrescriptionIndex` (
+  `Sno` int NOT NULL AUTO_INCREMENT,
+  `Medicine` text NOT NULL,
+  `Quantity` text NOT NULL,
+  PRIMARY KEY (Sno)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 -- --------------------------------------------------------
 
 --
