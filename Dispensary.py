@@ -123,6 +123,10 @@ def add():
     gender=request.form['sex']
     uname=request.form['uname']
     password=request.form['pwd']
+    con_password=request.form['con_password']
+    if con_password!=password:
+        flash('Confirm password doesnot match with password')
+        return redirect(url_for('register'))
     sql='insert into Users \
     (RegNo, FirstName, MiddleName,LastName, BloodGroup, DateofBirth, Age, Type, Phonenumber, Address,\
      email,gender) values (%s,"%s","%s","%s","%s","%s",%s,%s,"%s","%s","%s","%s")'
