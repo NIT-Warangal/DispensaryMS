@@ -144,7 +144,7 @@ def student_details():
     sql='select Count(*) from Student where RegNo="%s"'%(app.config['USERID'])
     db.execute(sql)
     data = db.fetchone()[0]
-    if data ==0 :
+    if not data:
         return render_template('student_details.html',chars=chars)
     flash('You have already filled the data!')
     return redirect(url_for('screen'))
@@ -358,7 +358,7 @@ def employee_details():
     sql='select Count(*) from Employee where RegNo="%s"'%(app.config['USERID'])
     db.execute(sql)
     data = db.fetchone()[0]
-    if data == 0 :
+    if not data:
         return render_template('employee_details.html')
     flash('You have already filled the data!')
     return redirect(url_for('screen'))
