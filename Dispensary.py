@@ -276,13 +276,24 @@ def fileprescription():
     today=datetime.date.today()
     db.execute('insert into Prescription values(%s,"%s","%s","%s",%s,"%s","%s")'%(docno,regno,cause,meds,qty,remark,today))
     db.execute("COMMIT")
+    sql = 'select Quantity from Prescription where Medicine = "%s" and RegNo = "%s"'
+    db.execute(sql%(meds,regno))
+    value = db.fetchall()
+    db.execute("commit")
+    # Example : update Pharmacy set Quantity= Quantity-(select Quantity from Prescription where Medicine like 'PARACETAMOL' and RegNo=811262) where Name like 'PARACETAMOL';
+    # new_value = value-qty # New medicine quantity
+    # Updation failing, no idea why.
+    updatesql = 'update Pharmacy set Quantity = Quantity-"%s" where Name = "%s"'
+    db.execute(updatesql%(value,meds))
+    print updatesql
+    db.execute("commit")
     flash('Prescription for '+regno+' has been given')
     return redirect(url_for('prescription'))
 
 @app.route('/checkprescription',methods=['GET','POST'])
 def checkprescription():
     db=get_cursor()
-    sql="select * from Prescription where RegNo='%s' order by Date desc"%(app.config['USERID'])
+    sql="select * from Prescription where RegNo='%s' order by Date"%(app.config['USERID'])
     db.execute(sql)
     entries = db.fetchall()
     db.execute("COMMIT")
