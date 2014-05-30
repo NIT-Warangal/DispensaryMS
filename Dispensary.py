@@ -292,6 +292,9 @@ def fileprescription():
         sql='insert into PrescriptionIndex(`medicine`,`quantity`) values("%s",%s)'%(medicine,quantity)
         db.execute(sql)
         db.execute("commit")
+        sql='update Pharmacy set Quantity=Quantity-%s where Name="%s"'%(quantity,medicine)
+        db.execute(sql)
+        db.execute("commit")
     sql='select max(Sno) from PrescriptionIndex'
     db.execute(sql)
     indexEnd=db.fetchone()[0]
