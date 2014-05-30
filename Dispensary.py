@@ -63,7 +63,12 @@ def upload_file():
 
 @app.route('/')
 def screen():
-    return render_template('screen.html') #show_entries
+    db = get_cursor()
+    sql = 'select * from Users where RegNo = "%s"'
+    db.execute(sql%app.config['USERID'])
+    names = db.fetchall()
+    db.execute("commit")
+    return render_template('screen.html',names=names) #show_entries
 
 @app.route('/chat')
 def chat():
@@ -148,7 +153,7 @@ def student_details():
     data = db.fetchone()[0]
     if not data:
         return render_template('student_details.html',chars=chars)
-    flash('You have already filled the data!')
+    flash('You have already filled in this data!')
     return redirect(url_for('screen'))
 
 @app.route('/student_register',methods=['GET','POST'])

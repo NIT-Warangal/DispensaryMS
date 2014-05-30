@@ -12,7 +12,9 @@
   </div>
   {% else %}
   <div class="jumbotron">
-    <h1>Hello! </h1>
+    {% for name in names %}
+    <h1>Hello! <i style="font-size:40px;font-weight:100;">{{name[2]}} {{name[3]}}</i></h1>
+    {% endfor %}
     <p>Thank you for using Dispensary System. As a first time user, you would have to register. Please click the register button to register your data with the dispensary so that you can use it.</p>
     <!-- <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p> -->
     {% if session.temp==2%}
@@ -26,7 +28,7 @@
     <p class="pull-right text-danger" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developing a profile for you</p>
     <p><a class="btn btn-info btn-lg" role="button" href="/student_details">Enter Profile Details</a></p>
     <p class="pull-right text-success" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Talk face to face with the doctor while sitting in your room</p>
-    <p><a href="#" role="button" class="btn btn-success btn-lg">Online Consulting</a></p>
+    <p><a href="/chat" role="button" class="btn btn-success btn-lg">Online Consulting</a></p>
     {%endif%}
     <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription">Check Prescriptions</a></p>
     {% if session.temp==3 %}
