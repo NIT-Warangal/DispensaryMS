@@ -14,16 +14,24 @@
 					<th>Date</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody>{%set i=0%}
 			{%for item in entries%}
 				<tr>
 					<td>{{item[0]}}</td>
 					<td>{{item[2]}}</td>
-					<td>{{item[3]}}</td>
-					<td>{{item[4]}}</td>
+					<td>{{'|'}}
+						{%for entry in data[i]%}
+						{{entry[1]}} {{'|'}}
+						{%endfor%}
+					</td>
+					<td>{{'|'}}
+						{%for entry in data[i]%}
+						{{entry[2]}} {{'|'}}
+						{%endfor%}</td>
 					<td>{{item[5]}}</td>
 					<td>{{item[6].strftime("%d/%m/%Y")}}</td>
 				</tr>
+				{%set i=i+1%}
 			{%endfor%}
 			</tbody>
 		</table>

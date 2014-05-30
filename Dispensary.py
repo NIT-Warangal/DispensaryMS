@@ -300,7 +300,7 @@ def fileprescription():
     indexEnd=db.fetchone()[0]
     db.execute("commit")
     indexStart=indexEnd-int(inde)+1
-    doctorno=request.form['DoctorNo']
+    doctorno=app.config['USERID']
     regno=request.form['RegNo']
     cause=request.form['Cause']
     remarks=request.form['Remarks']
@@ -332,12 +332,19 @@ def checkpatienthistory():
     if request.method=="POST":
         db=get_cursor()
         regno=request.form['regno']
-        sql='select * from Prescription where RegNo="%s" order by Date desc'%(regno)
+        sql="select * from Prescription where RegNo='%s' order by Date"%(regno)
         db.execute(sql)
         entries=db.fetchall()
         db.execute("COMMIT")
+        medicine=[]
+        for entry in entries:
+            sql='select * from PrescriptionIndex where Sno>=%s and Sno<=%s'%(entry[3],entry[4])
+            db.execute(sql)
+            medicine.append(db.fetchall())
+            db.execute("COMMIT")
+        data=medicine
         flash('Viewing patient prescription history')
-        return render_template('patienthistory.html',entries=entries)
+        return render_template('patienthistory.html',entries=entries,data=data)
     return redirect(url_for('screen'))
 
 @app.route('/employee',methods=['GET','POST'])
