@@ -1,16 +1,24 @@
 # all the imports
-import os
+import os,binascii
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 from flaskext.mysql import MySQL
+from flask_mail import Mail,Message
 from config import config
+from mailconfig import mailconfig
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 import datetime
  
 mysql = MySQL()
 # create our little application :)
+
 app = Flask(__name__)
+
+mail = Mail(app)
+# Mail
+mail.init_app(app)
+
 
 # Managing Bills Position
 UPLOAD_FOLDER = 'bills/'
@@ -19,6 +27,9 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 for key in config:
     app.config[key] = config[key]
+
+for mailkey in mailconfig:
+    app.config[mailkey] = mailconfig[mailkey]
 
 mysql.init_app(app)
 app.config.from_object(__name__)
@@ -37,6 +48,71 @@ def close_db():
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+@app.route('/changepassword', methods=['GET','POST'])
+def changepassword():
+    if request.method=="POST":
+        db=get_cursor()
+        myid = app.config['USERID']
+        oldpass=request.form['oldpass']
+        newpass=request.form['newpass']
+        renewpass=request.form['renewpass']
+        if newpass == renewpass:
+            # Both entered passwords matched
+            tempsql = 'insert into CheckPassword values ("%s",MD5("%s"))'
+            db.execute(tempsql%(myid,oldpass))
+            db.execute("COMMIT")
+            sql = 'select * from Login where Password=(select Password from CheckPassword where RegNo="%s") and EmpID="%s"'
+            db.execute(sql%(myid,myid))
+            oldvalue = db.fetchall()
+            if not oldvalue:
+                flash('Your original password doesnot match')
+                delsql = 'delete from CheckPassword where RegNo="%s"'
+                db.execute(delsql%myid)
+                db.execute("commit")
+                return redirect(url_for('changepassword'))
+            updatesql = 'update Login set Password=MD5("%s") where EmpID="%s"'
+            db.execute(updatesql%(newpass,myid))
+            db.execute("commit")
+            delsql = 'delete from CheckPassword where RegNo="%s"'
+            db.execute(delsql%myid)
+            db.execute("commit")
+            flash("Your password has been successfully changed")
+            return redirect(url_for('changepassword'))
+        flash('Your New Passwords donot match')
+        return redirect(url_for('changepassword'))
+    return render_template('changepassword.html')
+
+
+
+
+@app.route('/forgetpassword',methods=['GET','POST'])
+def forgetpassword():
+    if request.method=="POST":
+        db=get_cursor()
+        regno = request.form['regno']
+        email = request.form['email']
+        sql = 'select * from Login where EmpID = (select RegNo from Users where email ="%s" and RegNo="%s")'
+        db.execute(sql%(email,regno))
+        values = db.fetchall()
+        if not values:
+            flash('Registration No. and Employee ID dont match')
+            return redirect(url_for('forgetpassword'))
+        db.execute("commit")
+        new_password=binascii.b2a_hex(os.urandom(15))
+        now = datetime.datetime.now()
+        resetsql = 'insert into ResetPassword values ("%s","%s",MD5("%s"),"%s")'
+        db.execute(resetsql%(regno,now.strftime("%d/%m/%y %H:%M"),new_password,new_password))
+        db.execute("commit")
+        updatesql = 'update Login set Password=MD5("%s") where EmpID="%s"'
+        db.execute(updatesql%(new_password,regno))
+        db.execute("commit")
+        flash('Your New Password is '+new_password)
+        # We need to send this via email not flash it
+        return render_template('forgetpassword.html',values=values)
+    return render_template('forgetpassword.html')
+
+
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
