@@ -314,8 +314,17 @@ def checkprescription():
     sql="select * from Prescription where RegNo='%s' order by Date"%(app.config['USERID'])
     db.execute(sql)
     entries = db.fetchall()
+    db.execute("commit")
+    start=0
+    end=0
+    for entry in entries:
+        start=entry[3]
+        end=entry[4]
+    sql='select * from PrescriptionIndex where Sno>=%s and Sno<=%s'%(start,end)
+    db.execute(sql)
+    medicine=db.fetchall()
     db.execute("COMMIT")
-    return render_template('checkprescription.html',entries=entries)
+    return render_template('checkprescription.html',entries=entries,medicine=medicine)
 
 @app.route('/checkpatienthistory',methods=['GET','POST'])
 def checkpatienthistory():
