@@ -192,7 +192,7 @@ def login():
         sql='select Count(*) from Login where UserName="%s" and Password=MD5("%s")'%(uname,pwd)
         db.execute(sql)
         data = db.fetchone()[0]
-        if data == 0:
+        if not data:
             error='Invalid username/password'
         else:
             session['logged_in'] = True
@@ -336,6 +336,9 @@ def checkpatienthistory():
         db.execute(sql)
         entries=db.fetchall()
         db.execute("COMMIT")
+        if not entries:
+            flash('No one with that data found.')
+            return redirect(url_for('screen'))
         medicine=[]
         for entry in entries:
             sql='select * from PrescriptionIndex where Sno>=%s and Sno<=%s'%(entry[3],entry[4])
