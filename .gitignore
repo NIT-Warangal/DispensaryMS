@@ -1,5 +1,4 @@
 *.pyc
 .DS_Store
 Dispensary.db
-config.py
 config.pyc
