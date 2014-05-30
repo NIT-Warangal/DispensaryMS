@@ -37,7 +37,7 @@
 						<th>Remarks</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody>{%set i=0%}
 				{% for entry in entries%}
 					<tr>
 						<td>{{entry[0]}}</td>
@@ -45,17 +45,18 @@
 						<td title="dd/mm/yyyy">{{entry[6].strftime("%d/%m/%Y")}}</td>
 						<td>{{entry[2]}}</td>
 						<td>{{'|'}}
-							{%for item in medicine%}
+							{%for item in medicine[i]%}
 							{{item[1]}} {{'|'}}
 							{%endfor%}
 						</td>
 						<td>{{'|'}}
-						{%for item in medicine%}
-							{{item[0]}} {{'|'}}
+						{%for item in medicine[i]%}
+							{{item[2]}} {{'|'}}
 							{%endfor%}
 						</td>
 						<td>{{entry[5]}}</td>
 					</tr>
+					{%set i=i+1%}
 				{% endfor %}					
 				</tbody>
 			</table>

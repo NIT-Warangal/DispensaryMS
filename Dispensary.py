@@ -318,16 +318,14 @@ def checkprescription():
     db.execute(sql)
     entries = db.fetchall()
     db.execute("commit")
-    start=0
-    end=0
+    medicine=[]
     for entry in entries:
-        start=entry[3]
-        end=entry[4]
-    sql='select * from PrescriptionIndex where Sno>=%s and Sno<=%s'%(start,end)
-    db.execute(sql)
-    medicine=db.fetchall()
-    db.execute("COMMIT")
-    return render_template('checkprescription.html',entries=entries,medicine=medicine)
+        sql='select * from PrescriptionIndex where Sno>=%s and Sno<=%s'%(entry[3],entry[4])
+        db.execute(sql)
+        medicine.append(db.fetchall())
+        db.execute("COMMIT")
+    data=medicine
+    return render_template('checkprescription.html',entries=entries,medicine=data)
 
 @app.route('/checkpatienthistory',methods=['GET','POST'])
 def checkpatienthistory():
