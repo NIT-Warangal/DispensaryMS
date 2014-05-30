@@ -4,21 +4,19 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 from flaskext.mysql import MySQL
 from flask_mail import Mail,Message
-from config import config
-from mailconfig import mailconfig
+from config import config, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 import datetime
  
+import logging
+from logging.handlers import SMTPHandler
+credentials = None
+
 mysql = MySQL()
 # create our little application :)
 
 app = Flask(__name__)
-
-mail = Mail(app)
-# Mail
-mail.init_app(app)
-
 
 # Managing Bills Position
 UPLOAD_FOLDER = 'bills/'
@@ -28,8 +26,15 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 for key in config:
     app.config[key] = config[key]
 
-for mailkey in mailconfig:
-    app.config[mailkey] = mailconfig[mailkey]
+mail = Mail(app)
+# Mail
+mail.init_app(app)
+
+if MAIL_USERNAME or MAIL_PASSWORD:
+    credentials = (MAIL_USERNAME, MAIL_PASSWORD)
+    mail_handler = SMTPHandler((MAIL_SERVER, MAIL_PORT), 'no-reply@' + MAIL_SERVER, ADMINS, 'resetpass', credentials)
+    mail_handler.setLevel(logging.ERROR)
+    app.logger.addHandler(mail_handler)
 
 mysql.init_app(app)
 app.config.from_object(__name__)
@@ -84,8 +89,6 @@ def changepassword():
     return render_template('changepassword.html')
 
 
-
-
 @app.route('/forgetpassword',methods=['GET','POST'])
 def forgetpassword():
     if request.method=="POST":
@@ -98,6 +101,9 @@ def forgetpassword():
         if not values:
             flash('Registration No. and Employee ID dont match')
             return redirect(url_for('forgetpassword'))
+        tempval = ""
+        for val in values:
+            tempval = val[1]
         db.execute("commit")
         new_password=binascii.b2a_hex(os.urandom(15))
         now = datetime.datetime.now()
@@ -107,12 +113,14 @@ def forgetpassword():
         updatesql = 'update Login set Password=MD5("%s") where EmpID="%s"'
         db.execute(updatesql%(new_password,regno))
         db.execute("commit")
-        flash('Your New Password is '+new_password)
+        msg = Message("Dispensary Password Reset",sender="noreply-password@dispensary.nitw.ac.in",recipients=[email])
+        msg.body = "Hello, "+tempval+"\nYou have requested for a new password at "+now.strftime("%d/%m/%y %H:%M")+"\nYour New Password is "+new_password+"\n\nThank You!\nAdmin"
+        mail.send(msg)
+        print "message sent"
+        # flash('Your New Password is '+new_password)
         # We need to send this via email not flash it
         return render_template('forgetpassword.html',values=values)
     return render_template('forgetpassword.html')
-
-
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
