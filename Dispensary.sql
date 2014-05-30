@@ -198,6 +198,15 @@ CREATE TABLE IF NOT EXISTS `ResetPassword` (
 
 
 --
+-- Table structure for table `CheckPassword` to keep track of uploads
+--
+
+CREATE TABLE IF NOT EXISTS `CheckPassword` (
+  `RegNo` text NOT NULL,
+  `Password` text NOT NULL 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
 -- Table structure for table `ChatSessionHistory` to keep track of uploads
 --
 

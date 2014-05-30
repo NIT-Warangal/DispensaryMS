@@ -49,6 +49,43 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+@app.route('/changepassword', methods=['GET','POST'])
+def changepassword():
+    if request.method=="POST":
+        db=get_cursor()
+        myid = app.config['USERID']
+        oldpass=request.form['oldpass']
+        newpass=request.form['newpass']
+        renewpass=request.form['renewpass']
+        if newpass == renewpass:
+            # Both entered passwords matched
+            tempsql = 'insert into CheckPassword values ("%s",MD5("%s"))'
+            db.execute(tempsql%(myid,oldpass))
+            db.execute("COMMIT")
+            sql = 'select * from Login where Password=(select Password from CheckPassword where RegNo="%s") and EmpID="%s"'
+            db.execute(sql%(myid,myid))
+            oldvalue = db.fetchall()
+            if not oldvalue:
+                flash('Your original password doesnot match')
+                delsql = 'delete from CheckPassword where RegNo="%s"'
+                db.execute(delsql%myid)
+                db.execute("commit")
+                return redirect(url_for('changepassword'))
+            updatesql = 'update Login set Password=MD5("%s") where EmpID="%s"'
+            db.execute(updatesql%(newpass,myid))
+            db.execute("commit")
+            delsql = 'delete from CheckPassword where RegNo="%s"'
+            db.execute(delsql%myid)
+            db.execute("commit")
+            flash("Your password has been successfully changed")
+            return redirect(url_for('changepassword'))
+        flash('Your New Passwords donot match')
+        return redirect(url_for('changepassword'))
+    return render_template('changepassword.html')
+
+
+
+
 @app.route('/forgetpassword',methods=['GET','POST'])
 def forgetpassword():
     if request.method=="POST":
@@ -64,8 +101,8 @@ def forgetpassword():
         db.execute("commit")
         new_password=binascii.b2a_hex(os.urandom(15))
         now = datetime.datetime.now()
-        sql = 'insert into ResetPassword values "%s","%s",MD5("%s"),"%s"'
-        db.execute(sql%(regno,now.strftime("%d/%m/%y %H:%M"),new_password,new_password))
+        resetsql = 'insert into ResetPassword values ("%s","%s",MD5("%s"),"%s")'
+        db.execute(resetsql%(regno,now.strftime("%d/%m/%y %H:%M"),new_password,new_password))
         db.execute("commit")
         updatesql = 'update Login set Password=MD5("%s") where EmpID="%s"'
         db.execute(updatesql%(new_password,regno))
