@@ -37,21 +37,21 @@
 						<th>Remarks</th>
 					</tr>
 				</thead>
-				<tbody>{%set i=0%}
+				<tbody >{%set i=0%}
 				{% for entry in entries%}
-					<tr>
+					<tr >
 						<td>{{entry[0]}}</td>
 						<td>{{entry[1]}}</td>
 						<td title="dd/mm/yyyy">{{entry[6].strftime("%d/%m/%Y")}}</td>
 						<td>{{entry[2]}}</td>
-						<td>{{'|'}}
+						<td height="100" >
 							{%for item in medicine[i]%}
-							{{item[1]}} {{'|'}}
+							{{item[1]}} <br>
 							{%endfor%}
 						</td>
-						<td>{{'|'}}
+						<td height="100" align="center">
 						{%for item in medicine[i]%}
-							{{item[2]}} {{'|'}}
+							{{item[2]}} <br>
 							{%endfor%}
 						</td>
 						<td>{{entry[5]}}</td>
