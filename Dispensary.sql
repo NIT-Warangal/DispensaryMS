@@ -108,10 +108,12 @@ CREATE TABLE IF NOT EXISTS `Prescription` (
   `DoctorNo` int(11) NOT NULL,
   `RegNo` text NOT NULL,
   `Cause` text NOT NULL,
-  `Indexes` text NOT NULL, -- store Sno's from Prescription Index
+  `IndexStart` int(11) NOT NULL,
+  `IndexEnd` int(11) NOT NULL,
   `Remarks` text NOT NULL,
   `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 --
 -- Table structure for table `PrescriptionIndex`
