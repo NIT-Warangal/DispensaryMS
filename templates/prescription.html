@@ -45,6 +45,25 @@
 		}
 	}
 	</script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+
+	var i=1;
+	$("#add_row").click(function(){
+			$('#addr'+i).html("<td><select name='selectMedicine"+i+"' class='form-control input-md'><option value='0'>---Select one---</option>{%for item in pharmacy%}<option value='{{item[1]}}'>{{item[1]}}</option>{%endfor%}</select></td><td><input id='Quantity' name='Quantity"+i+"' placeholder='Quantity of each medicine' class='form-control input-md' required='' type='text'></td>");
+			$('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+			i++; 
+			$('#indexval').val(i);
+		});
+	$("#delete_row").click(function(){
+			if(i>1){
+				$("#addr"+(i-1)).html('');
+				i--;
+				$('#indexval').val(i);
+			}
+		});
+	});
+	</script>
 	<div class="col-lg-12">
 		<form class="form-horizontal add-entry" action="{{ url_for('fileprescription') }}" style="text-align:center;" method=post>
 			<fieldset>
@@ -73,38 +92,31 @@
 					</div>
 				</div>
 
-				<div class="form-group">
+				<div class="form-group" id="medi">
 					<label class="col-md-4 control-label" for="Medicine">Choose Medicine</label>  
-					<div class="col-md-2">
-						<select name="selectMedicine" class="form-control input-md"  id="selectMedicine">
+					<div class="col-md-4">
+					<table class="table table-responsive" align="center" id="tab_logic">
+					<tbody>
+					<tr id="addr0">
+						<td><select name="selectMedicine0" class="form-control input-md">
 							<option value="0">---Select one---</option>
 							{%for item in pharmacy%}
 							<option value="{{item[1]}}">{{item[1]}}</option>
 							{%endfor%}
 						</select>
+					</td>
+					<td>
+						<input id="Quantity" name="Quantity0" placeholder="Quantity of each medicine" class="form-control input-md" required="" type="text">
+					</td>
+					</tr>
+					<tr id="addr1"></tr>
+					</tbody>
+					</table>
+						<a id="add_row" class="btn btn-success pull-left"><span class="glyphicon glyphicon-plus"></span></a>
+						<a id='delete_row' class="btn btn-danger pull-right"><span class="glyphicon glyphicon-minus"></span></a>
 					</div>
-					<div class="col-md-2">
-						<input id="Quantity" name="Quantity" placeholder="Quantity of each medicine" class="form-control input-md" required="" type="text" onchange="additem()">
-					</div>
-					<div class="col-md-3">
-						<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-							Check Availability
-						</button>
-					</div>
+					<input type="hidden" id="indexval" name="numofrows" value="1">
 				</div>
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="MedicineGiven">Medicine Given</label>  
-					<div class="col-md-4">
-						<textarea id="Medicine" name="Medicine" placeholder="Medicines Given" class="form-control input-md" required="" ></textarea>
-					</div>
-				</div>
-
-				<!-- <div class="form-group">
-					<label class="col-md-4 control-label" for="Quantity">Quantity</label>  
-					<div class="col-md-4">
-
-					</div>
-				</div> -->
 
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="Remarks">Remarks</label>
@@ -112,7 +124,12 @@
 						<textarea class="form-control" id="Remarks" name="Remarks"></textarea>
 					</div>
 				</div>
-				<a href="{{url_for('prescription')}}" class="btn btn-danger">Cancel</a>
+				<div class="col-md-3 pull-right">
+						<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+							Check Availability
+						</button>
+					</div>
+				<a href="{{url_for('prescription')}}" class="btn btn-warning col-md-offset-5">Cancel</a>
 				<input type="submit" value="submit" class="btn btn-success">
 			</fieldset>
 			{% endif %}

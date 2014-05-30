@@ -285,31 +285,27 @@ def prescription():
 @app.route('/fileprescription', methods=['GET','POST'])
 def fileprescription():
     db = get_cursor()
-    docno = request.form['DoctorNo']
-    regno = request.form['RegNo']
-    cause = request.form['Cause']
-    meds = request.form['Medicine']
-    qty = request.form['Quantity']
-    remark = request.form['Remarks']
-    today=datetime.date.today()
-    db.execute('insert into Prescription values(%s,"%s","%s","%s",%s,"%s","%s")'%(docno,regno,cause,meds,qty,remark,today))
-    db.execute("COMMIT")
-    sql = 'select Quantity from Pharmacy where Name = "%s"'
-    db.execute(sql%(meds))
-    value = db.fetchall()
-    flash(value)
-    value = ''.join(value)
-    print value
+    inde=request.form['numofrows']
+    for i in range(0,int(inde)):
+        medicine=request.form['selectMedicine'+str(i)]
+        quantity=request.form['Quantity'+str(i)]
+        sql='insert into PrescriptionIndex(`medicine`,`quantity`) values("%s",%s)'%(medicine,quantity)
+        db.execute(sql)
+        db.execute("commit")
+    sql='select max(Sno) from PrescriptionIndex'
+    db.execute(sql)
+    indexEnd=db.fetchone()[0]
     db.execute("commit")
-    # Example : update Pharmacy set Quantity= Quantity-(select Quantity from Prescription where Medicine like 'PARACETAMOL' and RegNo=811262) where Name like 'PARACETAMOL';
-    new_value = int(value)-int(qty) # New medicine quantity
-    # new_value = int(value)
-    # Updation failing, no idea why.
-    updatesql = 'update Pharmacy set Quantity = "%s" where Name = "%s"'
-    db.execute(updatesql%(new_value,meds))
-    print updatesql
+    indexStart=indexEnd-int(inde)+1
+    doctorno=request.form['DoctorNo']
+    regno=request.form['RegNo']
+    cause=request.form['Cause']
+    remarks=request.form['Remarks']
+    date_of_prescription=datetime.date.today()
+    sql='insert into Prescription values(%s,"%s","%s",%s,%s,"%s","%s")'%(doctorno,regno,cause,indexStart,indexEnd,remarks,date_of_prescription)
+    db.execute(sql)
     db.execute("commit")
-    flash('Prescription for '+regno+' has been given')
+    flash('Prescription for '+regno+' is given')
     return redirect(url_for('prescription'))
 
 @app.route('/checkprescription',methods=['GET','POST'])
