@@ -169,6 +169,23 @@ def showfiles():
         return redirect(url_for('screen'))
     return render_template('showfiles.html',bills = bills)
 
+@app.route('/checkletter', methods=['GET', 'POST'])
+def checkletter():
+    regno = app.config['USERID']
+    if regno:
+        db = get_cursor()
+        sql = 'select * from Letters where RegNo="%s" order by Date desc'
+        db.execute(sql%regno)
+        letters = db.fetchall()
+        db.execute("commit")
+        if not letters:
+            flash('You havenot been given any letters yet')
+            return redirect(url_for('screen'))
+        return render_template('checkletter.html',letters = letters)
+    else:
+        flash('You have to be logged in')
+        return render_template('checkletter.html')
+
 @app.route('/printletter',methods=['GET','POST'])
 def printletter():
     if request.method=="POST":

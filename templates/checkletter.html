@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block body %}
+{%if session.logged_in==True%}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+<style>
+table,th,td
+{
+  border:1px solid black;
+}
+</style>
+<body>
+<h1 style="text-align:center;">Your Sick Letters</h1>
+<p style="text-align:center;">You have been given these sick letters.</p>
+<div class="container" id="printable">
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-10 col-sm-10 col-md-10 col-lg-10">
+      
+      <table class="table table-condensed table-responsive table-striped" id="item-table">
+        <thead>
+          <tr>
+            <th>Valid from Date</th>
+            <th>Time Uploaded</th>
+            <th>Days Valid</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for letter in letters %}
+          <tr>
+            <td>{{letter[1].strftime("%d/%m/%Y")}}</td>
+            <td>{{letter[1].strftime("%H:%M")}}</td>
+            <td>{{letter[2]}}</td>
+          </tr>
+        {% endfor %}          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+  {%else%}
+  <div class="jumbotron">
+    <h1>Access Denied</h1>
+  </div>
+  {% endif %}
+  {% endblock %}
