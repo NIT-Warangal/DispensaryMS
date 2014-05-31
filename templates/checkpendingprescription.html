@@ -1,25 +1,40 @@
 {%extends "layout.html"%}
 {%block body%}
-{%if session.logged_in and session.temp==3%}
+{% if session.logged_in and session.temp==4%}
 <div class="container">
 	<div class="row">
 		<table class="table">
 			<thead>
 				<tr>
 					<th>RegNo/EmpID</th>
-					<th>See prescription</th>
+					<th>Prescription</th>
+					<th>Resolve Status</th>
 				</tr>
 			</thead>
 			<tbody>
+			{% set i=0 %}
 			{%for entry in entries%}
 				<tr>
-					<td>{{entry[0]}}</td>
-					<td><button type="submit" class="btn btn-lg btn-default"value="{{entry[0]}}">See prescription</button></td>
+					<td>{{entry[1]}}</td>
+					
+					<td>
+						{% for item in data[i] %}
+						{{item}}
+						{% endfor %}
+					</td>
+					
+					<td><button type="submit" class="btn btn-success" value="{{entry[0]}}">Resolve This</button></td>
 				</tr>
+				{% set i=i+1 %}
 			{%endfor%}
 			</tbody>
 		</table>
 	</div>
 </div>
+{% else %}
+<div class="jumbotron">
+	<h1>You have to be Authorized.</h1>
+</div>
 {%endif%}
+
 {%endblock%}

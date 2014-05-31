@@ -428,13 +428,14 @@ def fileprescription():
         cause=request.form['Cause']
         remarks=request.form['Remarks']
         date_of_prescription=datetime.date.today()
-        sql='insert into Prescription values(%s,"%s","%s",%s,%s,"%s","%s")'%(doctorno,regno,cause,indexStart,indexEnd,remarks,date_of_prescription)
+        sql='insert into Prescription values(%s,"%s","%s",%s,%s,"%s","%s","%s")'%(doctorno,regno,cause,indexStart,indexEnd,remarks,date_of_prescription,1)
         db.execute(sql)
         db.execute("commit")
         flash('Prescription for '+regno+' is given')
         return redirect(url_for('prescription'))
     flash('User doesnot exist')
     return redirect(url_for('prescription'))
+
 @app.route('/checkprescription',methods=['GET','POST'])
 def checkprescription():
     db=get_cursor()
@@ -454,10 +455,18 @@ def checkprescription():
 @app.route('/checkpendingprescription')
 def checkpendingprescription():
     db=get_cursor()
-    sql='select Regno from Prescription where Pending=1'
+    sql='select * from Prescription where Pending=1'
     db.execute(sql)
     entries=db.fetchall()
-    return render_template('checkpendingprescription.html',entries=entries)
+    db.execute("commit")
+    medicine=[]
+    for entry in entries:
+        sql='select * from PrescriptionIndex where Sno>=%s and Sno<=%s'%(entry[3],entry[4])
+        db.execute(sql)
+        medicine.append(db.fetchall())
+        db.execute("COMMIT")
+    data = medicine
+    return render_template('checkpendingprescription.html',entries=entries,data=data)
 
 @app.route('/checkpatienthistory',methods=['GET','POST'])
 def checkpatienthistory():
