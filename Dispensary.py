@@ -404,7 +404,7 @@ def fileprescription():
             if (get_quantity-quantity)>0:
                 continue
             else:
-                flash('Medicine named '+medicine+' has been quantity greater than what inventory consists')
+                flash('Medicine named '+medicine+' has been given a quantity greater than what the inventory consists')
                 return redirect(url_for('prescription'))
         for i in range(0,int(inde)):
             sql='update Pharmacy set Quantity=Quantity-%s where Name="%s"'%(quantity,medicine)
