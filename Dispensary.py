@@ -468,6 +468,25 @@ def checkpendingprescription():
     data = medicine
     return render_template('checkpendingprescription.html',entries=entries,data=data)
 
+@app.route('/updateinventory',methods=['GET','POST'])
+def updateinventory():
+    global t
+    db=get_cursor()
+    db.execute('select count(1) from Prescription where Pending=1')
+    t = db.fetchone()[0]
+    for i in range(0,t+1):
+        r = str(i)
+        if request.form['btn']== 'btn'+r:
+            regno=request.form['Regno'+r]
+            query = 'update Prescription set Pending=0 where RegNo="%s"'
+            db.execute(query%regno)
+            db.execute('commit')
+            flash('Pending status removed. Please refresh Page')
+            return redirect(url_for('/checkpendingprescription'))
+        i=i+1
+    flash('An Unknown Error Occured')
+
+
 @app.route('/checkpatienthistory',methods=['GET','POST'])
 def checkpatienthistory():
     if request.method=="POST":

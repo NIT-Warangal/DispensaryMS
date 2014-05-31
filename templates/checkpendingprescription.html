@@ -3,6 +3,7 @@
 {% if session.logged_in and session.temp==4%}
 <div class="container">
 	<div class="row">
+		<form action="{{url_for('updateinventory')}}" method="post">
 		<table class="table">
 			<thead>
 				<tr>
@@ -15,7 +16,7 @@
 			{% set i=0 %}
 			{%for entry in entries%}
 				<tr>
-					<td>{{entry[1]}}</td>
+					<td><input type="number" value="{{entry[1]}}" name="Regno{{i}}"</td>
 					
 					<td>
 						{% for item in data[i] %}
@@ -23,12 +24,13 @@
 						{% endfor %}
 					</td>
 					
-					<td><button type="submit" class="btn btn-success" value="{{entry[0]}}">Resolve This</button></td>
+					<td><button type="submit" class="btn btn-success" value="btn{{i}}" name="btn">Resolve This <span style="font-size:15px;" class="glyphicon glyphicon-ok"></span></button></td>
 				</tr>
 				{% set i=i+1 %}
 			{%endfor%}
 			</tbody>
 		</table>
+	</form>
 	</div>
 </div>
 {% else %}
