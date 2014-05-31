@@ -21,15 +21,19 @@ table,th,td
             <th>Valid from Date</th>
             <th>Time Uploaded</th>
             <th>Days Valid</th>
+            <th>End Date</th>
           </tr>
         </thead>
         <tbody>
+        {%set i=0%}
         {% for letter in letters %}
           <tr>
             <td>{{letter[1].strftime("%d/%m/%Y")}}</td>
             <td>{{letter[1].strftime("%H:%M")}}</td>
             <td>{{letter[2]}}</td>
+            <td>{{enddate[i].strftime("%d/%m/%Y")}}</td>
           </tr>
+          {%set i=i+1%}
         {% endfor %}          
         </tbody>
       </table>
