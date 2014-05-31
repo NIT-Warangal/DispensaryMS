@@ -451,6 +451,14 @@ def checkprescription():
     data=medicine
     return render_template('checkprescription.html',entries=entries,medicine=data)
 
+@app.route('/checkpendingprescription')
+def checkpendingprescription():
+    db=get_cursor()
+    sql='select Regno from Prescription where Pending=1'
+    db.execute(sql)
+    entries=db.fetchall()
+    return render_template('checkpendingprescription.html',entries=entries)
+
 @app.route('/checkpatienthistory',methods=['GET','POST'])
 def checkpatienthistory():
     if request.method=="POST":
