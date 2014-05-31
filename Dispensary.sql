@@ -111,8 +111,10 @@ CREATE TABLE IF NOT EXISTS `Prescription` (
   `IndexStart` int(11) NOT NULL,
   `IndexEnd` int(11) NOT NULL,
   `Remarks` text NOT NULL,
-  `Date` date NOT NULL
+  `Date` date NOT NULL,
+  `Pending` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 
 --

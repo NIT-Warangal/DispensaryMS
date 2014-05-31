@@ -177,11 +177,14 @@ def checkletter():
         sql = 'select * from Letters where RegNo="%s" order by Date desc'
         db.execute(sql%regno)
         letters = db.fetchall()
+        enddate = []
+        for item in letters:
+            enddate.append(item[1]+datetime.timedelta(days=item[2]))
         db.execute("commit")
         if not letters:
             flash('You havenot been given any letters yet')
             return redirect(url_for('screen'))
-        return render_template('checkletter.html',letters = letters)
+        return render_template('checkletter.html',letters = letters,enddate=enddate)
     else:
         flash('You have to be logged in')
         return render_template('checkletter.html')
@@ -218,32 +221,38 @@ def add():
     db = get_cursor()
     # sno=request.form['Sno']
     regno= request.form['Regno']
-    fname=request.form['FirstName']
-    mname=request.form['MiddleName']
-    lname=request.form['LastName']
-    bgroup=request.form['BloodGroup']
-    dob =datetime.datetime.strptime(request.form['dateofbirth'],"%d/%m/%Y")
-    age=int(years_between(dob))
-    typ=request.form['Type']
-    phn=request.form['phno']
-    address=request.form['address']
-    email=request.form['emailid']
-    gender=request.form['sex']
     uname=request.form['uname']
-    password=request.form['pwd']
-    con_password=request.form['con_password']
-    if con_password!=password:
-        flash('Confirm password doesnot match with password')
-        return redirect(url_for('register'))
-    sql='insert into Users \
-    (RegNo, FirstName, MiddleName,LastName, BloodGroup, DateofBirth, Age, Type, Phonenumber, Address,\
-     email,gender) values (%s,"%s","%s","%s","%s","%s",%s,%s,"%s","%s","%s","%s")'
-    db.execute(sql%(regno,fname,mname,lname,bgroup,dob,age,typ,phn,address,email,gender))
-    db.execute("COMMIT")
-    db.execute("insert into Login values('%s','%s',MD5('%s'),%s)"%(regno,uname,password,typ))
-    db.execute("COMMIT")
-    flash('New user '+ regno + ' registered')
-    return redirect(url_for('screen'))#show_entriesreturn render_template(url_for('show_entries.html'))
+    sql='select * from Users join Login where Users.RegNo=Login.EmpID and (Users.RegNo="%s" or UserName="%s")'%(regno,uname)
+    db.execute(sql)
+    data=db.fetchall()
+    if not data:
+        fname=request.form['FirstName']
+        mname=request.form['MiddleName']
+        lname=request.form['LastName']
+        bgroup=request.form['BloodGroup']
+        dob =datetime.datetime.strptime(request.form['dateofbirth'],"%d/%m/%Y")
+        age=int(years_between(dob))
+        typ=request.form['Type']
+        phn=request.form['phno']
+        address=request.form['address']
+        email=request.form['emailid']
+        gender=request.form['sex']
+        password=request.form['pwd']
+        con_password=request.form['con_password']
+        if con_password!=password:
+            flash('Confirm password doesnot match with password')
+            return redirect(url_for('register'))
+        sql='insert into Users \
+        (RegNo, FirstName, MiddleName,LastName, BloodGroup, DateofBirth, Age, Type, Phonenumber, Address,\
+         email,gender) values (%s,"%s","%s","%s","%s","%s",%s,%s,"%s","%s","%s","%s")'
+        db.execute(sql%(regno,fname,mname,lname,bgroup,dob,age,typ,phn,address,email,gender))
+        db.execute("COMMIT")
+        db.execute("insert into Login values('%s','%s',MD5('%s'),%s)"%(regno,uname,password,typ))
+        db.execute("COMMIT")
+        flash('New user '+ regno + ' registered')
+        return redirect(url_for('screen'))#show_entriesreturn render_template(url_for('show_entries.html'))
+    flash('There exists a user already with that regno/username')
+    return redirect(url_for('register'))
 
 @app.route('/student_details')
 def student_details():
@@ -441,6 +450,14 @@ def checkprescription():
         db.execute("COMMIT")
     data=medicine
     return render_template('checkprescription.html',entries=entries,medicine=data)
+
+@app.route('/checkpendingprescription')
+def checkpendingprescription():
+    db=get_cursor()
+    sql='select Regno from Prescription where Pending=1'
+    db.execute(sql)
+    entries=db.fetchall()
+    return render_template('checkpendingprescription.html',entries=entries)
 
 @app.route('/checkpatienthistory',methods=['GET','POST'])
 def checkpatienthistory():

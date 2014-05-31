@@ -1,0 +1,25 @@
+{%extends "layout.html"%}
+{%block body%}
+{%if session.logged_in and session.temp==3%}
+<div class="container">
+	<div class="row">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>RegNo/EmpID</th>
+					<th>See prescription</th>
+				</tr>
+			</thead>
+			<tbody>
+			{%for entry in entries%}
+				<tr>
+					<td>{{entry[0]}}</td>
+					<td><button type="submit" class="btn btn-lg btn-default"value="{{entry[0]}}">See prescription</button></td>
+				</tr>
+			{%endfor%}
+			</tbody>
+		</table>
+	</div>
+</div>
+{%endif%}
+{%endblock%}
