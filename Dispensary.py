@@ -482,10 +482,10 @@ def updateinventory():
             db.execute(query%regno)
             db.execute('commit')
             flash('Pending status removed. Please refresh Page')
-            return redirect(url_for('/checkpendingprescription'))
+            return redirect(url_for('checkpendingprescription'))
         i=i+1
     flash('An Unknown Error Occured')
-
+    return render_template('checkpendingprescription.html')
 
 @app.route('/checkpatienthistory',methods=['GET','POST'])
 def checkpatienthistory():
