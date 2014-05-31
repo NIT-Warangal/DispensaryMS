@@ -369,32 +369,46 @@ def prescription():
 @app.route('/fileprescription', methods=['GET','POST'])
 def fileprescription():
     db = get_cursor()
-    inde=request.form['numofrows']
-    for i in range(0,int(inde)):
-        medicine=request.form['selectMedicine'+str(i)]
-        quantity=request.form['Quantity'+str(i)]
-        sql='insert into PrescriptionIndex(`medicine`,`quantity`) values("%s",%s)'%(medicine,quantity)
-        db.execute(sql)
-        db.execute("commit")
-        sql='update Pharmacy set Quantity=Quantity-%s where Name="%s"'%(quantity,medicine)
-        db.execute(sql)
-        db.execute("commit")
-    sql='select max(Sno) from PrescriptionIndex'
-    db.execute(sql)
-    indexEnd=db.fetchone()[0]
-    db.execute("commit")
-    indexStart=indexEnd-int(inde)+1
-    doctorno=app.config['USERID']
     regno=request.form['RegNo']
-    cause=request.form['Cause']
-    remarks=request.form['Remarks']
-    date_of_prescription=datetime.date.today()
-    sql='insert into Prescription values(%s,"%s","%s",%s,%s,"%s","%s")'%(doctorno,regno,cause,indexStart,indexEnd,remarks,date_of_prescription)
+    sql='select Count(*) from Users where Regno="%s"'%(regno)
     db.execute(sql)
-    db.execute("commit")
-    flash('Prescription for '+regno+' is given')
+    data=db.fetchone()[0]
+    if data>0:
+        inde=request.form['numofrows']
+        for i in range(0,int(inde)):
+            medicine=request.form['selectMedicine'+str(i)]
+            quantity=int(request.form['Quantity'+str(i)])
+            sql='insert into PrescriptionIndex(`medicine`,`quantity`) values("%s",%s)'%(medicine,quantity)
+            db.execute(sql)
+            db.execute("commit")
+            sql='select quantity from Pharmacy where Name="%s"'%(medicine)
+            db.execute(sql)
+            get_quantity=db.fetchone()[0]
+            if (get_quantity-quantity)>0:
+                continue
+            else:
+                flash('Medicine named '+medicine+' has been quantity greater than what inventory consists')
+                return redirect(url_for('prescription'))
+        for i in range(0,int(inde)):
+            sql='update Pharmacy set Quantity=Quantity-%s where Name="%s"'%(quantity,medicine)
+            db.execute(sql)
+            db.execute("commit")
+        sql='select max(Sno) from PrescriptionIndex'
+        db.execute(sql)
+        indexEnd=db.fetchone()[0]
+        db.execute("commit")
+        indexStart=indexEnd-int(inde)+1
+        doctorno=app.config['USERID']
+        cause=request.form['Cause']
+        remarks=request.form['Remarks']
+        date_of_prescription=datetime.date.today()
+        sql='insert into Prescription values(%s,"%s","%s",%s,%s,"%s","%s")'%(doctorno,regno,cause,indexStart,indexEnd,remarks,date_of_prescription)
+        db.execute(sql)
+        db.execute("commit")
+        flash('Prescription for '+regno+' is given')
+        return redirect(url_for('prescription'))
+    flash('User doesnot exist')
     return redirect(url_for('prescription'))
-
 @app.route('/checkprescription',methods=['GET','POST'])
 def checkprescription():
     db=get_cursor()
