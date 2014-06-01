@@ -73,30 +73,34 @@
 		<img src="{{url_for('static',filename='images/loginlogo.png')}}" alt=""></a>
 
 		<ul class="menu">
-			<li><a href="/">Home</a></li>
+			<li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 			{% if not session.logged_in %}
-			<li><a href="/login">Login</a></li>
-			<li><a href="/register">Register</a></li>
+			<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			<li><a href="/register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
 			{% endif %}
 			{% if session.temp==1 %}
-			<li><a href="/student">Profile</a></li>
-			<li><a href="/chat">Online Doctor Consulting</a></li>
+			<li><a href="/student"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+			<li><a href="/chat"><span class="glyphicon glyphicon-globe"></span> Online Doctor Consulting</a></li>
+			<li><a href="/checkletter"><span class="glyphicon glyphicon-envelope"></span> Check Letter</a></li>
+			<li><a href="/checkprescription"><span class="glyphicon glyphicon-th-list"></span> Check Prescription</a></li>
 			{% endif%}
 			{% if session.temp==2 %}
-			<li><a href="/employee">Profile</a></li>
-			<li><a href="/chat">Online Doctor Consulting</a></li>
+			<li><a href="/employee"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+			<li><a href="/chat"><span class="glyphicon glyphicon-globe"></span> Online Doctor Consulting</a></li>
+			<li><a href="/checkletter"><span class="glyphicon glyphicon-envelope"></span> Check Letter</a></li>
+			<li><a href="/checkprescription"><span class="glyphicon glyphicon-th-list"></span> Check Prescription</a></li>
 			{% endif%}
 			{% if session.temp==3 %}
-			<li><a href="/prescription">Prescription</a></li>
-			<li><a href="/chat">Online Doctor Consulting</a></li>
+			<li><a href="/prescription"><span class="glyphicon glyphicon-th-list"></span> Prescription</a></li>
+			<li><a href="/chat"><span class="glyphicon glyphicon-globe"></span> Online Doctor Consulting</a></li>
 			{% endif%}
 			{% if session.temp==4 %}
-			<li><a href="/inventory">Inventory</a></li>
-			<li><a href="/bills">Upload Bills</a></li>
-			<li><a href="/showfiles">Show Uploaded Bills</a></li>
+			<li><a href="/inventory"><span class="glyphicon glyphicon-folder-open"></span> Inventory</a></li>
+			<li><a href="/bills"><span class="glyphicon glyphicon-floppy-saved"></span> Upload Bills</a></li>
+			<li><a href="/showfiles"><span class="glyphicon glyphicon-export"></span> Show Uploaded Bills</a></li>
 			{% endif%}
 			{% if session.logged_in %}
-			<li><a href="/logout">Logout</a></li>
+			<li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 			{% if error %}
 			<p class=error><strong>Error:</strong> {{ error }}
 				{% endif %}

@@ -14,6 +14,9 @@
 			</thead>
 			<tbody>
 			{% set i=0 %}
+			{% if not entries %}
+			<h2 style="text-align:center;">No more people to deliver prescriptions to.</h2>
+			{% endif %}
 			{%for entry in entries%}
 				<tr>
 					<td style="text-align:center;width:100px;"><input type="number" value="{{entry[1]}}" name="Regno{{i}}" readonly=""></td>

@@ -23,6 +23,7 @@
     <p><a class="btn btn-warning btn-lg" role="button" href="{{url_for('register_dependency')}}">Add Your Family Details</a></p>
     <p><a href="#" role="button" class="btn btn-success btn-lg">Online Consulting</a></p>
     <p class="pull-right text-success" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Talk face to face with the doctor while sitting in your room</p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription">Check Prescriptions</a></p>
     {% endif %}
     {% if session.temp==1%}
     <p class="pull-right text-danger" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developing a profile for you</p>
@@ -30,16 +31,17 @@
     <p class="pull-right text-success" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Talk face to face with the doctor while sitting in your room</p>
     <p><a href="/chat" role="button" class="btn btn-success btn-lg">Online Consulting</a></p>
     <p><a href="/checkletter" role="button" class="btn btn-info btn-lg">Check Letters</a></p>
-    {%endif%}
     <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription">Check Prescriptions</a></p>
+    {%endif%}
     {% if session.temp==3 %}
     <!-- The doctor should be able to enter the EMP_ID / REG_NO and see their prescription table -->
     <p><a class="btn btn-primary btn-lg" role="button" href="/prescription">Give Prescriptions</a></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Sick Letter</button></p>
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Give Sick Letter</button></p>
     <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#historyModal">Check Patient Prescription History</button></p>
     {% endif %}
     {% if session.temp==4 %}
     <!-- The pharmacist should have a method to search for the required registration number / see pending prescriptions to give -->
+    <p><a href="/inventory" role="button" class="btn btn-info btn-lg">Check Inventory</a></p>
     <p><a href="/checkpendingprescription" role="button" class="btn btn-info btn-lg">Check Pending Prescriptions</a></p>
     <p><a href="/showfiles" role="button" class="btn btn-danger btn-lg">Show Uploaded Bills</a></p>
     {% endif %}

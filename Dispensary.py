@@ -498,12 +498,11 @@ def updateinventory():
                 updatesql='update Pharmacy set Quantity = Quantity-%s where Name="%s"'%(quantity,medicine)
                 db.execute(updatesql)
                 db.execute("commit")
-                flash(str(x)+' updated')
                 x=x+1
             query = 'update Prescription set Pending=0 where RegNo="%s" and Date="%s"'%(regno,datevalue.strftime("%Y-%m-%d"))
             db.execute(query)
             db.execute('commit')
-            flash('Pending status removed. Please refresh Page')
+            flash('Pending status removed. Inventory Updated.')
             return redirect(url_for('checkpendingprescription'))
         i=i+1
     flash('An Unknown Error Occured')
