@@ -7,6 +7,7 @@ from flask_mail import Mail,Message
 from config import config, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
+from pdf import convertHtmlToPdf,create_pdf
 import datetime
  
 import logging
@@ -189,6 +190,7 @@ def checkletter():
         flash('You have to be logged in')
         return render_template('checkletter.html')
 
+
 @app.route('/printletter',methods=['GET','POST'])
 def printletter():
     if request.method=="POST":
@@ -207,6 +209,7 @@ def printletter():
         sql = 'insert into Letters values ("%s","%s","%s")'
         db.execute(sql%(regno,now,days_extend))
         db.execute("commit")
+        # pdf = create_pdf(str(render_template('Letter.html')))
         return render_template('Letter.html',entries = entries, today=today, days=days_extend, newdate = newdate)
     else:
         flash('Error occured with the form')
