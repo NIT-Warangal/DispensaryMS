@@ -415,10 +415,6 @@ def fileprescription():
             else:
                 flash('Medicine named '+medicine+' has been given a quantity greater than what the inventory consists')
                 return redirect(url_for('prescription'))
-        for i in range(0,int(inde)):
-            sql='update Pharmacy set Quantity=Quantity-%s where Name="%s"'%(quantity,medicine)
-            db.execute(sql)
-            db.execute("commit")
         sql='select max(Sno) from PrescriptionIndex'
         db.execute(sql)
         indexEnd=db.fetchone()[0]
@@ -455,8 +451,9 @@ def checkprescription():
 @app.route('/checkpendingprescription')
 def checkpendingprescription():
     db=get_cursor()
-    sql='select * from Prescription where Pending=1'
-    db.execute(sql)
+    datevalue = datetime.datetime.today()
+    sql='select * from Prescription where Pending=1 and Date="%s"'
+    db.execute(sql%(datevalue.strftime("%Y-%m-%d")))
     entries=db.fetchall()
     db.execute("commit")
     medicine=[]
@@ -480,26 +477,33 @@ def updateinventory():
         r = str(i)
         if request.form['btn']== 'btn'+r:
             regno=request.form['Regno'+r]
-            query = 'update Prescription set Pending=0 where RegNo="%s"'
-            db.execute(query%regno)
-            db.execute('commit')
-            flash('Pending status removed. Please refresh Page')
             datevalue = datetime.datetime.today()
             sql='select * from Prescription where Regno="%s" and Date = "%s"'
-            db.execute(sql%(regno,datevalue))
-            values = db.fetchall()
+            db.execute(sql%(regno,datevalue.strftime("%Y-%m-%d")))
+            values = db.fetchone()
             if not values:
-                flash('No values Found')
+                flash('No values Found'+str(datevalue))
                 return redirect(url_for('checkpendingprescription'))
             start=int(values[3])
             end=int(values[4])
-            print start,end
             for x in range(start,end+1):
-                updatesql='update Pharmacy set Quantity = Quantity-(select Quantity as NewVal from PrescriptionIndex where Sno="%s") where Name=(select Medicine from PrescriptionIndex where Sno="%s")'
-                db.execute(updatesql%(start,start))
+                sql='select * from PrescriptionIndex where Sno="%s"'%(x)
+                db.execute(sql)
+                result=db.fetchall()
+                medicine=''
+                quantity=0
+                for item in result:
+                    medicine=item[1]
+                    quantity=item[2]
+                updatesql='update Pharmacy set Quantity = Quantity-%s where Name="%s"'%(quantity,medicine)
+                db.execute(updatesql)
                 db.execute("commit")
-                flash(str(start)+' updated')
-            x=x+1
+                flash(str(x)+' updated')
+                x=x+1
+            query = 'update Prescription set Pending=0 where RegNo="%s" and Date="%s"'%(regno,datevalue.strftime("%Y-%m-%d"))
+            db.execute(query)
+            db.execute('commit')
+            flash('Pending status removed. Please refresh Page')
             return redirect(url_for('checkpendingprescription'))
         i=i+1
     flash('An Unknown Error Occured')
