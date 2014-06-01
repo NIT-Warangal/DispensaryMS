@@ -474,6 +474,8 @@ def updateinventory():
     db=get_cursor()
     db.execute('select count(1) from Prescription where Pending=1')
     t = db.fetchone()[0]
+    start = 0
+    end = 0
     for i in range(0,t+1):
         r = str(i)
         if request.form['btn']== 'btn'+r:
@@ -482,6 +484,22 @@ def updateinventory():
             db.execute(query%regno)
             db.execute('commit')
             flash('Pending status removed. Please refresh Page')
+            datevalue = datetime.datetime.today()
+            sql='select * from Prescription where Regno="%s" and Date = "%s"'
+            db.execute(sql%(regno,datevalue))
+            values = db.fetchall()
+            if not values:
+                flash('No values Found')
+                return redirect(url_for('checkpendingprescription'))
+            start=int(values[3])
+            end=int(values[4])
+            print start,end
+            for x in range(start,end+1):
+                updatesql='update Pharmacy set Quantity = Quantity-(select Quantity as NewVal from PrescriptionIndex where Sno="%s") where Name=(select Medicine from PrescriptionIndex where Sno="%s")'
+                db.execute(updatesql%(start,start))
+                db.execute("commit")
+                flash(str(start)+' updated')
+            x=x+1
             return redirect(url_for('checkpendingprescription'))
         i=i+1
     flash('An Unknown Error Occured')
