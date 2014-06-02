@@ -209,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `CheckPassword` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Table structure for table `ChatSessionHistory` to keep track of uploads
+-- Table structure for table `ChatSessionHistory`
 --
 
 CREATE TABLE IF NOT EXISTS `ChatSessionHistory` (
@@ -222,13 +222,13 @@ CREATE TABLE IF NOT EXISTS `ChatSessionHistory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Table structure for table `ChatTransactions` to keep track of uploads
+-- Table structure for table `ChatTransactions`
 --
 
 -- Link will be <url>?regno, Once the camera and audio have been shared, thats when it enters
 -- the database, The list is stored ordered by the number of people who wish to go online.
 
-CREATE TABLE IF NOT EXISTS `ChatTransactions` (
+CREATE TABLE IF NOT EXISTS `ChatQueue` (
   `Sno` int AUTO_INCREMENT,
   `RegNo` text NOT NULL,
   `Date` datetime NOT NULL
