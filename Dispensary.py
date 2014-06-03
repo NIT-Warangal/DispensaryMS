@@ -668,6 +668,65 @@ def studentinfo():
         flash('Record '+regno+' updated') 
     return redirect(url_for('student'))
 
+@app.route('/choosereferingid',methods=['POST'])
+def choosereferingid():
+    db=get_cursor()
+    empid=request.form['regno']
+    sql='select * from Dependencies where Regno="%s"'%(empid)
+    db.execute(sql)
+    entries=db.fetchall()
+    db.execute("commit")
+    return render_template('choosedependency.html',entries=entries)
+@app.route('/selectdependency',methods=['POST'])
+def selectdependency():
+    db=get_cursor()
+    empid=request.form['empid']
+    dependencyname=''
+    num_of_dependencies=request.form['numofrows']
+    for i in range(0,int(num_of_dependencies)):
+        if request.form['btn']=='select'+str(i):
+            dependencyname=request.form['dependencyname'+str(i)]
+    db.execute('select * from Prescription order by RegNo asc')
+    entries = db.fetchall()
+    db.execute('select * from Pharmacy order by Sno asc')
+    pharmacy=db.fetchall()    
+    return render_template('dependencyprescription.html',empid=empid,dependencyname=dependencyname,entries=entries,pharmacy=pharmacy)
+
+@app.route('/dependencyprescription',methods=['POST'])
+def dependencyprescription():
+    db=get_cursor()
+    regno=request.form['empid']    
+    inde=request.form['numofrows']
+    for i in range(0,int(inde)):
+        medicine=request.form['selectMedicine'+str(i)]
+        quantity=int(request.form['Quantity'+str(i)])
+        sql='insert into PrescriptionIndex(`medicine`,`quantity`) values("%s",%s)'%(medicine,quantity)
+        db.execute(sql)
+        db.execute("commit")
+        sql='select quantity from Pharmacy where Name="%s"'%(medicine)
+        db.execute(sql)
+        get_quantity=db.fetchone()[0]
+        if (get_quantity-quantity)>0:
+            continue
+        else:
+            flash('Medicine named '+medicine+' has been given a quantity greater than what the inventory consists')
+            return redirect(url_for('prescription'))
+    sql='select max(Sno) from PrescriptionIndex'
+    db.execute(sql)
+    indexEnd=db.fetchone()[0]
+    db.execute("commit")
+    indexStart=indexEnd-int(inde)+1
+    doctorno=app.config['USERID']
+    dependencyname=request.form['dependencyname']
+    cause=request.form['Cause']
+    remarks=request.form['Remarks']
+    date_of_prescription=datetime.date.today()
+    sql='insert into DependencyPrescription values(%s,"%s","%s","%s",%s,%s,"%s","%s",%s)'%(doctorno,regno,dependencyname,cause,indexStart,indexEnd,remarks,date_of_prescription,1)
+    db.execute(sql)
+    db.execute("commit")
+    flash('Prescription for '+regno+' is given')
+    return redirect(url_for('screen'))
+
 @app.route('/logout')
 def logout():
     if session['logged_in'] != None:

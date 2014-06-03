@@ -234,6 +234,20 @@ CREATE TABLE IF NOT EXISTS `ChatQueue` (
   `Date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+----------------------------------------------------
+----Tried to use prescription with dependency name column....complexity increased.....keeping it simple
+CREATE TABLE IF NOT EXISTS `DependencyPrescription` (
+  `DoctorNo` text NOT NULL,
+  `Regno` text NOT NULL,
+  `DependencyName` text NOT NULL,
+  `Cause` text NOT NULL,
+  `IndexStart` int(11) NOT NULL,
+  `IndexEnd` int(11) NOT NULL,
+  `Remarks` text NOT NULL,
+  `Date` date NOT NULL,
+  `Pending` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

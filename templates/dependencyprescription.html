@@ -1,0 +1,169 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if not session.logged_in and session.temp==3%}
+<div class="jumbotron">
+	<h1>You have to be logged in as Doctor.</h1>
+</div>
+{% if error %}
+<p class=error><strong>Error:</strong> {{ error }}
+	{% endif %}
+	{% else %}
+	<script type="text/javascript">
+		$(document).ready( function () {
+			var table=$('#item-table').DataTable({
+				"iDisplayLength":5,
+				"sPaginationType": "full_numbers",
+				"oLanguage": {"sSearch": "Filter: "},
+				"lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
+			});
+		} );
+	</script>
+	<script type="text/javascript">
+	var i=1;
+	function additem() {
+		var newtext,oldtext;
+		var Quantity=document.getElementById('Quantity').value;
+		if(document.getElementById('Medicine').value==null){
+			oldtext='';
+		}
+		else{
+			oldtext=document.getElementById('Medicine').value;
+		}
+		if(document.getElementById('selectMedicine').value=="0"){
+			newtext='';
+		}
+		else{
+			newtext=document.getElementById('selectMedicine').value;
+			newtext=newtext+' '+Quantity;
+		}
+		if(i==1){
+		document.getElementById('Medicine').value=newtext;
+		i=0;
+		}
+		else{
+		document.getElementById('Medicine').value=oldtext+', '+newtext;
+		}
+	}
+	</script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+
+	var i=1;
+	$("#add_row").click(function(){
+			$('#addr'+i).html("<td><select name='selectMedicine"+i+"' class='form-control input-md'><option value='0'>---Select one---</option>{%for item in pharmacy%}<option value='{{item[1]}}'>{{item[1]}}</option>{%endfor%}</select></td><td><input id='Quantity' name='Quantity"+i+"' placeholder='Quantity of each medicine' class='form-control input-md' required='' type='text'></td>");
+			$('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+			i++; 
+			$('#indexval').val(i);
+		});
+	$("#delete_row").click(function(){
+			if(i>1){
+				$("#addr"+(i-1)).html('');
+				i--;
+				$('#indexval').val(i);
+			}
+		});
+	});
+	</script>
+	<div class="col-lg-12">
+		<form class="form-horizontal add-entry" action="{{ url_for('dependencyprescription') }}" style="text-align:center;" method=post>
+			<fieldset>
+				<legend style="text-align:center;">Medical Prescription</legend>
+
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="RegNo">Refering ID.</label>  
+					<div class="col-md-4">
+						<input id="RegNo" name="empid" placeholder="EmpID No." class="form-control input-md" required="" type="text" value="{{empid}}" readonly="">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="dependencyname">Dependency Name</label>  
+					<div class="col-md-4">
+						<input id="dependencyname" name="dependencyname" placeholder="Name" class="form-control input-md" required="" type="text" value="{{dependencyname}}" readonly="">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="Cause">Cause</label>
+					<div class="col-md-4">                     
+						<textarea class="form-control" id="Cause" name="Cause"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group" id="medi">
+					<label class="col-md-4 control-label" for="Medicine">Choose Medicine</label>  
+					<div class="col-md-4">
+					<table class="table table-responsive" align="center" id="tab_logic">
+					<tbody>
+					<tr id="addr0">
+						<td><select name="selectMedicine0" class="form-control input-md">
+							<option value="0">---Select one---</option>
+							{%for item in pharmacy%}
+							<option value="{{item[1]}}">{{item[1]}}</option>
+							{%endfor%}
+						</select>
+					</td>
+					<td>
+						<input id="Quantity" name="Quantity0" placeholder="Quantity of each medicine" class="form-control input-md" required="" type="text">
+					</td>
+					</tr>
+					<tr id="addr1"></tr>
+					</tbody>
+					</table>
+						<a id="add_row" class="btn btn-success pull-left"><span class="glyphicon glyphicon-plus"></span></a>
+						<a id='delete_row' class="btn btn-danger pull-right"><span class="glyphicon glyphicon-minus"></span></a>
+					</div>
+					<input type="hidden" id="indexval" name="numofrows" value="1">
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="Remarks">Remarks</label>
+					<div class="col-md-4">                     
+						<textarea class="form-control" id="Remarks" name="Remarks"></textarea>
+					</div>
+				</div>
+				<div class="col-md-3 pull-right">
+						<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+							Check Availability
+						</button>
+					</div>
+				<a href="{{url_for('prescription')}}" class="btn btn-warning col-md-offset-5">Cancel</a>
+				<input type="submit" value="submit" class="btn btn-success">
+			</fieldset>
+			{% endif %}
+		</form>
+	</div>
+	<!--Modal-->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table table-condensed table-responsive" style="margin:0px auto;" align="center" id="item-table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Medicine</th>
+								<th>Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+							{%for item in pharmacy %}
+							<tr>
+								<td>{{item[0]}}</td>
+								<td>{{item[1]}}</td>
+								<td>{{item[2]}}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<!--end of modal-->
+	{% endblock %}
