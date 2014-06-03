@@ -17,19 +17,19 @@
 							<th>Relation</th>
 						</tr>
 					</thead>
-					{%set k=1%}
+					{%set k=0%}
 					<tbody >
 					{%for entry in entries%}
 						<tr>
 							<!-- <td class="col-xs-1"><input value="{{k}}" type="number" class="form-control"></td> -->
-							<td>{{entry[1]}}</td>
+							<td><input value="{{entry[1]}}" type="text" class="form-control" name="name{{k}}"></td>
 						
-							<td>{{entry[2].strftime("%d/%m/%Y")}}</td>
-							<td>20</td>
+							<td><input type="text" class="form-control" value="{{entry[2].strftime("%d/%m/%Y")}}" name="dob{{k}}"></td>
+							<td><input type="text" class="form-control" value="{{age[k]}}" readonly></td>
 							<td>
 							{%set selM=''%}
 							{%set selF=''%}
-								<select class="form-control" name="gender">
+								<select class="form-control" name="gender{{k}}">
 								{%if entry[3]=="Male"%}
 								{%set selM='selected'%}
 								{%elif entry[3]=="Female"%}
@@ -40,7 +40,7 @@
 								</select>
 							</td>
 							<td>
-								<select class="form-control" name="rel">
+								<select class="form-control" name="rel{{k}}">
 										<option>Select Gender</option>
 								{%set x=['Father','Mother','Husband','Wife','Son','Daughter']%}
 								{%for i in range(0,x|length)%}
@@ -54,8 +54,10 @@
 							</td>
 							{%set k=k+1%}
 							{%endfor%}
+							<td><button class="btn btn-primary" name="btn" value="update{{k}}"><span class="glyphicon glyphicon-edit"></span></button></td>
 						</tr>
 					</tbody>
+					<input type="hidden" value="{{entries|length}}" name="numofrows">
 				</table>
 			</form>
 		</div>

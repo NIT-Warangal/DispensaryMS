@@ -594,8 +594,9 @@ def employeeinfo():
         db.execute('update Users set FirstName="%s",MiddleName="%s",LastName="%s",DateofBirth="%s",Age=%s,Phonenumber="%s",email="%s",gender="%s" where Regno=%s'%(fname,mname,lname,dob,age,phno,email,sex,regno))
         db.execute('COMMIT')
         emergency_phn=request.form['emergency_contact']
+        occupation=request.form['occupation']
         location = request.form['location']
-        db.execute('Update Employee set EmergencyContact="%s",Location="%s" where RegNo="%s"'%(emergency_phn,location,regno))
+        db.execute('Update Employee set EmergencyContact="%s",Location="%s",Occupation="%s" where RegNo="%s"'%(emergency_phn,location,occupation,regno))
         db.execute("COMMIT")
         flash("Record Updated")
     return redirect(url_for('employee'))
@@ -656,8 +657,27 @@ def show_dependency():
     sql='select * from Dependencies where Regno="%s"'%(app.config['USERID'])
     db.execute(sql)
     entries=db.fetchall()
-    return render_template('show_dependency.html',entries=entries)
+    age=[]
+    for entry in entries:
+        age.append(int(years_between(entry[2])))
+    return render_template('show_dependency.html',entries=entries,age=age)
 
+@app.route('/update_dependency',methods=['POST'])
+def update_dependency():
+    db=get_cursor()
+    numofrows=request.form['numofrows']
+    for i in range(0,int(numofrows)):
+        if request.form['btn']=='update'+str(i):
+            name=request.form['name'+str(i)]
+            dob=request.form['dob'+str(i)]
+            dob =datetime.datetime.strptime(dob,"%d/%m/%Y")
+            gender=request.form['gender'+str(i)]
+            rel=request.form['rel'+str(i)]
+            sql='update dependencies set name="%s",dateofbirth="%s",sex="%s",relation="%s" where RegNo="%s"'%(name,dob,gender,rel,app.config['USERID'])
+            db.execute(sql)
+            db.execute("commit")
+            flash('Details of '+name+' has been updated')
+    return redirect(url_for('show_dependency'))
 @app.route('/student',methods=['GET','POST'])
 def student():
     db = get_cursor()
