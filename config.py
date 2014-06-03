@@ -1,9 +1,9 @@
 # Database Config
 
 config = {
-	'MYSQL_DATABASE_USER' : 'root',
+	'MYSQL_DATABASE_USER' : '', #Username for mysql
 	'MYSQL_DATABASE_DB' : 'Dispensary',
-	'MYSQL_DATABASE_PASSWORD' : 'kiran123',
+	'MYSQL_DATABASE_PASSWORD' : '', # Password to connect to mysql
 	'MYSQL_DATABASE_HOST' : 'localhost', 
 	'USERNAME' : '',
 	'USERID' :'',
