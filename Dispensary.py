@@ -677,6 +677,7 @@ def choosereferingid():
     entries=db.fetchall()
     db.execute("commit")
     return render_template('choosedependency.html',entries=entries)
+
 @app.route('/selectdependency',methods=['POST'])
 def selectdependency():
     db=get_cursor()
@@ -727,6 +728,21 @@ def dependencyprescription():
     flash('Prescription for '+regno+' is given')
     return redirect(url_for('screen'))
 
+@app.route('/showdependencyprescription')
+def showdependencyprescription():
+    db=get_cursor()
+    sql="select * from DependencyPrescription where RegNo='%s' order by Date"%(app.config['USERID'])
+    db.execute(sql)
+    entries = db.fetchall()
+    db.execute("commit")
+    medicine=[]
+    for entry in entries:
+        sql='select * from PrescriptionIndex where Sno>=%s and Sno<=%s'%(entry[4],entry[5])
+        db.execute(sql)
+        medicine.append(db.fetchall())
+        db.execute("COMMIT")
+    data=medicine
+    return render_template('checkdependencyprescription.html',entries=entries,medicine=data)
 @app.route('/logout')
 def logout():
     if session['logged_in'] != None:
