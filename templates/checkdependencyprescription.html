@@ -1,0 +1,67 @@
+{% extends "layout.html"%}
+{% block body %}
+{% if session.logged_in %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#item-table').DataTable();
+} );
+</script>
+<script>
+	function printDiv(divName) {
+		var printContents = document.getElementById(divName).innerHTML;
+		var originalContents = document.body.innerHTML;
+		document.body.innerHTML = printContents;
+		window.print();
+		document.body.innerHTML = originalContents;
+	}
+</script>
+<div class="container" id="printable">
+	<div class="row">
+		<div class="col-xs-offset-1 col-xs-10 col-sm-10 col-md-10 col-lg-10">
+			
+			<table class="table table-condensed table-responsive table-striped" id="item-table" align="center">
+				<thead>
+					<tr>
+						<th>Doctor#</th>
+						<th>Emp ID</th>
+						<th>Dependency Name</th>
+						<th>Date</th>
+						<th>Cause</th>
+						<th>Medication</th>
+						<th>Quantity</th>
+						<th>Remarks</th>
+					</tr>
+				</thead>
+				<tbody >{%set i=0%}
+				{% for entry in entries%}
+					<tr >
+						<td>{{entry[0]}}</td>
+						<td>{{entry[1]}}</td>
+						<td>{{entry[2]}}</td>
+						<td title="dd/mm/yyyy">{{entry[7].strftime("%d/%m/%Y")}}</td>
+						<td>{{entry[3]}}</td>
+						<td height="100" >
+							{%for item in medicine[i]%}
+							{{item[1]}} <br>
+							{%endfor%}
+						</td>
+						<td height="100" align="center">
+						{%for item in medicine[i]%}
+							{{item[2]}} <br>
+							{%endfor%}
+						</td>
+						<td>{{entry[6]}}</td>
+					</tr>
+					{%set i=i+1%}
+				{% endfor %}					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="wrapper" style="text-align:center;">
+	<input class="btn btn-primary" type="button" onclick="printDiv('printable')" value="Print Your Prescription" />
+</div>
+{%endif%}
+{%- endblock %}
