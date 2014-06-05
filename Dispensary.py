@@ -606,13 +606,17 @@ def selectdependencyhistory():
     for i in range(0,int(num_of_dependencies)):
         if request.form['btn']=='select'+str(i):
             dependencyname=request.form['dependencyname'+str(i)]
-    db.execute('select * from DependencyPrescription where RegNo="%s" order by RegNo asc'%empid)
+    pharmacy = []
+    db.execute('select DoctorNo,Regno,DependencyName,Cause,IndexStart,IndexEnd,Remarks from DependencyPrescription where RegNo="%s"'%empid)
     entries = db.fetchall()
-    flash(entries)
+    db.execute("commit")
+    # flash(entries)
     # Tuple Index Error
-    db.execute('select * from PrescriptionIndex where Sno between "%s" and "%s"'%(entries[4][0],entries[5][0]))
-    pharmacy=db.fetchall()    
-    return render_template('checkdependencyhistory.html',empid=empid,dependencyname=dependencyname,entries=entries,pharmacy=pharmacy)
+    for entry in entries:
+        db.execute('select * from PrescriptionIndex where Sno between "%s" and "%s"'%(entry[4],entry[5]))
+        pharmacy.append(db.fetchall())
+        db.execute("commit")
+    return render_template('checkdependencyhistory.html',entries=entries,pharmacy=pharmacy)
 
 @app.route('/employee',methods=['GET','POST'])
 def employee():
