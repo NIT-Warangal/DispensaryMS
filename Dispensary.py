@@ -464,6 +464,7 @@ def checkpendingprescription():
     depentries = db.fetchall()
     db.execute("commit")
     medicine=[]
+    dmedicine=[]
     for entry in entries:
         sql='select * from PrescriptionIndex where Sno>=%s and Sno<=%s'%(entry[3],entry[4])
         db.execute(sql)
@@ -472,10 +473,11 @@ def checkpendingprescription():
     for value in depentries:
         sql ='select * from PrescriptionIndex where Sno>=%s and Sno<=%s'%(value[4],value[5])
         db.execute(sql)
-        medicine.append(db.fetchall())
+        dmedicine.append(db.fetchall())
         db.execute("COMMIT")
     data = medicine
-    return render_template('checkpendingprescription.html',entries=entries, depentries=depentries, data=data)
+    depdata = dmedicine
+    return render_template('checkpendingprescription.html',entries=entries, depentries=depentries, data=data,depdata=depdata)
 
 @app.route('/updateinventory',methods=['GET','POST'])
 def updateinventory():
@@ -491,20 +493,17 @@ def updateinventory():
     t = nval
     for i in range(0,t+1):
         r = str(i)
-        if request.form['btn']== 'btn'+r:
+        if request.form['btn']== 'btndirect'+r:
             regno=request.form['Regno'+r]
             datevalue = datetime.datetime.today()
-            sql='select * from Prescription where Regno="%s" and Date = "%s"'
-            db.execute(sql%(regno,datevalue.strftime("%Y-%m-%d")))
-            values = db.fetchone()
-            depsql = 'select * from DependencyPrescription where Regno="%s" and Date="%s"'
-            db.execute(depsql%(regno,datevalue.strftime("%Y-%m-%d")))
-            dependencies = db.fetchone()
-            if not values:
-                if not dependencies:
-                    flash('No values Found '+str(datevalue))
-                    return redirect(url_for('checkpendingprescription'))
-            if values:
+            datevalue = datevalue.strftime("%Y-%m-%d")
+            sql='select * from Prescription where Regno="%s" and Date="%s"'%(regno,datevalue)
+            db.execute(sql)
+            values=db.fetchone()
+            n=0
+            for item in values:
+                n=n+1
+            if n>0:
                 start=int(values[3])
                 end=int(values[4])
                 for x in range(start,end+1):
@@ -520,12 +519,25 @@ def updateinventory():
                     db.execute(updatesql)
                     db.execute("commit")
                     x=x+1
-                query = 'update Prescription set Pending=0 where RegNo="%s" and Date="%s"'%(regno,datevalue.strftime("%Y-%m-%d"))
+                query = 'update Prescription set Pending=0 where RegNo="%s" and Date="%s"'%(regno,datevalue)
                 db.execute(query)
                 db.execute('commit')
-            if dependencies:
-                start = int(dependencies[4])
-                end=int(dependencies[5])
+                flash('Direct Pending removed')
+            flash('Pending status removed. Inventory Updated. '+str(datevalue))
+            return redirect(url_for('checkpendingprescription'))
+        elif request.form['btn']=='btndep'+r:
+            regno=request.form['Regno'+r]
+            datevalue = datetime.datetime.today()
+            datevalue = datevalue.strftime("%Y-%m-%d")
+            flash(str(request.form['btn']))
+            sql='select * from DependencyPrescription where Regno="%s" and Date="%s"'%(regno,datevalue)
+            db.execute(sql)
+            values=db.fetchone()
+            if values:
+                flash('depend true')
+            if values:
+                start=int(values[4])
+                end=int(values[5])
                 for x in range(start,end+1):
                     sql='select * from PrescriptionIndex where Sno="%s"'%(x)
                     db.execute(sql)
@@ -539,9 +551,10 @@ def updateinventory():
                     db.execute(updatesql)
                     db.execute("commit")
                     x=x+1
-                query = 'update DependencyPrescription set Pending=0 where RegNo="%s" and Date="%s"'%(regno,datevalue.strftime("%Y-%m-%d"))
+                query='update DependencyPrescription set Pending=0 where RegNo="%s" and Date="%s"'%(regno,datevalue)
                 db.execute(query)
-                db.execute('commit')
+                db.execute("commit")
+                flash('Dependency pending removed')
             flash('Pending status removed. Inventory Updated.')
             return redirect(url_for('checkpendingprescription'))
         i=i+1
