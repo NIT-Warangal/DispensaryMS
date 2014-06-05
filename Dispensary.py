@@ -431,7 +431,7 @@ def fileprescription():
         db.execute(sql)
         db.execute("commit")
         flash('Prescription for '+regno+' is given')
-        return redirect(url_for('prescription'))
+        return redirect(url_for('screen'))
     flash('User doesnot exist')
     return redirect(url_for('prescription'))
 
@@ -497,7 +497,7 @@ def updateinventory():
             regno=request.form['Regno'+r]
             datevalue = datetime.datetime.today()
             datevalue = datevalue.strftime("%Y-%m-%d")
-            sql='select * from Prescription where Regno="%s" and Date="%s"'%(regno,datevalue)
+            sql='select * from Prescription where Regno="%s" and Date="%s" and Pending=1'%(regno,datevalue)
             db.execute(sql)
             values=db.fetchone()
             n=0
@@ -522,14 +522,12 @@ def updateinventory():
                 query = 'update Prescription set Pending=0 where RegNo="%s" and Date="%s"'%(regno,datevalue)
                 db.execute(query)
                 db.execute('commit')
-                flash('Direct Pending removed')
             flash('Pending status removed. Inventory Updated. '+str(datevalue))
             return redirect(url_for('checkpendingprescription'))
         elif request.form['btn']=='btndep'+r:
             regno=request.form['Regno'+r]
             datevalue = datetime.datetime.today()
             datevalue = datevalue.strftime("%Y-%m-%d")
-            flash(str(request.form['btn']))
             sql='select * from DependencyPrescription where Regno="%s" and Date="%s"'%(regno,datevalue)
             db.execute(sql)
             values=db.fetchone()
@@ -554,7 +552,6 @@ def updateinventory():
                 query='update DependencyPrescription set Pending=0 where RegNo="%s" and Date="%s"'%(regno,datevalue)
                 db.execute(query)
                 db.execute("commit")
-                flash('Dependency pending removed')
             flash('Pending status removed. Inventory Updated.')
             return redirect(url_for('checkpendingprescription'))
         i=i+1
@@ -583,6 +580,39 @@ def checkpatienthistory():
         flash('Viewing patient prescription history')
         return render_template('patienthistory.html',entries=entries,data=data)
     return redirect(url_for('screen'))
+
+@app.route('/checkdependencypatienthistory',methods=['GET','POST'])
+def checkdependencypatienthistory():
+    if request.method=="POST":
+        db=get_cursor()
+        empid=request.form['regno']
+        sql='select * from Dependencies where Regno="%s"'%(empid)
+        db.execute(sql)
+        entries=db.fetchall()
+        db.execute("commit")
+        if not entries:
+            flash('No dependencies for this employee')
+            return redirect(url_for('screen'))
+        return render_template('choosedependencyhistory.html',entries=entries)
+    flash('No dependencies found')
+    return redirect(url_for('screen'))
+
+@app.route('/selectdependencyhistory',methods=['POST'])
+def selectdependencyhistory():
+    db=get_cursor()
+    empid=request.form['empid']
+    dependencyname=''
+    num_of_dependencies=request.form['numofrows']
+    for i in range(0,int(num_of_dependencies)):
+        if request.form['btn']=='select'+str(i):
+            dependencyname=request.form['dependencyname'+str(i)]
+    db.execute('select * from DependencyPrescription where RegNo="%s" order by RegNo asc'%empid)
+    entries = db.fetchall()
+    flash(entries)
+    # Tuple Index Error
+    db.execute('select * from PrescriptionIndex where Sno between "%s" and "%s"'%(entries[4][0],entries[5][0]))
+    pharmacy=db.fetchall()    
+    return render_template('checkdependencyhistory.html',empid=empid,dependencyname=dependencyname,entries=entries,pharmacy=pharmacy)
 
 @app.route('/employee',methods=['GET','POST'])
 def employee():

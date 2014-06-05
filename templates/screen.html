@@ -39,7 +39,8 @@
     <p><a class="btn btn-primary btn-lg" role="button" href="/prescription">Give Prescriptions</a></p>
     <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#depModal">Give dependency Prescription</button></p>
     <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Give Sick Letter</button></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#historyModal">Check Patient Prescription History</button></p>
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#historyModal">Check Prescription History</button></p>
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#dephistoryModal">Check Dependency Prescription History</button></p>
     {% endif %}
     {% if session.temp==4 %}
     <!-- The pharmacist should have a method to search for the required registration number / see pending prescriptions to give -->
@@ -154,7 +155,40 @@
         </form>
       </div>
     </div>
-  </div>  
+  </div>
+  <div class="modal fade" id="dephistoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Dependency Patient History</h4>
+        </div>
+        <form action="{{url_for('checkdependencypatienthistory')}}" method="POST">
+        <div class="modal-body">
+          
+            <div class="container">
+              <div class="row">      
+              <div class="form-horizontal">
+                  <div class="form-group">
+                  <label class="col-md-2 control-label" style="margin-top:5px;">Enter Regno/EmpID for dependency</label>
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" name="regno" placeholder="Enter Regno/EmpID" autofocus/>
+                  </div>
+                  </div>
+                  
+                  </div>
+                  </div>
+              </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" >Go!</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>    
   {% endif %}
 </div>
 {% endblock %}

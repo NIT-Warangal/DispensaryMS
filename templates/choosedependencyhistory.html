@@ -1,0 +1,31 @@
+{%extends "layout.html"%}
+{%block body%}
+{%if session.logged_in and session.temp==3%}
+<div class="container">
+	<div class="row">
+		<form action="{{url_for('selectdependencyhistory')}}" method="post">
+			<table class="table table-responsive" align="center">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Choice</th>
+					</tr>
+				</thead>
+				<tbody>
+				{%set i=0%}
+				{%for entry in entries%}
+					<tr>
+						<td><input value="{{entry[1]}}" class="form-control" name="dependencyname{{i}}" readonly=""></td>
+						<td><button type="submit" name="btn" value="select{{i}}" class="btn btn-primary">Select</button></td>
+					</tr>
+					{%set i=i+1%}
+					{%endfor%}
+					<input type="hidden" value="{{entries|length}}" name="numofrows">
+					<input type="hidden" value="{{entries[0][0]}}" name="empid">
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+{%endif%}
+{%endblock%}
