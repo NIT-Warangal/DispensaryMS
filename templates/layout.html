@@ -24,13 +24,18 @@
           <a class="navbar-brand" href="/"><img src="{{url_for('static',filename='images/logo_nitw.png')}}" alt="NITWarangal" height=25px width=25px>
 		NITW Dispensary System</a>
         </div>
-		<div class="navbar-collapse collapse" style="text-align:right;">
-          <ul class="nav navbar-nav">
+
+		<div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
 			<li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 			{% if not session.logged_in %}
 			<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 			<li><a href="/register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
-			{% endif %}
+			{% else %}
+			<li class="dropdown">
+          	<a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list"></span> Options <b class="caret"></b></a>
+          	<ul class="dropdown-menu">
+          	{% endif %}
 			{% if session.temp==1 %}
 			<li><a href="/student"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
 			<li><a href="/chat"><span class="glyphicon glyphicon-globe"></span> Online Doctor Consulting</a></li>
@@ -52,6 +57,8 @@
 			<li><a href="/bills"><span class="glyphicon glyphicon-floppy-saved"></span> Upload Bills</a></li>
 			<li><a href="/showfiles"><span class="glyphicon glyphicon-export"></span> Show Uploaded Bills</a></li>
 			{% endif%}
+			</ul>
+		    </li>
 			{% if session.logged_in %}
 			<li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 			{% if error %}
@@ -64,7 +71,8 @@
     </div><!--end of header -section-->
 		<!-- <h1>Dispensary Management System</h1> -->
 		{% for message in get_flashed_messages() %}
-		<div class="bg-info" style="text-align:center;height:30px;font-size:20px;vertical-align:center;">{{ message }}</div>
+		<div class="bg-info" style="text-align:center;height:30px;font-size:20px;vertical-align:center; margin-top:50px;">{{ message }}</div>
 		{% endfor %}
+		<div style="margin-top:55px;"></div>
 		{% block body %}{% endblock %}
 		{% extends "footer.html" %}
