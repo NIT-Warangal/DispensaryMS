@@ -10,6 +10,7 @@ $(function() {
     });
 });
 </script>
+<div class="jumbotron">
 <h1 style="text-align:center;">Student Profile</h1>
 <hr>
 <form action="{{url_for('studentinfo')}}" method="post"> 
@@ -56,6 +57,9 @@ $(function() {
                   {% elif entry[12]=='Female'%}
                   <option value="Male" >Male</option>
                   <option value="Female" selected>Female</option>
+                  {% else %}
+                  <option value="Male" >Male</option>
+                  <option value="Female" >Female</option>
                   {% endif %}
                 </select>
               </div>
@@ -209,6 +213,7 @@ $(function() {
 <br>
 <br>
 <br>
+</div>
 {%else%}
 <div class="jumbotron">
 <h1>Student? Please Login!</h1>
