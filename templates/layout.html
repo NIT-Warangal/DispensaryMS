@@ -71,7 +71,8 @@
     </div><!--end of header -section-->
 		<!-- <h1>Dispensary Management System</h1> -->
 		{% for message in get_flashed_messages() %}
-		<div class="bg-info" style="text-align:center;height:30px;font-size:20px;vertical-align:center;">{{ message }}</div>
+		<div class="bg-info" style="text-align:center;height:30px;font-size:20px;vertical-align:center; margin-top:50px;">{{ message }}</div>
 		{% endfor %}
+		<div style="margin-top:55px;"></div>
 		{% block body %}{% endblock %}
 		{% extends "footer.html" %}
