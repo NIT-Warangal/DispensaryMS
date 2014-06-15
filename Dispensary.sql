@@ -21,11 +21,7 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
-create table `entries` (
-  `id` integer primary key AUTO_INCREMENT,
-  `title` text not null,
-  `text` text not null
-);
+
 --
 -- Table structure for table `Employee`
 --
@@ -43,18 +39,6 @@ CREATE TABLE IF NOT EXISTS `Employee` (
 INSERT INTO `Employee` (`RegNo`, `Occupation`, `Location`, `NoOfDependencies`) VALUES
 ('127223', 'emp', 'secunderabad', 4);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `HostelWorker`
---
-
--- CREATE TABLE IF NOT EXISTS `HostelWorker` (
---   `RegNo` text NOT NULL,
---   `Occupation` text NOT NULL,
---   `Location` text NOT NULL,
---   `NoOfDependencies` int(11) NOT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
