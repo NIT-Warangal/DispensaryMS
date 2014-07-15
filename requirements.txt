@@ -1,3 +1,4 @@
 flask
 flask-mysql
 Flask-Mail
+xhtml2pdf
