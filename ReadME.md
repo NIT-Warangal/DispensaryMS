@@ -3,6 +3,8 @@ NIT-Warangal Dispensary Management System
 
 - [x] v1.0 Released. ; 6th June 2014
 
+Expected Deployment date : 20th July 2014
+
 This project is an effort to reduce the amount of paperwork thats used in the dispensary system at NIT-Warangal. It aims to computerize the process of a student/professor getting their medication and at the same time serve as a validation system to pharmacy medication and inventory system.
 
 ### Development Set Up
