@@ -141,7 +141,7 @@ def upload_file():
             db.execute(sql%(filename,now,now.strftime("%H:%M")))
             db.execute("COMMIT")
             flash(filename+' successfully uploaded at '+now.strftime("%H:%M"))
-            #return redirect(url_for('uploaded_file',filename=filename))
+            return redirect(url_for('uploaded_file',filename=filename))
         else:
             flash('This type of file is invalid. Use \'pdf\', \'png\', \'tiff\', \'jpg\', \'jpeg\', \'gif\'')
     return render_template('fileupload.html')
