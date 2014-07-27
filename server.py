@@ -451,6 +451,24 @@ def checkprescription():
     data=medicine
     return render_template('checkprescription.html',entries=entries,medicine=data)
 
+@app.route('/report',methods=['GET','POST'])
+def report():
+    db=get_cursor()
+    sql="select * from Prescription where Date='2014-06-01'"
+    db.execute(sql)
+    entries=db.fetchall()
+    print entries
+    db.execute("COMMIT")
+    medicine=[]
+    for entry in entries:
+        sql='select * from PrescriptionIndex where Sno>=%s and Sno<=%s'%(entry[3],entry[4])
+        db.execute(sql)
+        medicine.append(db.fetchall())
+        db.execute("COMMIT")
+    data=medicine
+    print data
+    return render_template('report.html',entries=entries,medicine=data)
+
 @app.route('/checkpendingprescription')
 def checkpendingprescription():
     db=get_cursor()
