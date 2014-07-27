@@ -70,7 +70,7 @@
               {%set i=i+1 %}
               {%set j=j+1 -%}
               <tr>
-                <td><input type="number" value="{{entry[0]}}" name="Sno{{i}}" class="form-control" style="font-size:13px;"></td>
+                <td><input type="number" value="{{entry[0]}}" name="Sno{{i}}" class="form-control" style="font-size:13px;" readonly=""></td>
                 <td><input type="name" value="{{entry[1]}}" name="Name{{i}}" class="form-control" style="font-size:13px;"></td>
                 <td><input type="number" value="{{entry[2]}}" name="qty{{i}}" class="form-control" style="font-size:13px;"></td>
                 <td><input type="number" value="{{entry[3]}}" name="bno{{i}}" class="form-control" style="font-size:13px;"></td>
@@ -97,7 +97,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="serialNumber">S.No:</label>
             <div class="col-sm-4">
-              <input type="number" placeholder="Serial Number" class="form-control" value="{{entries|length+1}}" name="Sno">
+              <input type="number" placeholder="Serial Number" class="form-control" value="{{entries|length+1}}" name="Sno" readonly="">
             </div>
           </div>
           <div class="form-group">
