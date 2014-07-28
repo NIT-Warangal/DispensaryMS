@@ -47,6 +47,7 @@
     <p><a href="/inventory" role="button" class="btn btn-info btn-lg">Check Inventory</a></p>
     <p><a href="/checkpendingprescription" role="button" class="btn btn-info btn-lg">Check Pending Prescriptions</a></p>
     <p><a href="/showfiles" role="button" class="btn btn-danger btn-lg">Show Uploaded Bills</a></p>
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#reportModal">Check Daily Reports</button></p>
     {% endif %}
     <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg">Change Password</a></p>
     <p><a class="btn btn-primary btn-lg" role="button" href="/logout">Logout</a></p>
@@ -173,6 +174,40 @@
                   <label class="col-md-2 control-label" style="margin-top:5px;">Enter Regno/EmpID for dependency</label>
                   <div class="col-xs-3">
                     <input type="text" class="form-control" name="regno" placeholder="Enter Regno/EmpID" autofocus/>
+                  </div>
+                  </div>
+                  
+                  </div>
+                  </div>
+              </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" >Go!</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Report Generation -->
+  <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Report Generation</h4>
+        </div>
+        <form action="{{url_for('report')}}" method="POST">
+        <div class="modal-body">
+          
+            <div class="container">
+              <div class="row">      
+              <div class="form-horizontal">
+                  <div class="form-group">
+                  <label class="col-md-2 control-label" style="margin-top:5px;">Enter Date</label>
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" name="reportdate" placeholder="Enter Date DD/MM/YYYY" autofocus/>
                   </div>
                   </div>
                   
