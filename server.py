@@ -748,6 +748,7 @@ def update_dependency():
             db.execute("commit")
             flash('Details of '+name+' has been updated')
     return redirect(url_for('show_dependency'))
+
 @app.route('/student',methods=['GET','POST'])
 def student():
     db = get_cursor()
