@@ -19,17 +19,17 @@
     <!-- <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p> -->
     {% if session.temp==2%}
     <p><a class="btn btn-warning btn-lg" role="button" href="/employee_details">Enter Profile Details</a></p>
-    <p class="pull-right text-danger" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developing a profile</p>
+    <p class="pull-right text-danger" style="padding-right:20em;"><strong style="font-size:30px;">&middot;</strong>Please provide your details for developing a profile</p>
     <p><a class="btn btn-warning btn-lg" role="button" href="{{url_for('register_dependency')}}">Add Your Family Details</a></p>
     <p><a href="#" role="button" class="btn btn-success btn-lg">Online Consulting</a></p>
-    <p class="pull-right text-success" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Talk face to face with the doctor while sitting in your room</p>
+    <p class="pull-right text-success" style="padding-right:20em;"><strong style="font-size:30px;">&middot;</strong>Talk face to face with the doctor while sitting in your room</p>
     <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription">Check Prescriptions</a></p>
     <p><a class="btn btn-primary btn-lg" role="button" href="/showdependencyprescription">Check Dependency Prescriptions</a></p>
     {% endif %}
     {% if session.temp==1%}
-    <p class="pull-right text-danger" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developing a profile for you</p>
+    <p class="pull-right text-danger" style="padding-right:20em;"><strong style="font-size:30px;">&middot;</strong>Please provide your details for developing a profile for you</p>
     <p><a class="btn btn-info btn-lg" role="button" href="/student_details">Enter Profile Details</a></p>
-    <p class="pull-right text-success" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Talk face to face with the doctor while sitting in your room</p>
+    <p class="pull-right text-success" style="padding-right:20em;"><strong style="font-size:30px;">&middot;</strong>Talk face to face with the doctor while sitting in your room</p>
     <p><a href="/chat" role="button" class="btn btn-success btn-lg">Online Consulting</a></p>
     <p><a href="/checkletter" role="button" class="btn btn-info btn-lg">Check Letters</a></p>
     <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription">Check Prescriptions</a></p>
@@ -47,6 +47,7 @@
     <p><a href="/inventory" role="button" class="btn btn-info btn-lg">Check Inventory</a></p>
     <p><a href="/checkpendingprescription" role="button" class="btn btn-info btn-lg">Check Pending Prescriptions</a></p>
     <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#reportModal">Check Daily Reports</button></p>
+    <p><a href="/bills" role="button" class="btn btn-warning btn-lg">Upload Bills</a></p>
     <p><a href="/showfiles" role="button" class="btn btn-danger btn-lg">Show Uploaded Bills</a></p>
     {% endif %}
     <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg">Change Password</a></p>
