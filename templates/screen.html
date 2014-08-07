@@ -18,13 +18,13 @@
     <p>Thank you for using Dispensary System. As a first time user, you would have to register. Please click the register button to register your data with the dispensary so that you can use it.</p>
     <!-- <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p> -->
     {% if session.temp==2%}
-    <p><a class="btn btn-warning btn-lg" role="button" href="/employee_details" style="width:19%;">Enter Profile Details</a></p>
-    <p class="pull-right text-danger" style="padding-right:20em;width:19%;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developing a profile</p>
-    <p><a class="btn btn-warning btn-lg" role="button" href="{{url_for('register_dependency')}}" style="width:15%;">Add Your Family Details</a></p>
-    <p><a href="#" role="button" class="btn btn-success btn-lg" style="width:19%;">Online Consulting</a></p>
-    <p class="pull-right text-success" style="padding-right:20em;width:19%;"><strong style="font-size:30px;">&gt;</strong>Talk face to face with the doctor while sitting in your room</p>
-    <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription" style="width:19%;">Check Prescriptions</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" href="/showdependencyprescription" style="width:19%;">Check Dependency Prescriptions</a></p>
+    <p><a class="btn btn-warning btn-lg" role="button" href="/employee_details" style="width:22%;">Enter Profile Details</a></p>
+    <p class="pull-right text-danger" style="padding-right:20em;width:22%;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developing a profile</p>
+    <p><a class="btn btn-warning btn-lg" role="button" href="{{url_for('register_dependency')}}" style="width:22%;">Add Your Family Details</a></p>
+    <p><a href="#" role="button" class="btn btn-success btn-lg" style="width:22%;">Online Consulting</a></p>
+    <p class="pull-right text-success" style="padding-right:20em;width:22%;"><strong style="font-size:30px;">&gt;</strong>Talk face to face with the doctor while sitting in your room</p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription" style="width:22%;">Check Prescriptions</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/showdependencyprescription" style="width:22%;">Check Dependency Prescriptions</a></p>
     {% endif %}
     {% if session.temp==1%}
     <p class="pull-right text-danger" style="padding-right:20em;width:19%;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developing a profile for you</p>
@@ -36,11 +36,11 @@
     {%endif%}
     {% if session.temp==3 %}
     <!-- The doctor should be able to enter the EMP_ID / REG_NO and see their prescription table -->
-    <p><a class="btn btn-primary btn-lg" role="button" href="/prescription" style="width:19%;">Give Prescriptions</a></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#depModal" style="width:19%;">Give dependency Prescription</button></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width:19%;">Give Sick Letter</button></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#historyModal" style="width:19%;">Check Prescription History</button></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#dephistoryModal" style="width:19%;">Check Dependency Prescription History</button></p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/prescription" style="width:20%;">Give Prescriptions</a></p>
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#depModal" style="width:20%;">Give dependency Prescription</button></p>
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width:20%;">Give Sick Letter</button></p>
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#historyModal" style="width:20%;">Check Prescription History</button></p>
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#dephistoryModal" style="width:20%;">Dependency Prescription History</button></p>
     {% endif %}
     {% if session.temp==4 %}
     <!-- The pharmacist should have a method to search for the required registration number / see pending prescriptions to give -->
@@ -50,8 +50,18 @@
     <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#reportModal" style="width:19%;">Check Daily Reports</button></p>
     <p><a href="/bills" role="button" class="btn btn-warning btn-lg" style="width:19%;">Upload Bills</a></p>
     {% endif %}
+    {% if session.temp==4 or session.temp==1 %}
     <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:19%;">Change Password</a></p>
     <p><a class="btn btn-primary btn-lg" role="button" href="/logout" style="width:19%;">Logout</a></p>
+    {% endif %}
+    {% if session.temp==2 %}
+    <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:22%;">Change Password</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/logout" style="width:22%;">Logout</a></p>
+    {% endif %}
+    {% if session.temp==3 %}
+    <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:20%">Change Password</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/logout" style="width:20%;">Logout</a></p>
+    {% endif %}
   </div>
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
