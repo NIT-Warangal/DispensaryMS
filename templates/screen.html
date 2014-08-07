@@ -19,17 +19,13 @@
     <!-- <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p> -->
     {% if session.temp==2%}
     <p><a class="btn btn-warning btn-lg" role="button" href="/employee_details" style="width:22%;">Enter Profile Details</a></p>
-    <p class="pull-right text-danger" style="padding-right:20em;width:22%;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developing a profile</p>
     <p><a class="btn btn-warning btn-lg" role="button" href="{{url_for('register_dependency')}}" style="width:22%;">Add Your Family Details</a></p>
     <p><a href="#" role="button" class="btn btn-success btn-lg" style="width:22%;">Online Consulting</a></p>
-    <p class="pull-right text-success" style="padding-right:20em;width:22%;"><strong style="font-size:30px;">&gt;</strong>Talk face to face with the doctor while sitting in your room</p>
     <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription" style="width:22%;">Check Prescriptions</a></p>
     <p><a class="btn btn-primary btn-lg" role="button" href="/showdependencyprescription" style="width:22%;">Check Dependency Prescriptions</a></p>
     {% endif %}
     {% if session.temp==1%}
-    <p class="pull-right text-danger" style="padding-right:20em;width:19%;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developing a profile for you</p>
     <p><a class="btn btn-info btn-lg" role="button" href="/student_details" style="width:19%;">Enter Profile Details</a></p>
-    <p class="pull-right text-success" style="padding-right:20em;"><strong style="font-size:30px;width:19%">&gt;</strong>Talk face to face with the doctor while sitting in your room</p>
     <p><a href="/chat" role="button" class="btn btn-success btn-lg" style="width:19%;">Online Consulting</a></p>
     <p><a href="/checkletter" role="button" class="btn btn-info btn-lg" style="width:19%;">Check Letters</a></p>
     <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription" style="width:19%;">Check Prescriptions</a></p>
