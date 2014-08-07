@@ -453,21 +453,26 @@ def checkprescription():
 
 @app.route('/report',methods=['GET','POST'])
 def report():
-    db=get_cursor()
-    sql="select * from Prescription where Date='2014-06-01'"
-    db.execute(sql)
-    entries=db.fetchall()
-    print entries
-    db.execute("COMMIT")
-    medicine=[]
-    for entry in entries:
-        sql='select * from PrescriptionIndex where Sno>=%s and Sno<=%s'%(entry[3],entry[4])
-        db.execute(sql)
-        medicine.append(db.fetchall())
+    if request.method=="POST":
+        db=get_cursor()
+        reportdate=datetime.datetime.strptime(request.form['reportdate'],"%d/%m/%Y")
+        datevalue = datetime.datetime.today()
+        sql="select * from Prescription where Date='%s'"
+        db.execute(sql%reportdate)
+        entries=db.fetchall()
         db.execute("COMMIT")
-    data=medicine
-    print data
-    return render_template('report.html',entries=entries,medicine=data)
+        if not entries and reportdate >= datevalue:
+            flash('No reports on that date, you cannot look for a future date')
+            return redirect(url_for('screen'))
+        medicine=[]
+        for entry in entries:
+            sql='select * from PrescriptionIndex where Sno>=%s and Sno<=%s'%(entry[3],entry[4])
+            db.execute(sql)
+            medicine.append(db.fetchall())
+            db.execute("COMMIT")
+        data=medicine
+        return render_template('report.html',entries=entries,medicine=data)
+    return redirect(url_for('screen'))
 
 @app.route('/checkpendingprescription')
 def checkpendingprescription():
@@ -743,6 +748,7 @@ def update_dependency():
             db.execute("commit")
             flash('Details of '+name+' has been updated')
     return redirect(url_for('show_dependency'))
+
 @app.route('/student',methods=['GET','POST'])
 def student():
     db = get_cursor()

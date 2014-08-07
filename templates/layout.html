@@ -93,23 +93,34 @@
 							{% if session.temp==1 %}
 							<li><a href="/student"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
 							<li><a href="/chat"><span class="glyphicon glyphicon-globe"></span> Online Doctor Consulting</a></li>
-							<li><a href="/checkletter"><span class="glyphicon glyphicon-envelope"></span> Check Letter</a></li>
-							<li><a href="/checkprescription"><span class="glyphicon glyphicon-th-list"></span> Check Prescription</a></li>
+							<li><a href="/checkletter"><span class="glyphicon glyphicon-envelope"></span> Check Letters</a></li>
+							<li><a href="/checkprescription"><span class="glyphicon glyphicon-th-list"></span> Check Prescriptions</a></li>
+							<li><a href="/changepassword"><span class="glyphicon glyphicon-qrcode"></span> Change Password</a></li>
 							{% endif%}
 							{% if session.temp==2 %}
 							<li><a href="/employee"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
 							<li><a href="/chat"><span class="glyphicon glyphicon-globe"></span> Online Doctor Consulting</a></li>
-							<li><a href="/checkletter"><span class="glyphicon glyphicon-envelope"></span> Check Letter</a></li>
-							<li><a href="/checkprescription"><span class="glyphicon glyphicon-th-list"></span> Check Prescription</a></li>
+							<li><a href="/checkletter"><span class="glyphicon glyphicon-envelope"></span> Check Letters</a></li>
+							<li><a href="/checkprescription"><span class="glyphicon glyphicon-th-list"></span> Check Prescriptions</a></li>
+							<li><a href="/showdependencyprescription"><span class="glyphicon glyphicon-th-list"></span> Check Dependency Prescriptions</a></li>
+							<li><a href="/changepassword"><span class="glyphicon glyphicon-qrcode"></span> Change Password</a></li>
 							{% endif%}
 							{% if session.temp==3 %}
-							<li><a href="/prescription"><span class="glyphicon glyphicon-th-list"></span> Prescription</a></li>
+							<li><a href="/prescription"><span class="glyphicon glyphicon-th-list"></span> Give Prescription</a></li>
+							<li><a data-toggle="modal" data-target="#depModal"><span class="glyphicon glyphicon-th-list"></span> Give Dependency Prescription</a></li>
+							<li><a data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-file"></span> Give Sick Letter</a></li>
+							<li><a data-toggle="modal" data-target="#historyModal"><span class="glyphicon glyphicon-check"></span> Check Prescription History</a></li>
+							<li><a data-toggle="modal" data-target="#dephistoryModal"><span class="glyphicon glyphicon-check"></span> Check Dependency Prescription History</a></li>
 							<li><a href="/chat"><span class="glyphicon glyphicon-globe"></span> Online Doctor Consulting</a></li>
+							<li><a href="/changepassword"><span class="glyphicon glyphicon-qrcode"></span> Change Password</a></li>
 							{% endif%}
 							{% if session.temp==4 %}
-							<li><a href="/inventory"><span class="glyphicon glyphicon-folder-open"></span> Inventory</a></li>
+							<li><a href="/inventory"><span class="glyphicon glyphicon-folder-open"></span> Check Inventory</a></li>
+							<li><a href="/checkpendingprescription"><span class="glyphicon glyphicon-tags"></span> Check Pending Prescription</a></li>
+							<li><a data-target="#reportModal" data-toggle="modal"><span class="glyphicon glyphicon-inbox"></span> Reports</a></li>
 							<li><a href="/bills"><span class="glyphicon glyphicon-floppy-saved"></span> Upload Bills</a></li>
 							<li><a href="/showfiles"><span class="glyphicon glyphicon-export"></span> Show Uploaded Bills</a></li>
+							<li><a href="/changepassword"><span class="glyphicon glyphicon-qrcode"></span> Change Password</a></li>
 							{% endif%}
 						</ul>
 					</li>

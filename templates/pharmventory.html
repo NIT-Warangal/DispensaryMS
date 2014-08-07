@@ -73,7 +73,7 @@
                 <td><input type="number" value="{{entry[0]}}" name="Sno{{i}}" class="form-control" style="font-size:13px;" readonly=""></td>
                 <td><input type="name" value="{{entry[1]}}" name="Name{{i}}" class="form-control" style="font-size:13px;"></td>
                 <td><input type="number" value="{{entry[2]}}" name="qty{{i}}" class="form-control" style="font-size:13px;"></td>
-                <td><input type="number" value="{{entry[3]}}" name="bno{{i}}" class="form-control" style="font-size:13px;"></td>
+                <td><input type="number" value="{{entry[3]}}" name="bno{{i}}" class="form-control" style="font-size:13px;" readonly=""></td>
                 <td><input type="text"  value="{{entry[4].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="mfgdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control" style="font-size:13px;"></td>
                 {%set j=j+1 -%}
                 <td><input type="text"  value="{{entry[5].strftime('%d/%m/%Y')}}" pattern="\d{1,2}/\d{1,2}/\d{1,4}" name="expdate{{i}}" id="datepicker{{j}}" data-toggle="tooltip" title="dd/mm/yyyy" class="form-control" style="font-size:13px;"></td>
