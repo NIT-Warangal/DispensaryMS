@@ -6,8 +6,8 @@
   <div class="jumbotron">
     <h1>To use this, you need to login, Use the button below to Login into the portal with the appropriate rights.</h1><h3> If you're a student who needs to register to use the NITW Dispensary and haven't registered yet, please register using the Register button below</h3>
     <span>
-      <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('login') }}">Login</a></p>
-      <p><a class="btn btn-success btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p>
+      <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('login') }}" style="width:19%;">Login</a></p>
+      <p><a class="btn btn-success btn-lg" role="button" href="{{ url_for('register') }}" style="width:19%;">Register</a></p>
     </span>    
   </div>
   {% else %}
@@ -18,44 +18,44 @@
     <p>Thank you for using Dispensary System. As a first time user, you would have to register. Please click the register button to register your data with the dispensary so that you can use it.</p>
     <!-- <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p> -->
     {% if session.temp==2%}
-    <p><a class="btn btn-warning btn-lg" role="button" href="/employee_details">Enter Profile Details</a></p>
-    <p class="pull-right text-danger" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developing a profile</p>
-    <p><a class="btn btn-warning btn-lg" role="button" href="{{url_for('register_dependency')}}">Add Your Family Details</a></p>
-    <p><a href="#" role="button" class="btn btn-success btn-lg">Online Consulting</a></p>
-    <p class="pull-right text-success" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Talk face to face with the doctor while sitting in your room</p>
-    <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription">Check Prescriptions</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" href="/showdependencyprescription">Check Dependency Prescriptions</a></p>
+    <p><a class="btn btn-warning btn-lg" role="button" href="/employee_details" style="width:19%;">Enter Profile Details</a></p>
+    <p class="pull-right text-danger" style="padding-right:20em;width:19%;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developing a profile</p>
+    <p><a class="btn btn-warning btn-lg" role="button" href="{{url_for('register_dependency')}}" style="width:15%;">Add Your Family Details</a></p>
+    <p><a href="#" role="button" class="btn btn-success btn-lg" style="width:19%;">Online Consulting</a></p>
+    <p class="pull-right text-success" style="padding-right:20em;width:19%;"><strong style="font-size:30px;">&gt;</strong>Talk face to face with the doctor while sitting in your room</p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription" style="width:19%;">Check Prescriptions</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/showdependencyprescription" style="width:19%;">Check Dependency Prescriptions</a></p>
     {% endif %}
     {% if session.temp==1%}
-    <p class="pull-right text-danger" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developing a profile for you</p>
-    <p><a class="btn btn-info btn-lg" role="button" href="/student_details">Enter Profile Details</a></p>
-    <p class="pull-right text-success" style="padding-right:20em;"><strong style="font-size:30px;">&gt;</strong>Talk face to face with the doctor while sitting in your room</p>
-    <p><a href="/chat" role="button" class="btn btn-success btn-lg">Online Consulting</a></p>
-    <p><a href="/checkletter" role="button" class="btn btn-info btn-lg">Check Letters</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription">Check Prescriptions</a></p>
+    <p class="pull-right text-danger" style="padding-right:20em;width:19%;"><strong style="font-size:30px;">&gt;</strong>Please provide your details for developing a profile for you</p>
+    <p><a class="btn btn-info btn-lg" role="button" href="/student_details" style="width:19%;">Enter Profile Details</a></p>
+    <p class="pull-right text-success" style="padding-right:20em;"><strong style="font-size:30px;width:19%">&gt;</strong>Talk face to face with the doctor while sitting in your room</p>
+    <p><a href="/chat" role="button" class="btn btn-success btn-lg" style="width:19%;">Online Consulting</a></p>
+    <p><a href="/checkletter" role="button" class="btn btn-info btn-lg" style="width:19%;">Check Letters</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription" style="width:19%;">Check Prescriptions</a></p>
     {%endif%}
     {% if session.temp==3 %}
     <!-- The doctor should be able to enter the EMP_ID / REG_NO and see their prescription table -->
-    <p><a class="btn btn-primary btn-lg" role="button" href="/prescription">Give Prescriptions</a></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#depModal">Give dependency Prescription</button></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Give Sick Letter</button></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#historyModal">Check Prescription History</button></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#dephistoryModal">Check Dependency Prescription History</button></p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/prescription" style="width:19%;">Give Prescriptions</a></p>
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#depModal" style="width:19%;">Give dependency Prescription</button></p>
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width:19%;">Give Sick Letter</button></p>
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#historyModal" style="width:19%;">Check Prescription History</button></p>
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#dephistoryModal" style="width:19%;">Check Dependency Prescription History</button></p>
     {% endif %}
     {% if session.temp==4 %}
     <!-- The pharmacist should have a method to search for the required registration number / see pending prescriptions to give -->
-    <p><a href="/inventory" role="button" class="btn btn-info btn-lg">Check Inventory</a></p>
-    <p><a href="/checkpendingprescription" role="button" class="btn btn-info btn-lg">Check Pending Prescriptions</a></p>
-    <p><a href="/showfiles" role="button" class="btn btn-danger btn-lg">Show Uploaded Bills</a></p>
+    <p><a href="/inventory" role="button" class="btn btn-info btn-lg" style="width:19%;">Check Inventory</a></p>
+    <p><a href="/checkpendingprescription" role="button" class="btn btn-info btn-lg" style="width:19%;">Check Pending Prescriptions</a></p>
+    <p><a href="/showfiles" role="button" class="btn btn-danger btn-lg" style="width:19%;">Show Uploaded Bills</a></p>
     {% endif %}
-    <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg">Change Password</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" href="/logout">Logout</a></p>
+    <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:19%;">Change Password</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/logout" style="width:19%;">Logout</a></p>
   </div>
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="width:19%;">&times;</button>
           <h4 class="modal-title" id="myModalLabel">Sick Letter</h4>
         </div>
         <form action="{{url_for('printletter')}}" method="POST">
