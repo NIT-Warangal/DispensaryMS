@@ -224,6 +224,9 @@ def add():
     db = get_cursor()
     # sno=request.form['Sno']
     regno= request.form['Regno']
+    if not regno.isdigit():
+        flash('The registration number can only be numeric.')
+        return redirect(url_for('register'))
     uname=request.form['uname']
     sql='select * from Users join Login where Users.RegNo=Login.EmpID and (Users.RegNo="%s" or UserName="%s")'%(regno,uname)
     db.execute(sql)

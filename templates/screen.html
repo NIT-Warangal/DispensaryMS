@@ -3,7 +3,7 @@
 <div class=metanav>
   {% if not session.logged_in %}
   <!-- <a href="{{ url_for('login') }}">log in</a> -->
-  <div class="jumbotron">
+  <div class="jumbotron" style="background:url('/static/images/headlogo.jpg') no-repeat center center;">
     <h1>To use this, you need to login, Use the button below to Login into the portal with the appropriate rights.</h1><h3> If you're a student who needs to register to use the NITW Dispensary and haven't registered yet, please register using the Register button below</h3>
     <span>
       <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('login') }}" style="width:19%;">Login</a></p>
@@ -13,7 +13,7 @@
   {% else %}
   <div class="jumbotron">
     {% for name in names %}
-    <h1>Hello! <i style="font-size:40px;font-weight:100;">{{name[2]}} {{name[3]}}</i></h1>
+    <h1>Hello! <i style="font-size:40px;font-weight:100;">{{name[2]}} {{name[4]}}</i></h1>
     {% endfor %}
     <p>Thank you for using Dispensary System. As a first time user, you would have to register. Please click the register button to register your data with the dispensary so that you can use it.</p>
     <!-- <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p> -->
