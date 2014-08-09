@@ -15,7 +15,7 @@
     {% for name in names %}
     <h1>Hello! <i style="font-size:40px;font-weight:100;">{{name[2]}} {{name[4]}}</i></h1>
     {% endfor %}
-    <p>Thank you for using Dispensary System. As a first time user, you would have to register. Please click the register button to register your data with the dispensary so that you can use it.</p>
+    <p>Thank you for using Dispensary System. If this is your first time you should enter your details.</p>
     <!-- <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('register') }}">Register</a></p> -->
     {% if session.temp==2%}
     <p><a class="btn btn-warning btn-lg" role="button" href="/employee_details" style="width:22%;">Enter Profile Details</a></p>
@@ -40,7 +40,7 @@
     {% endif %}
     {% if session.temp==4 %}
     <!-- The pharmacist should have a method to search for the required registration number / see pending prescriptions to give -->
-    <p><a href="/inventory" role="button" class="btn btn-info btn-lg" style="width:19%;">Check Inventory</a></p>
+    <p><a href="/inventory" role="button" class="btn btn-info btn-lg" style="width:19%;">Check Inventory</a> <em style="margin-left:100px;">This is used to check your pharmacy inventory </em></p>
     <p><a href="/checkpendingprescription" role="button" class="btn btn-info btn-lg" style="width:19%;">Check Pending Prescriptions</a></p>
     <p><a href="/showfiles" role="button" class="btn btn-danger btn-lg" style="width:19%;">Show Uploaded Bills</a></p>
     <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#reportModal" style="width:19%;">Check Daily Reports</button></p>
@@ -48,15 +48,12 @@
     {% endif %}
     {% if session.temp==4 or session.temp==1 %}
     <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:19%;">Change Password</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" href="/logout" style="width:19%;">Logout</a></p>
     {% endif %}
     {% if session.temp==2 %}
     <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:22%;">Change Password</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" href="/logout" style="width:22%;">Logout</a></p>
     {% endif %}
     {% if session.temp==3 %}
     <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:20%">Change Password</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" href="/logout" style="width:20%;">Logout</a></p>
     {% endif %}
   </div>
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

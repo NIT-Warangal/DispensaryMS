@@ -282,7 +282,13 @@ def student_register():
         branch=request.form['branch']
         section=request.form['section']
         rno=request.form['roll_number']
+        if not rno.isdigit():
+            flash('This roll number is not allowed.')
+            return redirect(url_for('screen'))
         emergency_phn=request.form['emergency_contact']
+        if not emergency_phn.isdigit():
+            flash('Enter a valid phone number')
+            return redirect(url_for('screen'))
         hostel=request.form['hostel']
         hostelroomno=request.form['room_number']
         db.execute('insert into Student (`Year`, `Section`, `Branch`, `Degree`, `RegNo`, `RollNo`, `Emergencyphone`, `Hostel`, `HostelRoomNo`) values(%s,"%s","%s","%s","%s","%s","%s","%s","%s")'%(year_join,section,branch,degree,regno,rno,emergency_phn,hostel,hostelroomno))
