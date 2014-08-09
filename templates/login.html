@@ -3,12 +3,18 @@
 {% extends "layout.html" %}
 {% block body %}
   {% if error %}<p class="bg-danger"><strong>Error:</strong> {{ error }}</p>{% endif %}
-  <h2 style="text-align:center;">Login</h2>
+  <h1 style="text-align:center;color:white">Login</h1>
   <style>
     .bg-danger{
       margin-top: 0px;
       margin-bottom: -20px;
       text-align: center;
+    }
+
+    body{
+      background: url("/static/images/AdminBuilding.jpg") no-repeat center center;
+      //background-image: url("/static/images/AdminBuilding.jpg") no-repeat center center;
+      background-size: 100% 100%;
     }
     #submit{
       font-family: sans-serif;
@@ -31,9 +37,9 @@
 <form action="{{ url_for('login') }}" method="post" accept-charset="utf-8">
 <div style="display:none;">
 </div>
-  <div class="box login">
+  <div class="box login"  >
 
-    <div class="judge_logo">
+    <div class="judge_logo" >
       <a href="{{url_for('screen')}}"><img src="{{url_for('static',filename='images/logo_nitw.png')}}" alt="NITWarangal"></a>
     </div>
     <br>
@@ -50,15 +56,16 @@
           
         </p>
               </div>
-      <div class="login2">
+      <div class="login2" style="background:#FBFBFB">
         <p style="margin:0;">
                     <a href="/register">Register</a> |
                     <a href="/forgetpassword">Reset Password</a>
-          <input type="submit" value=Login id="submit"/>
+          <input  style="margin-left:2px;" type="submit" value=Login id="submit"/>
         </p>
       </div>
     </div>
 
   </div>
 </form>
+
 {% endblock %}

@@ -25,10 +25,16 @@
     <p><a class="btn btn-primary btn-lg" role="button" href="/showdependencyprescription" style="width:22%;">Check Dependency Prescriptions</a></p>
     {% endif %}
     {% if session.temp==1%}
-    <p><a class="btn btn-info btn-lg" role="button" href="/student_details" style="width:19%;">Enter Profile Details</a></p>
-    <p><a href="/chat" role="button" class="btn btn-success btn-lg" style="width:19%;">Online Consulting</a></p>
-    <p><a href="/checkletter" role="button" class="btn btn-info btn-lg" style="width:19%;">Check Letters</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription" style="width:19%;">Check Prescriptions</a></p>
+    <p><a class="btn btn-info btn-lg" role="button" href="/student_details" style="width:19%;">Enter Profile Details</a><i style="margin-left:25px;">Enter your details if your are using it for first time</i></p>
+    <p><a href="/chat" role="button" class="btn btn-success btn-lg" style="width:19%;">Online Consulting</a>
+      <i style="margin-left:25px;">Get online consulting from Doctors</i>
+    </p>
+    <p><a href="/checkletter" role="button" class="btn btn-info btn-lg" style="width:19%;">Check Letters</a>
+      <i style="margin-left:25px;">Checkout your sick letters</i>
+    </p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/checkprescription" style="width:19%;">Check Prescriptions</a>
+      <i style="margin-left:25px;">Checkout your past Prescriptions</i>
+    </p>
     {%endif%}
     {% if session.temp==3 %}
     <!-- The doctor should be able to enter the EMP_ID / REG_NO and see their prescription table -->
@@ -47,13 +53,20 @@
     <p><a href="/bills" role="button" class="btn btn-warning btn-lg" style="width:19%;">Upload Bills</a></p>
     {% endif %}
     {% if session.temp==4 or session.temp==1 %}
-    <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:19%;">Change Password</a></p>
+    <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:19%;">Change Password
+    </a>
+<i style="margin-left:25px;">change password</i>
+    </p>
     {% endif %}
     {% if session.temp==2 %}
-    <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:22%;">Change Password</a></p>
+    <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:22%;">Change Password</a>
+      <i style="margin-left:25px;">change password</i>
+    </p>
     {% endif %}
     {% if session.temp==3 %}
-    <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:20%">Change Password</a></p>
+    <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:20%">Change Password</a>
+      <i style="margin-left:25px;">change password</i>
+    </p>
     {% endif %}
   </div>
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
