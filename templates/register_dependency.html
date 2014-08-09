@@ -8,7 +8,8 @@
 		$( "#datepicker0" ).datepicker({
 			dateFormat: 'dd/mm/yy',
 			changeMonth: true,
-			changeYear: true
+			changeYear: true,
+			yearRange: '-100:+0'
 		});
 		$("#add_row").click(function(){
 			$('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='name"+i+"' type='text' placeholder='Name' class='form-control'/> </td><td><input  name='dob"+i+"'  type='text' placeholder='DateofBirth'  class='form-control' id='datepicker"+i+"' ></td><td><select  name='gender"+i+"' class='form-control'><option>Select Gender</option><option value='Male'>Male</option><option value='Female'>Female</option></select></td><td><select class='form-control' name='rel"+i+"'><option>Select Gender</option><option value='Father'>Father</option><option value='Mother'>Mother</option><option value='Husband'>Husband</option><option value='Wife'>Wife</option><option value='Son'>Son</option><option value='Daughter'>Daughter</option></select></td>");
@@ -17,7 +18,8 @@
 			$( "#datepicker"+i ).datepicker({
 				dateFormat: 'dd/mm/yy',
 				changeMonth: true,
-				changeYear: true
+				changeYear: true,
+				yearRange: '-100:+0'
 			});
 			i++; 
 			$('#btn').val('add'+i);

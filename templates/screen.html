@@ -3,8 +3,7 @@
 <div class=metanav>
   {% if not session.logged_in %}
   <!-- <a href="{{ url_for('login') }}">log in</a> -->
-  <div class="jumbotron" style="background:url('/static/images/headlogo.jpg') no-repeat center center;">
-    <h1>To use this, you need to login, Use the button below to Login into the portal with the appropriate rights.</h1><h3> If you're a student who needs to register to use the NITW Dispensary and haven't registered yet, please register using the Register button below</h3>
+  <div class="jumbotron">
     <span>
       <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('login') }}" style="width:19%;">Login</a></p>
       <p><a class="btn btn-success btn-lg" role="button" href="{{ url_for('register') }}" style="width:19%;">Register</a></p>
@@ -65,7 +64,7 @@
     {% endif %}
     {% if session.temp==3 %}
     <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:20%">Change Password</a>
-      <i style="margin-left:25px;">change password</i>
+      <i style="margin-left:25px;">Change password</i>
     </p>
     {% endif %}
   </div>
