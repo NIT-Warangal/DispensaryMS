@@ -27,7 +27,20 @@ This project is an effort to reduce the amount of paperwork thats used in the di
 ```
 -----------------------
 ##### Windows setup
+```
+1. Open cmd in administrator mode.
+2. Type "pip install flask".
+3. Type "pip install -r requirements.txt".
+4. Type "pip install flask-mysql" (if its fails do step 5 )
+5. Download connecter from http://www.codegood.com/
+6. Go to project folder and type "python server.py"
 
+(It may show some errors for some dependencies)
+1. Type "pip install -r requirements.txt".
+2. Type "python server.py"
+(Assumed the SQL using is XAMPP's MYSQL)
+
+```
 -----------------------
 
 ### Server Deployment
