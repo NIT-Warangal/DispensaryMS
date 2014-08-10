@@ -1,5 +1,15 @@
 {% extends "layout.html" %}
 {% block body %}
+<script>
+    $(function() {
+        $( "#datepicker" ).datepicker({
+          dateFormat: 'dd/mm/yy',
+          changeMonth: true,
+          changeYear: true,
+          yearRange: '-100:+0'
+      });
+    });
+</script>
 <div class=metanav>
   {% if not session.logged_in %}
   <!-- <a href="{{ url_for('login') }}">log in</a> -->
@@ -223,7 +233,7 @@
                   <div class="form-group">
                   <label class="col-md-2 control-label" style="margin-top:5px;">Enter Date</label>
                   <div class="col-xs-3">
-                    <input type="text" class="form-control" name="reportdate" placeholder="Enter Date DD/MM/YYYY" autofocus/>
+                    <input type="text" class="form-control" name="reportdate" placeholder="Enter Date DD/MM/YYYY" autofocus id="datepicker"/>
                   </div>
                   </div>
                   
