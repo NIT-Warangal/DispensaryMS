@@ -215,7 +215,8 @@ CREATE TABLE IF NOT EXISTS `ChatSessionHistory` (
 CREATE TABLE IF NOT EXISTS `ChatQueue` (
   `Sno` int AUTO_INCREMENT,
   `RegNo` text NOT NULL,
-  `Date` datetime NOT NULL
+  `Date` datetime NOT NULL,
+  PRIMARY KEY (Sno)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ----------------------------------------------------
