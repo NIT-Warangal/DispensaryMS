@@ -47,6 +47,7 @@
     {%endif%}
     {% if session.temp==3 %}
     <!-- The doctor should be able to enter the EMP_ID / REG_NO and see their prescription table -->
+    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#NewsModal" style="width:20%;">Post News</button></p>
     <p><a class="btn btn-primary btn-lg" role="button" href="/prescription" style="width:20%;">Give Prescriptions</a></p>
     <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#depModal" style="width:20%;">Give dependency Prescription</button></p>
     <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width:20%;">Give Sick Letter</button></p>
@@ -77,7 +78,44 @@
       <i style="margin-left:25px;">Change password</i>
     </p>
     {% endif %}
+    {% for newsvalue in news %}
+      {{newsvalue[0]}} {{newsvalue[1]}}
+    {% endfor %}
   </div>
+  <!-- News Modal -->
+    <div class="modal fade" id="NewsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="width:19%;">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Post News</h4>
+        </div>
+        <form action="{{url_for('postNews')}}" method="POST">
+        <div class="modal-body">
+          
+            <div class="container">
+              <div class="row">      
+              <div class="form-horizontal">
+                  <div class="form-group">
+                  <label class="col-md-2 control-label" >Enter post</label>
+                  <div class="col-xs-3">
+                    <textarea type="textarea" class="form-control" name="content" placeholder="Enter Content" rows=10 cols=40></textarea>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+              </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" >Post News</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div> 
+  <!-- My Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

@@ -219,6 +219,13 @@ CREATE TABLE IF NOT EXISTS `ChatQueue` (
   PRIMARY KEY (Sno)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- News Posted which will be available on the screen panel.
+
+CREATE TABLE IF NOT EXISTS `DoctorNews` (
+  `Date` datetime NOT NULL,
+  `Content` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 ----------------------------------------------------
 ----Tried to use prescription with dependency name column....complexity increased.....keeping it simple
 CREATE TABLE IF NOT EXISTS `DependencyPrescription` (

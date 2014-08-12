@@ -152,8 +152,11 @@ def screen():
     sql = 'select * from Users where RegNo = "%s"'
     db.execute(sql%app.config['USERID'])
     names = db.fetchall()
+    newssql = 'select * from DoctorNews order by Date'
+    db.execute(newssql)
+    news = db.fetchall()
     db.execute("commit")
-    return render_template('screen.html',names=names) #show_entries
+    return render_template('screen.html',names=names, news=news) #show_entries
 
 @app.route('/chat')
 def chat():
@@ -214,7 +217,21 @@ def printletter():
     else:
         flash('Error occured with the form')
         return redirect(url_for('screen'))
-    
+
+@app.route('/postNews',methods=['GET','POST'])
+def postNews():
+    if request.method=="POST":
+        db=get_cursor()
+        date = datetime.datetime.now()
+        content = request.form['content']
+        sql = 'insert into DoctorNews values ("%s","%s")'
+        db.execute(sql%(date,content))
+        db.execute("commit")
+        flash('Posted the news.')
+        return redirect(url_for('screen'))
+    return redirect(url_for('screen'))
+
+
 @app.route('/register')
 def register():
     return render_template('show_entries.html')
