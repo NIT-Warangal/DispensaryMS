@@ -152,9 +152,9 @@ def screen():
     sql = 'select * from Users where RegNo = "%s"'
     db.execute(sql%app.config['USERID'])
     names = db.fetchall()
-    newssql = 'select * from DoctorNews order by Date'
+    newssql = 'select * from DoctorNews order by Date DESC'
     db.execute(newssql)
-    news = db.fetchall()
+    news = db.fetchone()
     db.execute("commit")
     return render_template('screen.html',names=names, news=news) #show_entries
 

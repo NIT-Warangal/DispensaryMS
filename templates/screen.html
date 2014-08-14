@@ -21,6 +21,7 @@
   </div>
   {% else %}
   <div class="jumbotron">
+    <p class="bg-success">{{news[0]}} - {{news[1]}}</p>
     {% for name in names %}
     <h1>Hello! <i style="font-size:40px;font-weight:100;">{{name[2]}} {{name[4]}}</i></h1>
     {% endfor %}
@@ -78,9 +79,7 @@
       <i style="margin-left:25px;">Change password</i>
     </p>
     {% endif %}
-    {% for newsvalue in news %}
-      {{newsvalue[0]}} {{newsvalue[1]}}
-    {% endfor %}
+    
   </div>
   <!-- News Modal -->
     <div class="modal fade" id="NewsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
