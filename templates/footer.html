@@ -1,3 +1,209 @@
+<!-- News Modal -->
+    <div class="modal fade" id="NewsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="width:19%;">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Post News</h4>
+        </div>
+        <form action="{{url_for('postNews')}}" method="POST">
+        <div class="modal-body">
+          
+            <div class="container">
+              <div class="row">      
+              <div class="form-horizontal">
+                  <div class="form-group">
+                  <label class="col-md-2 control-label" >Enter post</label>
+                  <div class="col-xs-3">
+                    <textarea type="textarea" class="form-control" name="content" placeholder="Enter Content" rows=10 cols=40></textarea>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+              </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" >Post News</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div> 
+  <!-- My Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="width:19%;">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Sick Letter</h4>
+        </div>
+        <form action="{{url_for('printletter')}}" method="POST">
+        <div class="modal-body">
+          
+            <div class="container">
+              <div class="row">      
+              <div class="form-horizontal">
+                  <div class="form-group">
+                  <label class="col-md-2 control-label" style="margin-top:5px;">Enter student Regno</label>
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" name="regno" placeholder="Enter regno" autofocus/>
+                  </div>
+                  </div>
+                  
+                  <div class="form-group">
+                  <label class="col-md-2 control-label" >Enter number of days</label>
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" name="days" placeholder="Enter no. of days">
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+              </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" >Get Letter!</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>  
+  <div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Patient History</h4>
+        </div>
+        <form action="{{url_for('checkpatienthistory')}}" method="POST">
+        <div class="modal-body">
+          
+            <div class="container">
+              <div class="row">      
+              <div class="form-horizontal">
+                  <div class="form-group">
+                  <label class="col-md-2 control-label" style="margin-top:5px;">Enter patient Regno/EmpID</label>
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" name="regno" placeholder="Enter Regno/EmpID" autofocus/>
+                  </div>
+                  </div>
+                  
+                  </div>
+                  </div>
+              </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" >Go!</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>  
+  <div class="modal fade" id="depModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Dependency Prescription</h4>
+        </div>
+        <form action="{{url_for('choosereferingid')}}" method="POST">
+        <div class="modal-body">
+          
+            <div class="container">
+              <div class="row">      
+              <div class="form-horizontal">
+                  <div class="form-group">
+                  <label class="col-md-2 control-label" style="margin-top:5px;">Enter EmpID</label>
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" name="regno" placeholder="EmpID" autofocus/>
+                  </div>
+                  </div>
+                  
+                  </div>
+                  </div>
+              </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" >Go!</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="dephistoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Dependency Patient History</h4>
+        </div>
+        <form action="{{url_for('checkdependencypatienthistory')}}" method="POST">
+        <div class="modal-body">
+          
+            <div class="container">
+              <div class="row">      
+              <div class="form-horizontal">
+                  <div class="form-group">
+                  <label class="col-md-2 control-label" style="margin-top:5px;">Enter Regno/EmpID for dependency</label>
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" name="regno" placeholder="Enter Regno/EmpID" autofocus/>
+                  </div>
+                  </div>
+                  
+                  </div>
+                  </div>
+              </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" >Go!</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Report Generation -->
+  <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Report Generation</h4>
+        </div>
+        <form action="{{url_for('report')}}" method="POST">
+        <div class="modal-body">
+          
+            <div class="container">
+              <div class="row">      
+              <div class="form-horizontal">
+                  <div class="form-group">
+                  <label class="col-md-2 control-label" style="margin-top:5px;">Enter Date</label>
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" name="reportdate" placeholder="Enter Date DD/MM/YYYY" autofocus id="datepicker"/>
+                  </div>
+                  </div>
+                  
+                  </div>
+                  </div>
+              </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" >Go!</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/footer.css') }}">
 <div id="footer" >
   <p id="footertext" >Built Open Source by NIT-Warangal and its <a href="https://github.com/NIT-Warangal/DispensaryMS/graphs/contributors" target="_blank">Contributors</a>. If you wish to contribute back to this project, please check the <a href="https://github.com/NIT-Warangal/DispensaryMS" target="_blank">source code here.</a></p>
