@@ -39,9 +39,19 @@
 @import "summernote.css";
 @import "jquery.ml-keyboard.css";
 @import "jquery.motionCaptcha.0.2.css";
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
-@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
-@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900);
+@font-face {
+    font-family: Open Sans;
+    src: url(../fonts/OpenSans-Regular.ttf);
+}
+@font-face {
+    font-family: Droid Sans;
+    src: url(../fonts/DroidSans.ttf);
+}
+
+@font-face {
+    font-family: Lato;
+    src: url(../fonts/Lato-Black.ttf);
+}
 /*@import "login.css";*/
 /*
 *	 Author: Vijay Kumar

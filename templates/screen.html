@@ -1,28 +1,27 @@
 {% extends "layout.html" %}
 {% block body %}
 <script>
-    $(function() {
-        $( "#datepicker" ).datepicker({
-          dateFormat: 'dd/mm/yy',
-          changeMonth: true,
-          changeYear: true,
-          yearRange: '-100:+0'
-      });
+  $(function() {
+    $( "#datepicker" ).datepicker({
+      dateFormat: 'dd/mm/yy',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: '-100:+0'
     });
+  });
 </script>
 <div class=metanav>
   {% if not session.logged_in %}
-  <!-- <a href="{{ url_for('login') }}">log in</a> -->
   <div class="jumbotron">
     <center>
-    <h2>Welcome to Dispensary Management System</h2>
+      <h2>Welcome to Dispensary Management System</h2>
       <p><a class="btn btn-primary btn-lg" role="button" href="{{ url_for('login') }}" style="width:19%;">Login</a> <a class="btn btn-success btn-lg" role="button" href="{{ url_for('register') }}" style="width:19%;">Register</a></p>
       
     </center>    
   </div>
   {% else %}
-  <div class="jumbotron">
-    <p class="bg-success">{{news[0]}} - {{news[1]}}</p>
+  <div class="jumbotron">{%if news%}
+    <p class="bg-success">{{news[0]}}-{{news[1]}}</p>{%endif%}
     {% for name in names %}
     <h1>Hello! <i style="font-size:40px;font-weight:100;">{{name[2]}} {{name[4]}}</i></h1>
     {% endfor %}
@@ -49,41 +48,53 @@
     {%endif%}
     {% if session.temp==3 %}
     <!-- The doctor should be able to enter the EMP_ID / REG_NO and see their prescription table -->
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#NewsModal" style="width:20%;">Post News</button></p>
-    <p><a class="btn btn-primary btn-lg" role="button" href="/prescription" style="width:20%;">Give Prescriptions</a></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#depModal" style="width:20%;">Give dependency Prescription</button></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width:20%;">Give Sick Letter</button></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#historyModal" style="width:20%;">Check Prescription History</button></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#dephistoryModal" style="width:20%;">Dependency Prescription History</button></p>
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#NewsModal" >Post News</button><br>
+          <a class="btn btn-primary btn-lg btn-block" role="button" href="/prescription" >Give Prescriptions</a><br>
+          <button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#depModal" >Give dependency Prescription</button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal" >Give Sick Letter</button><br>
+          <button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#historyModal" >Check Prescription History</button><br>
+          <button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#dephistoryModal" >Dependency Prescription History</button><br>
+        </div>
+
+      </div>
+    </div>
     {% endif %}
     {% if session.temp==4 %}
     <!-- The pharmacist should have a method to search for the required registration number / see pending prescriptions to give -->
-    <p><a href="/inventory" role="button" class="btn btn-info btn-lg" style="width:19%;">Check Inventory</a> <em style="margin-left:100px;">This is used to check your pharmacy inventory </em></p>
-    <p><a href="/checkpendingprescription" role="button" class="btn btn-info btn-lg" style="width:19%;">Check Pending Prescriptions</a></p>
-    <p><a href="/showfiles" role="button" class="btn btn-danger btn-lg" style="width:19%;">Show Uploaded Bills</a></p>
-    <p><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#reportModal" style="width:19%;">Check Daily Reports</button></p>
-    <p><a href="/bills" role="button" class="btn btn-warning btn-lg" style="width:19%;">Upload Bills</a></p>
-    {% endif %}
-    {% if session.temp==4 or session.temp==1 %}
-    <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:19%;">Change Password
-    </a>
-<i style="margin-left:25px;">change password</i>
+    <p>
+      <a href="/inventory" role="button" class="btn btn-info btn-lg" style="width:19%;">Check Inventory</a> 
+      <em style="margin-left:100px;">This is used to check your pharmacy inventory </em>
+    </p>
+    <p>
+      <a href="/checkpendingprescription" role="button" class="btn btn-info btn-lg" style="width:19%;">Check Pending Prescriptions</a>
+    </p>
+    <p>
+      <a href="/showfiles" role="button" class="btn btn-danger btn-lg" style="width:19%;">Show Uploaded Bills</a>
+    </p>
+    <p>
+      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#reportModal" style="width:19%;">Check Daily Reports</button>
+    </p>
+    <p>
+      <a href="/bills" role="button" class="btn btn-warning btn-lg" style="width:19%;">Upload Bills</a>
     </p>
     {% endif %}
-    {% if session.temp==2 %}
-    <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:22%;">Change Password</a>
-      <i style="margin-left:25px;">change password</i>
-    </p>
-    {% endif %}
-    {% if session.temp==3 %}
-    <p><a href="/changepassword" role="button" class="btn btn-danger btn-lg" style="width:20%">Change Password</a>
-      <i style="margin-left:25px;">Change password</i>
-    </p>
+    {% if session.temp%}
+    <center>
+      <p>
+        <a href="/changepassword" role="button" class="btn btn-danger btn-lg">Change Password</a>
+      </p>
+    </center>
     {% endif %}
     
   </div>
   <!-- News Modal -->
-    <div class="modal fade" id="NewsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="NewsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -91,26 +102,26 @@
           <h4 class="modal-title" id="myModalLabel">Post News</h4>
         </div>
         <form action="{{url_for('postNews')}}" method="POST">
-        <div class="modal-body">
-          
+          <div class="modal-body">
+
             <div class="container">
               <div class="row">      
-              <div class="form-horizontal">
+                <div class="form-horizontal">
                   <div class="form-group">
-                  <label class="col-md-2 control-label" >Enter post</label>
-                  <div class="col-xs-3">
-                    <textarea type="textarea" class="form-control" name="content" placeholder="Enter Content" rows=10 cols=40></textarea>
+                    <label class="col-md-2 control-label" >Enter post</label>
+                    <div class="col-xs-3">
+                      <textarea type="textarea" class="form-control" name="content" placeholder="Enter Content" rows=10 cols=40></textarea>
+                    </div>
                   </div>
-                  </div>
-                  </div>
-                  </div>
+                </div>
               </div>
+            </div>
             
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success" >Post News</button>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success" >Post News</button>
+          </div>
         </form>
       </div>
     </div>
@@ -124,33 +135,33 @@
           <h4 class="modal-title" id="myModalLabel">Sick Letter</h4>
         </div>
         <form action="{{url_for('printletter')}}" method="POST">
-        <div class="modal-body">
-          
+          <div class="modal-body">
+
             <div class="container">
               <div class="row">      
-              <div class="form-horizontal">
+                <div class="form-horizontal">
                   <div class="form-group">
-                  <label class="col-md-2 control-label" style="margin-top:5px;">Enter student Regno</label>
-                  <div class="col-xs-3">
-                    <input type="text" class="form-control" name="regno" placeholder="Enter regno" autofocus/>
-                  </div>
+                    <label class="col-md-2 control-label" style="margin-top:5px;">Enter student Regno</label>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control" name="regno" placeholder="Enter regno" autofocus/>
+                    </div>
                   </div>
                   
                   <div class="form-group">
-                  <label class="col-md-2 control-label" >Enter number of days</label>
-                  <div class="col-xs-3">
-                    <input type="text" class="form-control" name="days" placeholder="Enter no. of days">
+                    <label class="col-md-2 control-label" >Enter number of days</label>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control" name="days" placeholder="Enter no. of days">
+                    </div>
                   </div>
-                  </div>
-                  </div>
-                  </div>
+                </div>
               </div>
+            </div>
             
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success" >Get Letter!</button>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success" >Get Letter!</button>
+          </div>
         </form>
       </div>
     </div>
@@ -163,27 +174,27 @@
           <h4 class="modal-title" id="myModalLabel">Patient History</h4>
         </div>
         <form action="{{url_for('checkpatienthistory')}}" method="POST">
-        <div class="modal-body">
-          
+          <div class="modal-body">
+
             <div class="container">
               <div class="row">      
-              <div class="form-horizontal">
+                <div class="form-horizontal">
                   <div class="form-group">
-                  <label class="col-md-2 control-label" style="margin-top:5px;">Enter patient Regno/EmpID</label>
-                  <div class="col-xs-3">
-                    <input type="text" class="form-control" name="regno" placeholder="Enter Regno/EmpID" autofocus/>
-                  </div>
+                    <label class="col-md-2 control-label" style="margin-top:5px;">Enter patient Regno/EmpID</label>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control" name="regno" placeholder="Enter Regno/EmpID" autofocus/>
+                    </div>
                   </div>
                   
-                  </div>
-                  </div>
+                </div>
               </div>
+            </div>
             
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success" >Go!</button>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success" >Go!</button>
+          </div>
         </form>
       </div>
     </div>
@@ -196,27 +207,27 @@
           <h4 class="modal-title" id="myModalLabel">Dependency Prescription</h4>
         </div>
         <form action="{{url_for('choosereferingid')}}" method="POST">
-        <div class="modal-body">
-          
+          <div class="modal-body">
+
             <div class="container">
               <div class="row">      
-              <div class="form-horizontal">
+                <div class="form-horizontal">
                   <div class="form-group">
-                  <label class="col-md-2 control-label" style="margin-top:5px;">Enter EmpID</label>
-                  <div class="col-xs-3">
-                    <input type="text" class="form-control" name="regno" placeholder="EmpID" autofocus/>
-                  </div>
+                    <label class="col-md-2 control-label" style="margin-top:5px;">Enter EmpID</label>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control" name="regno" placeholder="EmpID" autofocus/>
+                    </div>
                   </div>
                   
-                  </div>
-                  </div>
+                </div>
               </div>
+            </div>
             
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success" >Go!</button>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success" >Go!</button>
+          </div>
         </form>
       </div>
     </div>
@@ -229,27 +240,27 @@
           <h4 class="modal-title" id="myModalLabel">Dependency Patient History</h4>
         </div>
         <form action="{{url_for('checkdependencypatienthistory')}}" method="POST">
-        <div class="modal-body">
-          
+          <div class="modal-body">
+
             <div class="container">
               <div class="row">      
-              <div class="form-horizontal">
+                <div class="form-horizontal">
                   <div class="form-group">
-                  <label class="col-md-2 control-label" style="margin-top:5px;">Enter Regno/EmpID for dependency</label>
-                  <div class="col-xs-3">
-                    <input type="text" class="form-control" name="regno" placeholder="Enter Regno/EmpID" autofocus/>
-                  </div>
+                    <label class="col-md-2 control-label" style="margin-top:5px;">Enter Regno/EmpID for dependency</label>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control" name="regno" placeholder="Enter Regno/EmpID" autofocus/>
+                    </div>
                   </div>
                   
-                  </div>
-                  </div>
+                </div>
               </div>
+            </div>
             
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success" >Go!</button>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success" >Go!</button>
+          </div>
         </form>
       </div>
     </div>
@@ -263,27 +274,27 @@
           <h4 class="modal-title" id="myModalLabel">Report Generation</h4>
         </div>
         <form action="{{url_for('report')}}" method="POST">
-        <div class="modal-body">
-          
+          <div class="modal-body">
+
             <div class="container">
               <div class="row">      
-              <div class="form-horizontal">
+                <div class="form-horizontal">
                   <div class="form-group">
-                  <label class="col-md-2 control-label" style="margin-top:5px;">Enter Date</label>
-                  <div class="col-xs-3">
-                    <input type="text" class="form-control" name="reportdate" placeholder="Enter Date DD/MM/YYYY" autofocus id="datepicker"/>
-                  </div>
+                    <label class="col-md-2 control-label" style="margin-top:5px;">Enter Date</label>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control" name="reportdate" placeholder="Enter Date DD/MM/YYYY" autofocus id="datepicker"/>
+                    </div>
                   </div>
                   
-                  </div>
-                  </div>
+                </div>
               </div>
+            </div>
             
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success" >Go!</button>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success" >Go!</button>
+          </div>
         </form>
       </div>
     </div>

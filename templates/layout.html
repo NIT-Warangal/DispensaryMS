@@ -135,7 +135,10 @@
 		</div><!--end of header -section-->
 		<!-- <h1>Dispensary Management System</h1> -->
 		{% for message in get_flashed_messages() %}
-		<div class="bg-info" style="text-align:center;height:30px;font-size:20px;vertical-align:center; margin-top:50px;">{{ message }}</div>
+		<div class="alert alert-info fade in" role="alert">
+      		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      		{{message}}
+    	</div>
 		<div style="margin-top:-55px;"></div>
 		{% endfor %}
 		<div style="margin-top:55px;"></div>

@@ -2,7 +2,10 @@
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/login.css') }}">
 {% extends "layout.html" %}
 {% block body %}
-  {% if error %}<p class="bg-danger"><strong>Error:</strong> {{ error }}</p>{% endif %}
+  {% if error %}<div class="alert alert-danger fade in" role="alert" style="z-index:10000;">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <center><strong>Error:</strong> {{ error }}</p></center>
+      </div>{% endif %}
   <h1 style="text-align:center;color:white">Login</h1>
   <style>
     .bg-danger{
@@ -12,8 +15,8 @@
     }
 
     body{
-      background: url("/static/images/AdminBuilding.jpg") no-repeat center center;
-      //background-image: url("/static/images/AdminBuilding.jpg") no-repeat center center;
+      background: url("{{url_for('static',filename='images/AdminBuilding.jpg')}}") no-repeat center center;
+      //background-image: url("{{url_for('static',filename='images/AdminBuilding.jpg')}}") no-repeat center center;
       background-size: 100% 100%;
     }
     #submit{
