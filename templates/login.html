@@ -1,49 +1,22 @@
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/login.css') }}">
 {% extends "layout.html" %}
 {% block body %}
-  {% if error %}<div class="alert alert-danger fade in" role="alert" style="z-index:10000;">
-          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <center><strong>Error:</strong> {{ error }}</p></center>
-      </div>{% endif %}
-  <h1 style="text-align:center;color:white">Login</h1>
-  <style>
-    .bg-danger{
-      margin-top: 0px;
-      margin-bottom: -20px;
-      text-align: center;
-    }
-
-    body{
-      background: url("{{url_for('static',filename='images/AdminBuilding.jpg')}}") no-repeat center center;
-      //background-image: url("{{url_for('static',filename='images/AdminBuilding.jpg')}}") no-repeat center center;
-      background-size: 100% 100%;
-    }
-    #submit{
-      font-family: sans-serif;
-      border: 0px none;
-      height: 30px;
-      float: right;
-      color: #FFF;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: bold;
-      padding: 5px 14px;
-      display: inline-block;
-      border-radius: 8px;
-      text-decoration: none;
-      text-shadow : 0px 1px 0px #3D768A;
-      box-shadow: 0px 10px 14px -7px #276873;
-      background: linear-gradient(to bottom, #599BB3 5%, #408C99 100%) repeat scroll 0% 0% transparent;
-    }
-  </style>
+{% if error %}
+  <div class="alert alert-danger fade in" role="alert" style="z-index:10000;">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+    </button>
+    <center>
+      <strong>Error:</strong> {{ error }}</p>
+    </center>
+  </div>
+{% endif %}
+<div class="container" style="text-align:center;">
+  <br>
 <form action="{{ url_for('login') }}" method="post" accept-charset="utf-8">
-<div style="display:none;">
-</div>
   <div class="box login"  >
 
     <div class="judge_logo" >
-      <a href="{{url_for('screen')}}"><img src="{{url_for('static',filename='images/logo_nitw.png')}}" alt="NITWarangal"></a>
+      <a href="{{url_for('screen')}}"><img src="{{url_for('static',filename='images/nitlogo.png')}}" alt="NITWarangal"></a>
     </div>
     <br>
     <div class="login_form">
@@ -58,11 +31,11 @@
           <input id="form_password" type="password" name=password required="required" pattern=".{1,200}" title="The Password field must be at least 1 characters in length" class="sharif_input"/>
           
         </p>
-              </div>
+      </div>
       <div class="login2" style="background:#FBFBFB">
         <p style="margin:0;">
-                    <a href="/register">Register</a> |
-                    <a href="/forgetpassword">Reset Password</a>
+          <a href="/register">Register</a> |
+          <a href="/forgetpassword">Reset Password</a>
           <input  style="margin-left:2px;" type="submit" value=Login id="submit"/>
         </p>
       </div>
@@ -70,5 +43,6 @@
 
   </div>
 </form>
+</div>
 
 {% endblock %}

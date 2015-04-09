@@ -74,7 +74,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/"><img src="{{url_for('static',filename='images/logo_nitw.png')}}" alt="NITWarangal" height=25px width=25px>
+			<a class="navbar-brand" href="/"><!-- <img src="{{url_for('static',filename='images/logo_nitw.png')}}" alt="NITWarangal" height=25px width=25px> -->
 				NITW Dispensary System</a>
 			</div>
 
@@ -134,13 +134,15 @@
 			</div>
 		</div><!--end of header -section-->
 		<!-- <h1>Dispensary Management System</h1> -->
-		{% for message in get_flashed_messages() %}
-		<div class="alert alert-info fade in" role="alert">
-      		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      		{{message}}
-    	</div>
-		<div style="margin-top:-55px;"></div>
-		{% endfor %}
+		<div class="container">
+			{% for message in get_flashed_messages() %}
+			<div class="alert alert-info fade in" role="alert">
+	      		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	      		{{message}}
+	    	</div>
+			<div style="margin-top:-55px;"></div>
+			{% endfor %}
+		</div>
 		<div style="margin-top:55px;"></div>
 		{% block body %}{% endblock %}
 		{% extends "footer.html" %}

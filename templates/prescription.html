@@ -23,22 +23,20 @@
 	function additem() {
 		var newtext,oldtext;
 		var Quantity=document.getElementById('Quantity').value;
-		if(document.getElementById('Medicine').value==null){
+		if(containergetElementById('Medicine').value==null){
 			oldtext='';
 		}
 		else{
 			oldtext=document.getElementById('Medicine').value;
 		}
 		if(document.getElementById('selectMedicine').value=="0"){
-			newtext='';
-		}
+			newtcontainer	}
 		else{
 			newtext=document.getElementById('selectMedicine').value;
 			newtext=newtext+' '+Quantity;
 		}
 		if(i==1){
-		document.getElementById('Medicine').value=newtext;
-		i=0;
+		document.getElementById('Medicine').value=container		i=0;
 		}
 		else{
 		document.getElementById('Medicine').value=oldtext+', '+newtext;
@@ -64,29 +62,32 @@
 		});
 	});
 	</script>
-	<div class="col-lg-12">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-2"></div>
+			<div class="col-lg-8">
 		<form class="form-horizontal add-entry" action="{{ url_for('fileprescription') }}" style="text-align:center;" method=post>
 			<fieldset>
+				<br>
 				<legend style="text-align:center;">Medical Prescription</legend>
 
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="RegNo">Registration No.</label>  
-					<div class="col-md-4">
+					<div class="col-md-6">
+					<label class="control-label" for="RegNo">Registration No.</label>  
 						<input id="RegNo" name="RegNo" placeholder="Student Registration No." class="form-control input-md" required="" type="text">
-
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="Cause">Cause</label>
-					<div class="col-md-4">                     
+					<div class="col-md-6">
+					<label class="control-label" for="Cause">Cause</label>
 						<textarea class="form-control" id="Cause" name="Cause"></textarea>
 					</div>
 				</div>
 
 				<div class="form-group" id="medi">
-					<label class="col-md-4 control-label" for="Medicine">Choose Medicine</label>  
-					<div class="col-md-4">
+					<div class="col-md-6">
+					<label class="control-label" for="Medicine">Choose Medicine</label>  
 					<table class="table table-responsive" align="center" id="tab_logic">
 					<tbody>
 					<tr id="addr0">
@@ -111,8 +112,8 @@
 				</div>
 
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="Remarks">Remarks</label>
-					<div class="col-md-4">                     
+					<div class="col-md-6">                     
+					<label class="control-label" for="Remarks">Remarks</label>
 						<textarea class="form-control" id="Remarks" name="Remarks"></textarea>
 					</div>
 				</div>
@@ -121,11 +122,14 @@
 							Check Availability
 						</button>
 					</div>
-				<a href="{{url_for('screen')}}" class="btn btn-warning col-md-offset-5">Cancel</a>
+				<a href="{{url_for('screen')}}" class="btn btn-warning">Cancel</a>
 				<input type="submit" value="submit" class="btn btn-success">
 			</fieldset>
 			{% endif %}
 		</form>
+		</div>
+		</div>
+		<div class="col-lg-2"></div>
 	</div>
 	<!--Modal-->
 	<div class="modal fade" id="MedicineModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
